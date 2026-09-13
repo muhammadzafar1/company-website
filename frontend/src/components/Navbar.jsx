@@ -47,6 +47,7 @@ export default function Navbar() {
         </div>
 
         <div className="hidden items-center gap-4 lg:flex">
+          <Link to="/admin/login" className="rounded-full border border-sky-400/40 bg-sky-500/10 px-5 py-2.5 text-sm font-semibold text-sky-200 transition hover:bg-sky-500/20">Login</Link>
           <a href="#contact" className="rounded-full border border-sky-400/40 bg-sky-500/10 px-5 py-2.5 text-sm font-semibold text-sky-200 transition hover:bg-sky-500/20">Get a Quote</a>
         </div>
 

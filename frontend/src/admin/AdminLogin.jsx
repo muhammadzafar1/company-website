@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 
 const adminCredentials = {
-  email: 'admin@stepbystep.com',
-  password: 'admin123',
+  email: 'muhammadzafar3939@gamil.com',
+  password: 'Zafar@123',
 };
 
 export default function AdminLogin() {
@@ -18,8 +18,9 @@ export default function AdminLogin() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', form);
-      localStorage.setItem('token', response.data.token);
+      const response = await axios.post('http://localhost:5000/api/admin/login', form);
+      const { token } = response.data.data;
+      localStorage.setItem('token', token);
       window.location.href = '/admin/dashboard';
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
