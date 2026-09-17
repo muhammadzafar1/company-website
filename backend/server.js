@@ -11,6 +11,12 @@ import projectRoutes from './routes/projectRoutes.js';
 import serviceRoutes from './routes/serviceRoutes.js';
 import employeeRoutes from './routes/employeeRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import contactRoutes from './routes/contactRoutes.js';
+import testimonialRoutes from './routes/testimonialRoutes.js';
+import teamRoutes from './routes/teamRoutes.js';
+import blogRoutes from './routes/blogRoutes.js';
+import faqRoutes from './routes/faqRoutes.js';
+import quoteRoutes from './routes/quoteRoutes.js';
 
 dotenv.config();
 
@@ -48,6 +54,12 @@ app.use('/api/admin', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/employees', employeeRoutes);
 app.use('/api/services', serviceRoutes);
+app.use('/api/contact', contactRoutes);
+app.use('/api/testimonials', testimonialRoutes);
+app.use('/api/team', teamRoutes);
+app.use('/api/blog', blogRoutes);
+app.use('/api/faq', faqRoutes);
+app.use('/api/quote', quoteRoutes);
 
 app.use((req, res) => {
   return res.status(404).json({

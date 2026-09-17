@@ -1,30 +1,36 @@
 import Contact from '../models/Contact.js';
 
-export const submitContact = async (req, res) => {
+const sendResponse = (res, statusCode, success, message, data = {}) => {
+  return res.status(statusCode).json({ success, message, data });
+};
+
+export const submitContact = async (req, res, next) => {
   try {
-    const contact = new Contact(req.body);
-    const saved = await contact.save();
-    res.status(201).json(saved);
+    const contact = await Contact.create(req.body);
+    return sendResponse(res, 201, true, 'Message sent successfully', { contact });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to send message' });
+    next(error);
   }
 };
 
-export const getContacts = async (req, res) => {
+export const getContacts = async (_req, res, next) => {
   try {
     const contacts = await Contact.find().sort({ createdAt: -1 });
-    res.json(contacts);
+    return sendResponse(res, 200, true, 'Contact messages fetched successfully', { contacts });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch contact messages' });
+    next(error);
   }
 };
 
-export const deleteContact = async (req, res) => {
+export const deleteContact = async (req, res, next) => {
   try {
     const contact = await Contact.findByIdAndDelete(req.params.id);
-    if (!contact) return res.status(404).json({ message: 'Message not found' });
-    res.json({ message: 'Message deleted successfully' });
+    if (!contact) {
+      return sendResponse(res, 404, false, 'Message not found', {});
+    }
+
+    return sendResponse(res, 200, true, 'Message deleted successfully', { contact });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to delete message' });
+    next(error);
   }
 };

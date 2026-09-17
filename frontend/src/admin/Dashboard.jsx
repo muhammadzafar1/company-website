@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { BarChart3, FileText, ImageIcon, LogOut, MessageSquareText, Settings, Users } from 'lucide-react';
+import api, { unwrapApiData } from '../api/api';
 
 const navItems = [
   { label: 'Dashboard', icon: BarChart3 },
@@ -24,22 +24,26 @@ export default function Dashboard() {
     }
 
     const fetchStats = async () => {
+      console.log('Dashboard fetchStats started');
+
       try {
         const [projects, services, team, contacts] = await Promise.all([
-          axios.get('http://localhost:5000/api/projects'),
-          axios.get('http://localhost:5000/api/services'),
-          axios.get('http://localhost:5000/api/team'),
-          axios.get('http://localhost:5000/api/contact', { headers: { Authorization: `Bearer ${token}` } }),
+          api.get('/projects'),
+          api.get('/services'),
+          api.get('/team'),
+          api.get('/contact'),
         ]);
 
+        console.log('Dashboard stats response received', { projects, services, team, contacts });
+
         setStats({
-          projects: projects.data.length,
-          services: services.data.length,
-          team: team.data.length,
-          messages: contacts.data.length,
+          projects: unwrapApiData(projects, 'projects').length,
+          services: unwrapApiData(services, 'services').length,
+          team: unwrapApiData(team, 'team').length,
+          messages: unwrapApiData(contacts, 'contacts').length,
         });
       } catch (error) {
-        console.error(error);
+        console.error('Dashboard fetchStats failed:', error.response?.data || error.message || error);
       }
     };
 
@@ -73,7 +77,7 @@ export default function Dashboard() {
             <div className="text-sm uppercase tracking-[0.22em] text-sky-200">Overview</div>
             <h1 className="mt-2 text-3xl font-semibold text-white">Dashboard</h1>
           </div>
-          <button onClick={() => { localStorage.removeItem('token'); window.location.href = '/admin/login'; }} className="rounded-full border border-white/10 bg-slate-900/80 px-4 py-2 text-sm text-white">Logout</button>
+          <button type="button" onClick={() => { console.log('Logout button clicked'); localStorage.removeItem('token'); window.location.href = '/admin/login'; }} className="rounded-full border border-white/10 bg-slate-900/80 px-4 py-2 text-sm text-white">Logout</button>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">

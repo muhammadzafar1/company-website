@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 export default function Button({ children, variant = 'primary', className = '', ...props }) {
   const base = 'inline-flex items-center justify-center rounded-full px-6 py-3 font-medium transition-all duration-300';
   const variants = {
-    primary: 'bg-gradient-to-r from-[#0A84FF] to-[#2563EB] text-white shadow-glow hover:shadow-[0_20px_40px_rgba(37,99,235,0.35)]',
-    secondary: 'border border-white/10 bg-white/5 text-white hover:bg-white/10',
-    ghost: 'text-sky-200 hover:bg-white/5',
+    primary: 'bg-[#0A84FF] text-white rounded-md shadow-subtle hover:brightness-95',
+    secondary: 'border border-gray-200 bg-white text-[#0f172a] rounded-md hover:bg-gray-50',
+    ghost: 'text-[#0f172a] hover:bg-gray-50',
   };
 
   return (

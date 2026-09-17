@@ -4,20 +4,34 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: '#020617',
-        deep: '#06152D',
-        panel: '#081B35',
+        bg: '#F8FAFC',
+        panel: '#FFFFFF',
         accent: '#0A84FF',
         accentStrong: '#1677FF',
-        blueGlow: '#2563EB',
-        textSoft: '#CBD5E1',
-        textMuted: '#94A3B8',
+        text: '#0F172A',
+        textSoft: '#64748B',
+        muted: '#94A3B8',
       },
       boxShadow: {
-        glow: '0 0 0 1px rgba(78, 178, 255, 0.25), 0 20px 60px rgba(10, 132, 255, 0.2)',
+        subtle: '0 1px 2px rgba(15,23,42,0.04)',
       },
       backgroundImage: {
-        'grid-pattern': 'linear-gradient(rgba(148,163,184,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.08) 1px, transparent 1px)',
+        'grid-pattern': 'linear-gradient(rgba(15,23,42,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.03) 1px, transparent 1px)',
+      },
+      keyframes: {
+        float: {
+          '0%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-12px)' },
+          '100%': { transform: 'translateY(0px)' },
+        },
+        fade: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animation: {
+        float: 'float 6s ease-in-out infinite',
+        fade: 'fade 0.6s ease-in-out',
       },
     },
   },

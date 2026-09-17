@@ -20,36 +20,34 @@ const particles = Array.from({ length: 26 }, (_, i) => ({
 
 export default function AnimatedBackground() {
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#020617]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.18),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.12),_transparent_30%)]" />
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-transparent">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(10,132,255,0.06),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.04),transparent_24%)]" />
       <motion.div
-        className="absolute -left-32 top-16 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl"
-        animate={{ x: [0, 40, 0], y: [0, 30, -10], scale: [1, 1.15, 1] }}
+        className="absolute -left-24 top-14 h-72 w-72 rounded-full bg-[#A7F3D0]/40 blur-3xl"
+        animate={{ x: [0, 30, 0], y: [0, 24, -8], scale: [1, 1.08, 1] }}
         transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute right-0 top-1/3 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl"
-        animate={{ x: [0, -60, 0], y: [0, -30, 18], scale: [1, 1.2, 1] }}
+        className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-[#BFDBFE]/30 blur-3xl"
+        animate={{ x: [0, -48, 0], y: [0, -24, 14], scale: [1, 1.12, 1] }}
         transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
       />
-      <div className="absolute inset-0 bg-grid-pattern bg-[size:80px_80px] opacity-25" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.9))]" />
+      <div className="absolute inset-0 bg-grid-pattern bg-[size:80px_80px] opacity-15" />
 
       {particles.map((particle) => (
         <motion.span
           key={particle.id}
-          className="absolute rounded-full bg-white/20"
+          className="absolute rounded-full bg-slate-300/40"
           style={{
             width: particle.size,
             height: particle.size,
             left: particle.left,
             top: particle.top,
-            boxShadow: '0 0 18px rgba(96,165,250,0.3)',
           }}
           animate={{
-            opacity: [0.15, 0.7, 0.15],
-            y: [0, -18, 0],
-            x: [0, 16, 0],
+            opacity: [0.12, 0.6, 0.12],
+            y: [0, -8, 0],
+            x: [0, 8, 0],
           }}
           transition={{
             duration: particle.duration,
@@ -63,9 +61,9 @@ export default function AnimatedBackground() {
       {floatingItems.map((item) => (
         <motion.div
           key={item.text}
-          className="absolute text-[10px] font-semibold tracking-[0.24em] text-sky-200/60"
+          className="absolute text-[10px] font-semibold tracking-[0.18em] text-slate-500/80"
           style={{ left: item.left, top: item.top }}
-          animate={{ y: [0, -12, 0], opacity: [0.4, 0.8, 0.5] }}
+          animate={{ y: [0, -8, 0], opacity: [0.3, 0.8, 0.4] }}
           transition={{ duration: 7, delay: item.delay, repeat: Infinity, ease: 'easeInOut' }}
         >
           {item.text}
@@ -73,11 +71,11 @@ export default function AnimatedBackground() {
       ))}
 
       <motion.div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-25"
         animate={{ backgroundPositionX: ['0%', '100%'] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 26, repeat: Infinity, ease: 'linear' }}
         style={{
-          backgroundImage: 'linear-gradient(120deg, transparent 0%, rgba(96,165,250,0.18) 30%, transparent 60%)',
+          backgroundImage: 'linear-gradient(120deg, transparent 0%, rgba(10,132,255,0.06) 30%, transparent 60%)',
           backgroundSize: '200% 100%',
         }}
       />

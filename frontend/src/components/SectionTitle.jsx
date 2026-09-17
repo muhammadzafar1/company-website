@@ -9,7 +9,7 @@ export default function SectionTitle({ eyebrow, title, subtitle, align = 'center
       transition={{ duration: 0.6 }}
       className={align === 'left' ? 'mb-10 text-left' : 'mb-10 text-center'}
     >
-      <span className="mb-4 inline-flex rounded-full border border-sky-400/30 bg-sky-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-sky-200">
+      <span className="mb-4 inline-flex rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-emerald-200">
         {eyebrow}
       </span>
       <h2 className="max-w-3xl text-3xl font-semibold tracking-[-0.06em] text-white md:text-5xl">{title}</h2>

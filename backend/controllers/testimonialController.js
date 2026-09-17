@@ -1,40 +1,49 @@
 import Testimonial from '../models/Testimonial.js';
 
-export const getTestimonials = async (req, res) => {
+const sendResponse = (res, statusCode, success, message, data = {}) => {
+  return res.status(statusCode).json({ success, message, data });
+};
+
+export const getTestimonials = async (_req, res, next) => {
   try {
     const testimonials = await Testimonial.find().sort({ createdAt: -1 });
-    res.json(testimonials);
+    return sendResponse(res, 200, true, 'Testimonials fetched successfully', { testimonials });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch testimonials' });
+    next(error);
   }
 };
 
-export const createTestimonial = async (req, res) => {
+export const createTestimonial = async (req, res, next) => {
   try {
-    const testimonial = new Testimonial(req.body);
-    const saved = await testimonial.save();
-    res.status(201).json(saved);
+    const testimonial = await Testimonial.create(req.body);
+    return sendResponse(res, 201, true, 'Testimonial created successfully', { testimonial });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to create testimonial' });
+    next(error);
   }
 };
 
-export const updateTestimonial = async (req, res) => {
+export const updateTestimonial = async (req, res, next) => {
   try {
     const testimonial = await Testimonial.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!testimonial) return res.status(404).json({ message: 'Testimonial not found' });
-    res.json(testimonial);
+    if (!testimonial) {
+      return sendResponse(res, 404, false, 'Testimonial not found', {});
+    }
+
+    return sendResponse(res, 200, true, 'Testimonial updated successfully', { testimonial });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to update testimonial' });
+    next(error);
   }
 };
 
-export const deleteTestimonial = async (req, res) => {
+export const deleteTestimonial = async (req, res, next) => {
   try {
     const testimonial = await Testimonial.findByIdAndDelete(req.params.id);
-    if (!testimonial) return res.status(404).json({ message: 'Testimonial not found' });
-    res.json({ message: 'Testimonial deleted successfully' });
+    if (!testimonial) {
+      return sendResponse(res, 404, false, 'Testimonial not found', {});
+    }
+
+    return sendResponse(res, 200, true, 'Testimonial deleted successfully', { testimonial });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to delete testimonial' });
+    next(error);
   }
 };

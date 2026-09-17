@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../api/api';
 
 const adminCredentials = {
-  email: 'muhammadzafar3939@gamil.com',
-  password: 'Zafar@123',
+  email: 'muhammadzafar3939@gmail.com',
+  password: 'Zafar@321',
 };
 
 export default function AdminLogin() {
@@ -17,12 +17,23 @@ export default function AdminLogin() {
     setLoading(true);
     setError('');
 
+    const payload = {
+      email: form.email.trim().toLowerCase(),
+      password: form.password,
+    };
+
+    console.log('Admin login form submitted', payload);
+
     try {
-      const response = await axios.post('http://localhost:5000/api/admin/login', form);
+      const response = await api.post('/admin/login', payload);
+      console.log('Admin login response received', response.data);
+
       const { token } = response.data.data;
       localStorage.setItem('token', token);
+      console.log('Token saved to localStorage');
       window.location.href = '/admin/dashboard';
     } catch (err) {
+      console.error('Admin login failed:', err.response?.data || err.message || err);
       setError(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
@@ -40,7 +51,7 @@ export default function AdminLogin() {
           <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white placeholder:text-slate-500" placeholder="Email" type="email" required />
           <input value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white placeholder:text-slate-500" placeholder="Password" type="password" required />
           {error && <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-200">{error}</div>}
-          <button disabled={loading} className="w-full rounded-full bg-gradient-to-r from-[#0A84FF] to-[#2563EB] px-4 py-3 font-medium text-white disabled:opacity-60">
+          <button type="submit" disabled={loading} className="w-full rounded-full bg-gradient-to-r from-[#0A84FF] to-[#2563EB] px-4 py-3 font-medium text-white disabled:opacity-60">
             {loading ? 'Signing In...' : 'Login'}
           </button>
         </form>

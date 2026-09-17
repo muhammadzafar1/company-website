@@ -6,8 +6,21 @@
   font-family: 'Inter', 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.9);
-  background: #020617;
+  color: #0f172a;
+  background: #F8FAFC;
+  --primary: #0A84FF;
+  --primary-strong: #1677FF;
+  --primary-soft: rgba(10,132,255,0.08);
+  --panel: #ffffff;
+  --panel-strong: #ffffff;
+  --border: rgba(15,23,42,0.06);
+  --accent: #0A84FF;
+  --accent-bg: rgba(10,132,255,0.08);
+  --accent-border: rgba(10,132,255,0.12);
+  --text-h: #0f172a;
+  --text-soft: #64748b;
+  --social-bg: rgba(15,23,42,0.03);
+  --shadow: 0 1px 2px rgba(15,23,42,0.04);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -24,9 +37,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top, rgba(59,130,246,0.18), transparent 28%),
-    #020617;
-  color: #e2e8f0;
+    radial-gradient(circle at top left, rgba(10,132,255,0.04), transparent 18%),
+    radial-gradient(circle at bottom right, rgba(99,102,241,0.03), transparent 24%),
+    #F8FAFC;
+  color: var(--text-h);
 }
 
 img { display: block; max-width: 100%; }
@@ -44,11 +58,40 @@ button, input, textarea { font: inherit; }
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(15,23,42,0.02);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(56, 189, 248, 0.8), rgba(37, 99, 235, 0.8));
+  background: linear-gradient(180deg, rgba(10,132,255,0.85), rgba(6,95,199,0.85));
   border-radius: 999px;
 }
+
+/* Light-theme overrides for residual dark utility classes */
+/* These are applied broadly to convert remaining dark-themed classes to light equivalents. */
+.text-white { color: var(--text-h) !important; }
+.text-slate-200, .text-slate-300, .text-slate-400, .text-slate-500 { color: var(--text-soft) !important; }
+
+.bg-slate-900, .bg-slate-950, .bg-slate-900\/60, .bg-slate-900\/70, .bg-slate-900\/80, .bg-slate-950\/80, .bg-slate-900\/65, .bg-slate-900\/40, .bg-slate-900\/20 {
+  background: var(--panel) !important;
+  color: var(--text-h) !important;
+}
+
+.bg-white\/5 { background: var(--social-bg) !important; }
+.bg-white\/10 { background: var(--panel) !important; }
+.bg-gradient-to-br, [class*="bg-gradient-to-"] { background-image: none !important; }
+
+.border-white\/10, [class*="border-white"] { border-color: var(--border) !important; }
+
+
+/* Accent color remapping for small badges */
+.text-emerald-200, .text-emerald-300, .text-emerald-400 { color: var(--accent) !important; }
+.bg-emerald-500\/10, .bg-emerald-500\/20, .bg-emerald-500\/15 { background: var(--accent-bg) !important; }
+.border-emerald-400\/20, .border-emerald-400\/30 { border-color: var(--accent-border) !important; }
+
+/* Buttons and links */
+.bg-gradient-to-r.from-emerald-500.to-cyan-500, .bg-gradient-to-r.from-emerald-500.to-cyan-500 { background: linear-gradient(90deg,var(--accent),var(--primary-strong)) !important; color: white !important; }
+
+/* Ensure inputs are readable */
+input, textarea { color: var(--text-h); }
+
 

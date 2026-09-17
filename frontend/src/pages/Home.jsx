@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight, BarChart3, Cloud, Code2, Database, Paintbrush2, ShoppingCart, Smartphone, Sparkles, Star, Zap } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import api from '../api/api';
+import api, { unwrapApiData } from '../api/api';
 import SectionTitle from '../components/SectionTitle';
 import Hero from '../components/Hero';
 import Button from '../components/Button';
@@ -81,10 +81,15 @@ export default function Home() {
           api.get('/testimonials'),
         ]);
 
-        if (projectsRes.data?.length) setProjects(projectsRes.data);
-        if (servicesRes.data?.length) setServices(servicesRes.data);
-        if (teamRes.data?.length) setTeam(teamRes.data);
-        if (testimonialsRes.data?.length) setTestimonialsData(testimonialsRes.data);
+        const fetchedProjects = unwrapApiData(projectsRes, 'projects');
+        const fetchedServices = unwrapApiData(servicesRes, 'services');
+        const fetchedTeam = unwrapApiData(teamRes, 'team');
+        const fetchedTestimonials = unwrapApiData(testimonialsRes, 'testimonials');
+
+        if (Array.isArray(fetchedProjects) && fetchedProjects.length) setProjects(fetchedProjects);
+        if (Array.isArray(fetchedServices) && fetchedServices.length) setServices(fetchedServices);
+        if (Array.isArray(fetchedTeam) && fetchedTeam.length) setTeam(fetchedTeam);
+        if (Array.isArray(fetchedTestimonials) && fetchedTestimonials.length) setTestimonialsData(fetchedTestimonials);
       } catch (error) {
         console.error('Failed to load content', error);
       }

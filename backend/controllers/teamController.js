@@ -1,31 +1,37 @@
 import Team from '../models/Team.js';
 
-export const getTeam = async (req, res) => {
+const sendResponse = (res, statusCode, success, message, data = {}) => {
+  return res.status(statusCode).json({ success, message, data });
+};
+
+export const getTeam = async (_req, res, next) => {
   try {
     const team = await Team.find().sort({ createdAt: -1 });
-    res.json(team);
+    return sendResponse(res, 200, true, 'Team fetched successfully', { team });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch team members' });
+    next(error);
   }
 };
 
-export const createTeamMember = async (req, res) => {
+export const createTeamMember = async (req, res, next) => {
   try {
-    const member = new Team({
+    const member = await Team.create({
       ...req.body,
       image: req.file ? `/uploads/${req.file.filename}` : req.body.image || '',
     });
-    const saved = await member.save();
-    res.status(201).json(saved);
+
+    return sendResponse(res, 201, true, 'Team member created successfully', { member });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to create team member' });
+    next(error);
   }
 };
 
-export const updateTeamMember = async (req, res) => {
+export const updateTeamMember = async (req, res, next) => {
   try {
     const member = await Team.findById(req.params.id);
-    if (!member) return res.status(404).json({ message: 'Team member not found' });
+    if (!member) {
+      return sendResponse(res, 404, false, 'Team member not found', {});
+    }
 
     const updatedData = {
       ...req.body,
@@ -33,18 +39,21 @@ export const updateTeamMember = async (req, res) => {
     };
 
     const updatedMember = await Team.findByIdAndUpdate(req.params.id, updatedData, { new: true });
-    res.json(updatedMember);
+    return sendResponse(res, 200, true, 'Team member updated successfully', { member: updatedMember });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to update team member' });
+    next(error);
   }
 };
 
-export const deleteTeamMember = async (req, res) => {
+export const deleteTeamMember = async (req, res, next) => {
   try {
     const member = await Team.findByIdAndDelete(req.params.id);
-    if (!member) return res.status(404).json({ message: 'Team member not found' });
-    res.json({ message: 'Team member deleted successfully' });
+    if (!member) {
+      return sendResponse(res, 404, false, 'Team member not found', {});
+    }
+
+    return sendResponse(res, 200, true, 'Team member deleted successfully', { member });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to delete team member' });
+    next(error);
   }
 };
