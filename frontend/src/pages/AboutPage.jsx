@@ -96,10 +96,10 @@ export default function AboutPage() {
             <div className="space-y-6">
               {milestones.map((item, index) => (
                 <div key={item.title} className="relative grid gap-4 md:grid-cols-[80px_1fr] md:items-center">
-                  <div className="z-10 flex h-11 w-11 items-center justify-center rounded-full border border-emerald-400/20 bg-emerald-500/10 text-sm font-semibold text-emerald-200 md:ml-0">{index + 1}</div>
-                  <div className="rounded-[1.5rem] border border-white/10 bg-slate-900/70 p-5">
-                    <div className="text-[10px] uppercase tracking-[0.18em] text-slate-400">{item.year}</div>
-                    <h3 className="mt-2 text-2xl font-semibold text-white">{item.title}</h3>
+                  <div className="z-10 flex h-11 w-11 items-center justify-center rounded-full border border-emerald-400/20 bg-emerald-500/10 text-sm font-semibold text-[#E0A868] md:ml-0">{index + 1}</div>
+                  <div className="rounded-[1.5rem] border border-white/10 bg-slate-900/70 p-5 text-[#F5EAD9]">
+                    <div className="text-[10px] uppercase tracking-[0.18em] text-[#E0A868]">{item.year}</div>
+                    <h3 className="mt-2 text-2xl font-semibold text-[#F5EAD9]">{item.title}</h3>
                   </div>
                 </div>
               ))}

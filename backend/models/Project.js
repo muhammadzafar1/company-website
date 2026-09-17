@@ -2,32 +2,38 @@ import mongoose from 'mongoose';
 
 const projectSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
       trim: true,
     },
-    description: {
+    client: {
       type: String,
       required: true,
       trim: true,
     },
-    category: {
+    status: {
       type: String,
+      enum: ['ongoing', 'completed', 'upcoming'],
+      default: 'upcoming',
       required: true,
-      trim: true,
     },
-    image: {
-      type: String,
-      default: '',
+    startDate: {
+      type: Date,
+      required: true,
     },
-    technologies: {
-      type: [String],
+    deadline: {
+      type: Date,
+      required: true,
+    },
+    assignedEmployees: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Employee',
       default: [],
-    },
-    link: {
-      type: String,
-      default: '',
+    }],
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true }

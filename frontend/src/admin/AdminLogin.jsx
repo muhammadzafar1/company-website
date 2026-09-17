@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
 
-const adminCredentials = {
-  email: 'muhammadzafar3939@gmail.com',
-  password: 'Zafar@321',
+const defaultForm = {
+  email: '',
+  password: '',
 };
 
 export default function AdminLogin() {
-  const [form, setForm] = useState(adminCredentials);
+  const navigate = useNavigate();
+  const [form, setForm] = useState(defaultForm);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -22,18 +24,13 @@ export default function AdminLogin() {
       password: form.password,
     };
 
-    console.log('Admin login form submitted', payload);
-
     try {
-      const response = await api.post('/admin/login', payload);
-      console.log('Admin login response received', response.data);
-
-      const { token } = response.data.data;
+      const response = await api.post('/auth/login', payload);
+      const { token, admin } = response.data.data;
       localStorage.setItem('token', token);
-      console.log('Token saved to localStorage');
-      window.location.href = '/admin/dashboard';
+      localStorage.setItem('admin', JSON.stringify(admin));
+      navigate('/admin/dashboard', { replace: true });
     } catch (err) {
-      console.error('Admin login failed:', err.response?.data || err.message || err);
       setError(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
@@ -41,17 +38,44 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md rounded-[2rem] border border-white/10 bg-slate-900/80 p-8 shadow-[0_30px_80px_rgba(15,23,42,0.6)]">
+    <div className="flex min-h-screen items-center justify-center px-4 py-10">
+      <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md rounded-[2rem] border border-[#EADDC9] bg-white/90 p-8 shadow-[0_30px_80px_rgba(168,103,47,0.12)] backdrop-blur-sm">
         <div className="mb-6 text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-r from-[#0A84FF] to-[#2563EB] text-xl font-semibold text-white">S</div>
-          <h2 className="mt-5 text-3xl font-semibold text-white">Admin Login</h2>
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#CD853F] to-[#A8672F] text-xl font-bold text-white shadow-lg shadow-[#A8672F]/30">
+            SH
+          </div>
+          <h2 className="mt-5 text-3xl font-bold text-[#3A2A1A]">Admin Login</h2>
+          <p className="mt-2 text-sm text-[#8A7360]">Sign in to continue to the dashboard</p>
         </div>
+
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white placeholder:text-slate-500" placeholder="Email" type="email" required />
-          <input value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white placeholder:text-slate-500" placeholder="Password" type="password" required />
-          {error && <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-200">{error}</div>}
-          <button type="submit" disabled={loading} className="w-full rounded-full bg-gradient-to-r from-[#0A84FF] to-[#2563EB] px-4 py-3 font-medium text-white disabled:opacity-60">
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-[#3A2A1A]">Email</label>
+            <input
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="w-full rounded-2xl border border-[#EADDC9] bg-[#FFFDFB] px-4 py-3 text-[#3A2A1A] placeholder:text-[#8A7360] outline-none transition focus:border-[#CD853F] focus:ring-2 focus:ring-[#CD853F]/15"
+              placeholder="Enter your email"
+              type="email"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-[#3A2A1A]">Password</label>
+            <input
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              className="w-full rounded-2xl border border-[#EADDC9] bg-[#FFFDFB] px-4 py-3 text-[#3A2A1A] placeholder:text-[#8A7360] outline-none transition focus:border-[#CD853F] focus:ring-2 focus:ring-[#CD853F]/15"
+              placeholder="Enter your password"
+              type="password"
+              required
+            />
+          </div>
+
+          {error && <div className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">{error}</div>}
+
+          <button type="submit" disabled={loading} className="w-full rounded-2xl bg-gradient-to-r from-[#CD853F] to-[#A8672F] px-4 py-3 font-semibold text-white shadow-lg shadow-[#A8672F]/25 disabled:opacity-60">
             {loading ? 'Signing In...' : 'Login'}
           </button>
         </form>

@@ -7,7 +7,7 @@ const employeeSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    designation: {
+    role: {
       type: String,
       required: true,
       trim: true,
@@ -18,23 +18,14 @@ const employeeSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    phone: {
-      type: String,
-      required: true,
-      trim: true,
+    assignedProjectsCount: {
+      type: Number,
+      default: 0,
+      min: 0,
     },
-    photo: {
-      type: String,
-      default: '',
-    },
-    department: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    joiningDate: {
+    createdAt: {
       type: Date,
-      required: true,
+      default: Date.now,
     },
   },
   { timestamps: true }

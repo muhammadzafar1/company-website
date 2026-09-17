@@ -50,9 +50,35 @@ app.get('/api/health', (_req, res) => {
   });
 });
 
-app.use('/api/admin', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/employees', employeeRoutes);
+app.get('/api/dashboard/stats', async (_req, res, next) => {
+  try {
+    const Project = (await import('./models/Project.js')).default;
+    const Employee = (await import('./models/Employee.js')).default;
+
+    const [totalEmployees, totalProjects, ongoingProjects, upcomingProjects] = await Promise.all([
+      Employee.countDocuments(),
+      Project.countDocuments(),
+      Project.countDocuments({ status: 'ongoing' }),
+      Project.countDocuments({ status: 'upcoming' }),
+    ]);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Dashboard stats fetched successfully',
+      data: {
+        totalEmployees,
+        totalProjects,
+        ongoingProjects,
+        upcomingProjects,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 app.use('/api/services', serviceRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/testimonials', testimonialRoutes);

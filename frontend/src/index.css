@@ -6,21 +6,24 @@
   font-family: 'Inter', 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #0f172a;
-  background: #F8FAFC;
-  --primary: #0A84FF;
-  --primary-strong: #1677FF;
-  --primary-soft: rgba(10,132,255,0.08);
-  --panel: #ffffff;
-  --panel-strong: #ffffff;
-  --border: rgba(15,23,42,0.06);
-  --accent: #0A84FF;
-  --accent-bg: rgba(10,132,255,0.08);
-  --accent-border: rgba(10,132,255,0.12);
-  --text-h: #0f172a;
-  --text-soft: #64748b;
-  --social-bg: rgba(15,23,42,0.03);
-  --shadow: 0 1px 2px rgba(15,23,42,0.04);
+  color: #3A2A1A;
+  background: #F8F2EA;
+  --brand: #CD853F;
+  --brand-dark: #A8672F;
+  --brand-light: #E0A868;
+  --background: #F8F2EA;
+  --surface: #FBF3EA;
+  --panel: #FFFDF9;
+  --dark-surface: #3A2415;
+  --border: #EADDC9;
+  --text-primary: #3A2A1A;
+  --text-muted: #8A7360;
+  --text-soft: #B28D6D;
+  --text-light: #F7EFE6;
+  --shadow: 0 1px 2px rgba(58,42,26,0.08);
+  --button-bg: #CD853F;
+  --button-bg-dark: #A8672F;
+  --button-text: #fff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -37,10 +40,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(10,132,255,0.04), transparent 18%),
-    radial-gradient(circle at bottom right, rgba(99,102,241,0.03), transparent 24%),
-    #F8FAFC;
-  color: var(--text-h);
+    radial-gradient(circle at top left, rgba(205, 133, 63, 0.12), transparent 18%),
+    radial-gradient(circle at bottom right, rgba(168, 103, 47, 0.06), transparent 24%),
+    var(--background);
+  color: var(--text-primary);
 }
 
 img { display: block; max-width: 100%; }
@@ -58,40 +61,38 @@ button, input, textarea { font: inherit; }
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15,23,42,0.02);
+  background: rgba(58,42,26,0.04);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(10,132,255,0.85), rgba(6,95,199,0.85));
+  background: linear-gradient(180deg, rgba(205,133,63,0.85), rgba(168,103,47,0.85));
   border-radius: 999px;
 }
 
-/* Light-theme overrides for residual dark utility classes */
-/* These are applied broadly to convert remaining dark-themed classes to light equivalents. */
-.text-white { color: var(--text-h) !important; }
-.text-slate-200, .text-slate-300, .text-slate-400, .text-slate-500 { color: var(--text-soft) !important; }
+.text-white { color: var(--text-primary) !important; }
+.text-slate-900, .text-slate-800, .text-slate-700, .text-slate-600 { color: var(--text-primary) !important; }
+.text-slate-200, .text-slate-300, .text-slate-400, .text-slate-500 { color: var(--text-muted) !important; }
 
-.bg-slate-900, .bg-slate-950, .bg-slate-900\/60, .bg-slate-900\/70, .bg-slate-900\/80, .bg-slate-950\/80, .bg-slate-900\/65, .bg-slate-900\/40, .bg-slate-900\/20 {
-  background: var(--panel) !important;
-  color: var(--text-h) !important;
+.bg-slate-900, .bg-slate-950, .bg-slate-900\/60, .bg-slate-900\/65, .bg-slate-900\/70, .bg-slate-900\/80, .bg-slate-950\/80, .bg-slate-900\/40, .bg-slate-900\/20 {
+  background: var(--dark-surface) !important;
+  color: var(--text-light) !important;
 }
 
-.bg-white\/5 { background: var(--social-bg) !important; }
-.bg-white\/10 { background: var(--panel) !important; }
-.bg-gradient-to-br, [class*="bg-gradient-to-"] { background-image: none !important; }
+.bg-white, .bg-white\/5, .bg-white\/10 { background: var(--panel) !important; }
+.bg-gray-50, .bg-gray-100 { background: var(--surface) !important; }
+.border-gray-100, .border-gray-200, .border-white\/10, [class*="border-white"] { border-color: var(--border) !important; }
 
-.border-white\/10, [class*="border-white"] { border-color: var(--border) !important; }
+.bg-gradient-to-br, .bg-gradient-to-r, [class*="bg-gradient-to-"] { background-image: none !important; }
 
+.text-emerald-200, .text-emerald-300, .text-emerald-400, .text-cyan-200, .text-cyan-300, .text-sky-200, .text-sky-100 { color: var(--brand-light) !important; }
+.bg-emerald-500\/10, .bg-emerald-500\/20, .bg-cyan-500\/10, .bg-cyan-500\/20, .bg-sky-500\/10, .bg-sky-500\/20 { background: rgba(205,133,63,0.10) !important; }
+.border-emerald-400\/20, .border-emerald-400\/30, .border-cyan-400\/20, .border-sky-400\/20, .border-sky-400\/30 { border-color: rgba(205,133,63,0.25) !important; }
 
-/* Accent color remapping for small badges */
-.text-emerald-200, .text-emerald-300, .text-emerald-400 { color: var(--accent) !important; }
-.bg-emerald-500\/10, .bg-emerald-500\/20, .bg-emerald-500\/15 { background: var(--accent-bg) !important; }
-.border-emerald-400\/20, .border-emerald-400\/30 { border-color: var(--accent-border) !important; }
+.bg-gradient-to-r {
+  background-image: linear-gradient(90deg, var(--brand), var(--brand-dark)) !important;
+  color: white !important;
+}
 
-/* Buttons and links */
-.bg-gradient-to-r.from-emerald-500.to-cyan-500, .bg-gradient-to-r.from-emerald-500.to-cyan-500 { background: linear-gradient(90deg,var(--accent),var(--primary-strong)) !important; color: white !important; }
-
-/* Ensure inputs are readable */
-input, textarea { color: var(--text-h); }
+input, textarea, select { color: var(--text-primary); }
 
 

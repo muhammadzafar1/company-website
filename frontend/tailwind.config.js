@@ -4,19 +4,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#F8FAFC',
+        brand: '#CD853F',
+        'brand-dark': '#A8672F',
+        bg: '#FFFFFF',
         panel: '#FFFFFF',
-        accent: '#0A84FF',
-        accentStrong: '#1677FF',
-        text: '#0F172A',
-        textSoft: '#64748B',
-        muted: '#94A3B8',
+        sidebar: '#3A2415',
+        'sidebar-text': '#E8D6C0',
+        text: '#3A2A1A',
+        'text-soft': '#8A7360',
+        muted: '#8A7360',
+        border: '#EADDC9',
+        'border-soft': '#EADDC9',
       },
       boxShadow: {
-        subtle: '0 1px 2px rgba(15,23,42,0.04)',
+        subtle: '0 1px 2px rgba(58,42,26,0.08)',
       },
       backgroundImage: {
-        'grid-pattern': 'linear-gradient(rgba(15,23,42,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.03) 1px, transparent 1px)',
+        'grid-pattern': 'linear-gradient(rgba(58,42,26,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(58,42,26,0.03) 1px, transparent 1px)',
       },
       keyframes: {
         float: {

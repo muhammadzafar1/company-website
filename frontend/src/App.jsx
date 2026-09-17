@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AnimatedBackground from './components/AnimatedBackground';
 import Footer from './components/Footer';
@@ -15,25 +15,18 @@ import TermsPage from './pages/TermsPage';
 import FaqPage from './pages/FaqPage';
 import StatusPage from './pages/StatusPage';
 import AdminLogin from './admin/AdminLogin';
-import Dashboard from './admin/Dashboard';
-import Projects from './admin/Projects';
-import Services from './admin/Services';
-import Team from './admin/Team';
-import Testimonials from './admin/Testimonials';
-import Messages from './admin/Messages';
+import AdminLayout from './admin/AdminLayout';
+import DashboardPage from './admin/DashboardPage';
+import Employees from './admin/Employees';
+import Settings from './admin/Settings';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="relative min-h-screen bg-slate-50 text-slate-900 antialiased">
-        <div className="pointer-events-none fixed left-1/2 top-16 h-80 w-80 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(59,130,246,0.22),_rgba(168,85,247,0.12),_rgba(14,165,233,0)_68%)] blur-3xl" />
-        <div className="pointer-events-none fixed inset-x-0 top-6 z-30 flex justify-center">
-          <div className="rounded-full border border-slate-200/70 bg-white/70 px-4 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-slate-600 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl">
-            Vite + Tailwind
-          </div>
-        </div>
+      <div className="relative min-h-screen bg-[var(--background)] text-[var(--text-primary)] antialiased">
+        <div className="pointer-events-none fixed left-1/2 top-16 h-80 w-80 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(205,133,63,0.22),_rgba(168,103,47,0.08),_rgba(205,133,63,0)_68%)] blur-3xl" />
         <AnimatedBackground />
-        <div className="relative min-h-screen bg-slate-950 text-slate-100">
+        <div className="relative min-h-screen bg-[var(--background)] text-[var(--text-primary)]">
           <Routes>
             <Route path="/" element={<><Navbar /><HomePage /><Footer /></>} />
             <Route path="/about" element={<><Navbar /><AboutPage /><Footer /></>} />
@@ -51,12 +44,11 @@ function App() {
             <Route path="/faq" element={<><Navbar /><FaqPage /><Footer /></>} />
             <Route path="/status" element={<><Navbar /><StatusPage /><Footer /></>} />
             <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/projects" element={<Projects />} />
-            <Route path="/admin/services" element={<Services />} />
-            <Route path="/admin/team" element={<Team />} />
-            <Route path="/admin/testimonials" element={<Testimonials />} />
-            <Route path="/admin/messages" element={<Messages />} />
+            <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="/admin/dashboard" element={<AdminLayout title="Dashboard" subtitle="Overview" activeTab="Dashboard"><DashboardPage /></AdminLayout>} />
+            <Route path="/admin/projects" element={<AdminLayout title="Projects" subtitle="Portfolio" activeTab="Projects"><DashboardPage /></AdminLayout>} />
+            <Route path="/admin/employees" element={<AdminLayout title="Employees" subtitle="People" activeTab="Employees"><Employees /></AdminLayout>} />
+            <Route path="/admin/settings" element={<AdminLayout title="Admin Settings" subtitle="Configuration" activeTab="Admin Settings"><Settings /></AdminLayout>} />
           </Routes>
         </div>
       </div>

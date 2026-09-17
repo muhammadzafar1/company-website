@@ -7,14 +7,22 @@ import {
   updateProject,
 } from '../controllers/projectController.js';
 import authMiddleware, { authorizeRoles } from '../middleware/authMiddleware.js';
-import upload from '../middleware/uploadMiddleware.js';
 
 const router = express.Router();
 
 const projectValidation = [
-  body('title').trim().notEmpty().withMessage('Title is required.'),
-  body('description').trim().notEmpty().withMessage('Description is required.'),
-  body('category').trim().notEmpty().withMessage('Category is required.'),
+  body('name').trim().notEmpty().withMessage('Project name is required.'),
+  body('client').trim().notEmpty().withMessage('Client name is required.'),
+  body('status').isIn(['ongoing', 'completed', 'upcoming']).withMessage('Status is invalid.'),
+  body('startDate').isISO8601().withMessage('A valid start date is required.'),
+  body('deadline').isISO8601().withMessage('A valid deadline is required.'),
+  body('startDate').custom((value, { req }) => {
+    if (!req.body.deadline) return true;
+    if (new Date(value) > new Date(req.body.deadline)) {
+      throw new Error('Start date cannot be after deadline.');
+    }
+    return true;
+  }),
 ];
 
 router.get('/', getProjects);
@@ -22,7 +30,6 @@ router.post(
   '/',
   authMiddleware,
   authorizeRoles('admin', 'super-admin'),
-  upload.single('image'),
   projectValidation,
   createProject
 );
@@ -30,7 +37,6 @@ router.put(
   '/:id',
   authMiddleware,
   authorizeRoles('admin', 'super-admin'),
-  upload.single('image'),
   projectValidation,
   updateProject
 );
