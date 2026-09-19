@@ -58,22 +58,22 @@ export default function Projects() {
   };
 
   return (
-    <div className="space-y-6 p-8 text-white">
+    <div className="space-y-6 p-8 text-[var(--text-on-light-heading)]">
       <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-sky-200">Portfolio</p>
-        <h1 className="mt-2 text-3xl font-semibold">Projects</h1>
+        <p className="text-xs uppercase tracking-[0.2em] text-[var(--accent)]">Portfolio</p>
+        <h1 className="mt-2 text-3xl font-semibold text-[var(--text-on-light-heading)]">Projects</h1>
       </div>
 
-      {message && <div className="rounded-xl border border-sky-400/20 bg-sky-500/10 px-4 py-3 text-sm text-sky-100">{message}</div>}
+      {message && <div className="rounded-xl border border-[var(--border-light)] bg-[var(--accent-soft)] px-4 py-3 text-sm text-[var(--text-on-light-heading)]">{message}</div>}
 
-      <form onSubmit={handleSubmit} className="grid gap-4 rounded-[1.5rem] border border-white/10 bg-slate-900/80 p-6 md:grid-cols-2">
-        <input name="title" value={form.title} onChange={handleChange} placeholder="Project title" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 md:col-span-2" required />
-        <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" className="min-h-[120px] rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 md:col-span-2" required />
-        <input name="category" value={form.category} onChange={handleChange} placeholder="Category" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3" required />
-        <input name="technologies" value={form.technologies} onChange={handleChange} placeholder="React, Node, MongoDB" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3" />
-        <input name="link" value={form.link} onChange={handleChange} placeholder="Live link or project URL" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 md:col-span-2" />
+      <form onSubmit={handleSubmit} className="grid gap-4 rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-6 md:grid-cols-2">
+        <input name="title" value={form.title} onChange={handleChange} placeholder="Project title" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" required />
+        <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" className="min-h-[120px] rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" required />
+        <input name="category" value={form.category} onChange={handleChange} placeholder="Category" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" required />
+        <input name="technologies" value={form.technologies} onChange={handleChange} placeholder="React, Node, MongoDB" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="link" value={form.link} onChange={handleChange} placeholder="Live link or project URL" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
         <div className="md:col-span-2">
-          <button type="submit" disabled={saving} className="rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-5 py-3 font-medium text-white disabled:opacity-60">
+          <button type="submit" disabled={saving} className="rounded-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)] px-5 py-3 font-medium text-[var(--on-accent)] shadow-lg shadow-[var(--shadow-card)] disabled:opacity-60">
             {saving ? 'Saving...' : 'Save Project'}
           </button>
         </div>
@@ -81,16 +81,16 @@ export default function Projects() {
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {items.map((item) => (
-          <div key={item._id} className="rounded-[1.5rem] border border-white/10 bg-slate-900/80 p-5">
-            <div className="text-sm uppercase tracking-[0.18em] text-sky-200">{item.category}</div>
-            <h3 className="mt-2 text-xl font-semibold text-white">{item.title}</h3>
-            <p className="mt-3 text-sm text-slate-300">{item.description}</p>
+          <div key={item._id} className="rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-5 shadow-[var(--shadow-card)]">
+            <div className="text-sm uppercase tracking-[0.18em] text-[var(--accent)]">{item.category}</div>
+            <h3 className="mt-2 text-xl font-semibold text-[var(--text-on-light-heading)]">{item.title}</h3>
+            <p className="mt-3 text-sm text-[var(--text-on-light-body)]">{item.description}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {(item.technologies || []).map((tech) => (
-                <span key={tech} className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-slate-200">{tech}</span>
+                <span key={tech} className="rounded-full border border-[var(--border-light)] bg-[var(--bg-page)] px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-[var(--text-on-light-body)]">{tech}</span>
               ))}
             </div>
-            {item.link && <a href={item.link} target="_blank" rel="noreferrer" className="mt-5 inline-block text-sm text-sky-300">Open project</a>}
+            {item.link && <a href={item.link} target="_blank" rel="noreferrer" className="mt-5 inline-block text-sm text-[var(--link-on-light)] hover:text-[var(--link-on-light-hover)]">Open project</a>}
           </div>
         ))}
       </div>

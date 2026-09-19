@@ -55,14 +55,14 @@ export default function ProductsPage() {
       <main className="mx-auto max-w-7xl px-4 py-28 md:px-6">
         <SectionTitle eyebrow="Products & Applications" title="Application portfolio built for customer and business impact" subtitle="Browse digital products designed for mobile experiences, operational tools, and scalable web systems." align="left" />
 
-        <div className="mb-8 flex flex-col gap-4 rounded-[1.5rem] border border-white/10 bg-slate-900/70 p-4 md:flex-row md:items-center md:justify-between">
+        <div className="mb-8 flex flex-col gap-4 rounded-[1.5rem] border border-[var(--border)] bg-[var(--dark-surface)] p-4 md:flex-row md:items-center md:justify-between">
           <div className="relative w-full md:max-w-md">
-            <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-            <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search products" className="w-full rounded-full border border-white/10 bg-slate-950/80 py-3 pl-11 pr-4 text-white placeholder:text-slate-500" />
+            <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-onDarkMuted)]" />
+            <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search products" className="w-full rounded-full border border-[var(--border)] bg-[var(--dark-surface)] py-3 pl-11 pr-4 text-[var(--text-onDark)] placeholder:text-[var(--text-onDarkMuted)]" />
           </div>
-          <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-slate-400" />
-            <select value={platformFilter} onChange={(event) => setPlatformFilter(event.target.value)} className="rounded-full border border-white/10 bg-slate-950/80 px-4 py-2 text-white">
+          <div className="flex items-center gap-2 text-[var(--text-onDarkMuted)]">
+            <Filter className="h-4 w-4" />
+            <select value={platformFilter} onChange={(event) => setPlatformFilter(event.target.value)} className="rounded-full border border-[var(--border)] bg-[var(--dark-surface)] px-4 py-2 text-[var(--text-onDark)]">
               {platformOptions.map((option) => (
                 <option key={option} value={option}>{option}</option>
               ))}
@@ -72,25 +72,25 @@ export default function ProductsPage() {
 
         <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
           {filteredProducts.map((product) => (
-            <article key={product._id} className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-900/70 text-[#F5EAD9]">
+            <article key={product._id} className="group overflow-hidden rounded-[1.75rem] border border-[var(--border)] bg-[var(--dark-surface)] text-[var(--text-onDark)]">
               <div className="relative overflow-hidden">
                 <img src={product.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80'} alt={product.title} className="h-52 w-full object-cover transition duration-500 group-hover:scale-105" />
-                <div className="absolute left-4 top-4 rounded-full border border-emerald-400/20 bg-slate-900/70 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-[#E0A868]">{product.category}</div>
+                <div className="absolute left-4 top-4 rounded-full border border-[var(--brand)]/25 bg-[var(--dark-surface)] px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-[var(--brand-light)]">{product.category}</div>
               </div>
               <div className="p-5">
                 <div className="flex items-center justify-between gap-3">
-                  <h3 className="text-2xl font-semibold text-[#F5EAD9]">{product.title}</h3>
-                  <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/20 bg-amber-500/10 px-2 py-1 text-[10px] font-medium text-[#F5EAD9]"><Star className="h-3 w-3" /> 4.8</span>
+                  <h3 className="text-2xl font-semibold text-[var(--text-onDark)]">{product.title}</h3>
+                  <span className="inline-flex items-center gap-1 rounded-full border border-[var(--brand)]/25 bg-[var(--brand)]/10 px-2 py-1 text-[10px] font-medium text-[var(--text-onDark)]"><Star className="h-3 w-3" /> 4.8</span>
                 </div>
-                <p className="mt-3 text-[#D9C3A8]">{product.description}</p>
+                <p className="mt-3 text-[var(--text-onDarkMuted)]">{product.description}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {(product.technologies || ['React', 'Node']).map((tech) => (
-                    <span key={tech} className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-[#D9C3A8]">{tech}</span>
+                    <span key={tech} className="skill-pill rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.14em]">{tech}</span>
                   ))}
                 </div>
                 <div className="mt-5 flex items-center justify-between gap-3">
-                  <span className="text-xs uppercase tracking-[0.18em] text-[#E0A868]">{product.platform || product.platforms || 'Web'}</span>
-                  <Link to={`/products/${product.slug || product._id}`} className="rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 px-4 py-2 text-sm font-medium text-white">View Details</Link>
+                  <span className="text-xs uppercase tracking-[0.18em] text-[var(--brand-light)]">{product.platform || product.platforms || 'Web'}</span>
+                  <Link to={`/products/${product.slug || product._id}`} className="rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white">View Details</Link>
                 </div>
               </div>
             </article>

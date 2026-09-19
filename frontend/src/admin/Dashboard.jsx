@@ -52,18 +52,18 @@ export default function Dashboard() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-7xl gap-8 px-4 py-8 md:px-6">
-      <aside className="hidden w-72 rounded-[1.5rem] border border-white/10 bg-slate-900/80 p-5 lg:block">
+      <aside className="hidden w-72 rounded-[1.5rem] border border-border bg-dark p-5 lg:block">
         <div className="mb-8 flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-r from-[#0A84FF] to-[#2563EB] text-lg font-semibold text-white">S</div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand text-lg font-semibold text-white">S</div>
           <div>
-            <div className="text-lg font-semibold text-white">Step by Step</div>
-            <div className="text-[10px] uppercase tracking-[0.2em] text-slate-400">Admin</div>
+            <div className="text-lg font-semibold text-text-onDark">Step by Step</div>
+            <div className="text-[10px] uppercase tracking-[0.2em] text-text-onDarkMuted">Admin</div>
           </div>
         </div>
 
         <nav className="space-y-2">
           {navItems.map(({ label, icon: Icon }) => (
-            <button key={label} className="flex w-full items-center gap-3 rounded-2xl border border-transparent bg-slate-950/40 px-3 py-3 text-left text-slate-300 transition hover:border-sky-400/20 hover:bg-sky-500/10 hover:text-white">
+            <button key={label} className="flex w-full items-center gap-3 rounded-2xl border border-transparent bg-dark-card/60 px-3 py-3 text-left text-text-onDarkMuted transition hover:bg-brand hover:text-white">
               <Icon className="h-4 w-4" />
               {label}
             </button>
@@ -74,10 +74,10 @@ export default function Dashboard() {
       <main className="flex-1">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <div className="text-sm uppercase tracking-[0.22em] text-sky-200">Overview</div>
-            <h1 className="mt-2 text-3xl font-semibold text-white">Dashboard</h1>
+            <div className="text-sm uppercase tracking-[0.22em] text-brand-light">Overview</div>
+            <h1 className="mt-2 text-3xl font-semibold text-text-primary">Dashboard</h1>
           </div>
-          <button type="button" onClick={() => { console.log('Logout button clicked'); localStorage.removeItem('token'); window.location.href = '/admin/login'; }} className="rounded-full border border-white/10 bg-slate-900/80 px-4 py-2 text-sm text-white">Logout</button>
+          <button type="button" onClick={() => { console.log('Logout button clicked'); localStorage.removeItem('token'); window.location.href = '/admin/login'; }} className="rounded-full border border-border bg-white px-4 py-2 text-sm text-text-primary">Logout</button>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -87,9 +87,9 @@ export default function Dashboard() {
             { label: 'Team', value: stats.team },
             { label: 'Messages', value: stats.messages },
           ].map((item) => (
-            <div key={item.label} className="rounded-[1.5rem] border border-white/10 bg-slate-900/80 p-6">
-              <div className="text-xs uppercase tracking-[0.2em] text-slate-400">{item.label}</div>
-              <div className="mt-4 text-3xl font-semibold text-white">{item.value}</div>
+            <div key={item.label} className="rounded-[1.5rem] border border-border bg-white p-6 shadow-sm">
+              <div className="text-xs uppercase tracking-[0.2em] text-text-muted">{item.label}</div>
+              <div className="mt-4 text-3xl font-semibold text-text-primary">{item.value}</div>
             </div>
           ))}
         </div>

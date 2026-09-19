@@ -57,21 +57,21 @@ export default function Team() {
   };
 
   return (
-    <div className="space-y-6 p-8 text-white">
+    <div className="space-y-6 p-8 text-[var(--text-on-light-heading)]">
       <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-sky-200">People</p>
-        <h1 className="mt-2 text-3xl font-semibold">Team</h1>
+        <p className="text-xs uppercase tracking-[0.2em] text-[var(--accent)]">People</p>
+        <h1 className="mt-2 text-3xl font-semibold text-[var(--text-on-light-heading)]">Team</h1>
       </div>
 
-      {message && <div className="rounded-xl border border-sky-400/20 bg-sky-500/10 px-4 py-3 text-sm text-sky-100">{message}</div>}
+      {message && <div className="rounded-xl border border-[var(--border-light)] bg-[var(--accent-soft)] px-4 py-3 text-sm text-[var(--text-on-light-heading)]">{message}</div>}
 
-      <form onSubmit={handleSubmit} className="grid gap-4 rounded-[1.5rem] border border-white/10 bg-slate-900/80 p-6 md:grid-cols-2">
-        <input name="name" value={form.name} onChange={handleChange} placeholder="Full name" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3" required />
-        <input name="position" value={form.position} onChange={handleChange} placeholder="Role" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3" required />
-        <input name="skills" value={form.skills} onChange={handleChange} placeholder="React, UX, Node" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 md:col-span-2" />
-        <input name="image" value={form.image} onChange={handleChange} placeholder="Image URL" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 md:col-span-2" />
+      <form onSubmit={handleSubmit} className="grid gap-4 rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-6 md:grid-cols-2">
+        <input name="name" value={form.name} onChange={handleChange} placeholder="Full name" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" required />
+        <input name="position" value={form.position} onChange={handleChange} placeholder="Role" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" required />
+        <input name="skills" value={form.skills} onChange={handleChange} placeholder="React, UX, Node" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="image" value={form.image} onChange={handleChange} placeholder="Image URL" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
         <div className="md:col-span-2">
-          <button type="submit" disabled={saving} className="rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-5 py-3 font-medium text-white disabled:opacity-60">
+          <button type="submit" disabled={saving} className="rounded-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)] px-5 py-3 font-medium text-[var(--on-accent)] shadow-lg shadow-[var(--shadow-card)] disabled:opacity-60">
             {saving ? 'Saving...' : 'Save Team Member'}
           </button>
         </div>
@@ -79,12 +79,12 @@ export default function Team() {
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {items.map((item) => (
-          <div key={item._id} className="rounded-[1.5rem] border border-white/10 bg-slate-900/80 p-5">
-            <h3 className="text-xl font-semibold text-white">{item.name}</h3>
-            <p className="mt-2 text-sky-200">{item.position}</p>
+          <div key={item._id} className="rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-5 shadow-[var(--shadow-card)]">
+            <h3 className="text-xl font-semibold text-[var(--text-on-light-heading)]">{item.name}</h3>
+            <p className="mt-2 text-[var(--accent)]">{item.position}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {(item.skills || []).map((skill) => (
-                <span key={skill} className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-slate-200">{skill}</span>
+                <span key={skill} className="rounded-full border border-[var(--border-light)] bg-[var(--bg-page)] px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-[var(--text-on-light-body)]">{skill}</span>
               ))}
             </div>
           </div>

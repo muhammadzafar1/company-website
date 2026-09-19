@@ -132,7 +132,7 @@ export default function Home() {
                 { value: '10+', label: 'Developers' },
                 { value: '99%', label: 'Client Satisfaction' },
               ].map((stat, index) => (
-                <motion.div key={stat.label} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ delay: index * 0.1 }} className="rounded-[1.5rem] border border-sky-400/20 bg-gradient-to-br from-sky-500/8 to-slate-900 p-6">
+                <motion.div key={stat.label} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ delay: index * 0.1 }} className="rounded-[1.5rem] border border-brand/30 bg-gradient-to-br from-brand/10 to-slate-900 p-6">
                   <div className="text-4xl font-semibold text-white">{stat.value}</div>
                   <div className="mt-3 text-sm uppercase tracking-[0.2em] text-slate-400">{stat.label}</div>
                 </motion.div>
@@ -148,18 +148,18 @@ export default function Home() {
             {(services || serviceCards).map((service, index) => {
               const Icon = service.icon || Code2;
               return (
-                <motion.div key={service.title || index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.5, delay: index * 0.06 }} whileHover={{ y: -8 }} className="group rounded-[1.75rem] border border-white/10 bg-slate-900/65 p-6 shadow-[0_20px_50px_rgba(15,23,42,0.45)] transition-all hover:border-sky-400/40 hover:bg-slate-900/80">
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500/20 to-blue-600/20 text-sky-200 ring-1 ring-sky-400/20 transition-all group-hover:scale-110">
+                <motion.div key={service.title || index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.5, delay: index * 0.06 }} whileHover={{ y: -8 }} className="group rounded-[1.75rem] border border-white/10 bg-slate-900/65 p-6 shadow-[0_20px_50px_rgba(15,23,42,0.45)] transition-all hover:border-brand/40 hover:bg-slate-900/80">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand/20 to-brand-dark/20 text-brand-light ring-1 ring-brand/30 transition-all group-hover:scale-110">
                     <Icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-2xl font-semibold text-white">{service.title}</h3>
                   <p className="mt-4 text-base leading-7 text-slate-300">{service.description}</p>
                   <div className="mt-6 flex flex-wrap gap-2">
                     {(service.tags || []).map((tag) => (
-                      <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-300">{tag}</span>
+                      <span key={tag} className="skill-pill rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.18em]">{tag}</span>
                     ))}
                   </div>
-                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-sky-200">
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-brand-light">
                     Explore <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </div>
                 </motion.div>
@@ -176,7 +176,7 @@ export default function Home() {
                 <h3 className="text-lg font-semibold text-white">{group.label}</h3>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {group.items.map((item) => (
-                    <span key={item} className="rounded-full border border-sky-400/20 bg-sky-500/10 px-3 py-1.5 text-xs font-medium text-sky-100">{item}</span>
+                    <span key={item} className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1.5 text-xs font-medium text-brand-light">{item}</span>
                   ))}
                 </div>
               </motion.div>
@@ -189,7 +189,7 @@ export default function Home() {
 
           <div className="mb-8 flex flex-wrap gap-3">
             {filters.map((filter) => (
-              <button key={filter} onClick={() => setActiveFilter(filter)} className={`rounded-full px-4 py-2 text-sm font-medium transition ${activeFilter === filter ? 'bg-gradient-to-r from-[#0A84FF] to-[#2563EB] text-white' : 'border border-white/10 bg-slate-900/60 text-slate-200 hover:bg-white/5'}`}>
+              <button key={filter} onClick={() => setActiveFilter(filter)} className={`rounded-full px-4 py-2 text-sm font-medium transition ${activeFilter === filter ? 'bg-gradient-to-r from-brand to-brand-dark text-white' : 'border border-white/10 bg-slate-900/60 text-slate-200 hover:bg-white/5'}`}>
                 {filter}
               </button>
             ))}
@@ -201,18 +201,18 @@ export default function Home() {
                 <div className="relative overflow-hidden">
                   <img src={project.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80'} alt={project.title} className="h-68 w-full object-cover transition duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-                  <div className="absolute left-5 top-5 rounded-full border border-sky-400/20 bg-slate-900/70 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-sky-200">{project.category}</div>
+                  <div className="absolute left-5 top-5 rounded-full border border-brand/30 bg-slate-900/70 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-brand-light">{project.category}</div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
                   <p className="mt-3 text-slate-300">{project.description}</p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {(project.technologies || ['React', 'Node']).map((tech) => (
-                      <span key={tech} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-300">{tech}</span>
+                      <span key={tech} className="skill-pill rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.18em]">{tech}</span>
                     ))}
                   </div>
                   <div className="mt-6 flex gap-3">
-                    <a href={project.liveDemo || '#'} className="inline-flex items-center rounded-full bg-gradient-to-r from-[#0A84FF] to-[#2563EB] px-4 py-2 text-sm font-medium text-white">Live Demo</a>
+                    <a href={project.liveDemo || '#'} className="inline-flex items-center rounded-full bg-gradient-to-r from-brand to-brand-dark px-4 py-2 text-sm font-medium text-white">Live Demo</a>
                     <a href={project.github || '#'} className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white">GitHub</a>
                   </div>
                 </div>
@@ -232,10 +232,10 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold text-white">{member.name}</h3>
-                  <p className="mt-2 text-sky-200">{member.position}</p>
+                  <p className="mt-2 text-brand-light">{member.position}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {(member.skills || []).map((skill) => (
-                      <span key={skill} className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-300">{skill}</span>
+                      <span key={skill} className="skill-pill rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.18em]">{skill}</span>
                     ))}
                   </div>
                 </div>
@@ -252,7 +252,7 @@ export default function Home() {
             <div className="space-y-6">
               {processSteps.map((step, index) => (
                 <motion.div key={step} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: index * 0.08 }} className="relative grid gap-4 md:grid-cols-[80px_1fr] md:items-center">
-                  <div className="z-10 flex h-10 w-10 items-center justify-center rounded-full border border-sky-400/30 bg-sky-500/10 text-sm font-semibold text-sky-200 shadow-[0_0_18px_rgba(56,189,248,0.2)] md:ml-0">{String(index + 1).padStart(2, '0')}</div>
+                  <div className="z-10 flex h-10 w-10 items-center justify-center rounded-full border border-brand/30 bg-brand/10 text-sm font-semibold text-brand-light shadow-[0_0_18px_rgba(205,133,63,0.18)] md:ml-0">{String(index + 1).padStart(2, '0')}</div>
                   <div className="rounded-[1.5rem] border border-white/10 bg-slate-900/70 p-5 md:ml-8">
                     <div className="text-sm uppercase tracking-[0.2em] text-slate-400">0{index + 1}</div>
                     <h3 className="mt-2 text-2xl font-semibold text-white">{step}</h3>
@@ -267,13 +267,13 @@ export default function Home() {
           <SectionTitle eyebrow="Pricing" title="Flexible plans for growing businesses" subtitle="Choose the right engagement model based on your goals, traction, and roadmap." />
           <div className="grid gap-6 lg:grid-cols-3">
             {pricingPlans.map((plan, index) => (
-              <motion.div key={plan.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: index * 0.08 }} className={`rounded-[1.75rem] border p-7 ${plan.recommended ? 'border-sky-400/40 bg-gradient-to-b from-sky-500/10 to-slate-900 shadow-glow' : 'border-white/10 bg-slate-900/70'}`}>
-                {plan.recommended && <div className="mb-4 inline-flex rounded-full border border-sky-400/30 bg-sky-500/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-sky-200">Recommended</div>}
+              <motion.div key={plan.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: index * 0.08 }} className={`rounded-[1.75rem] border p-7 ${plan.recommended ? 'border-brand/40 bg-gradient-to-b from-brand/10 to-slate-900 shadow-glow' : 'border-white/10 bg-slate-900/70'}`}>
+                {plan.recommended && <div className="mb-4 inline-flex rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-brand-light">Recommended</div>}
                 <div className="text-sm uppercase tracking-[0.24em] text-slate-400">{plan.name}</div>
                 <div className="mt-6 text-4xl font-semibold text-white">{plan.price}</div>
                 <ul className="mt-6 space-y-3 text-slate-300">
                   {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3"><span className="h-2 w-2 rounded-full bg-sky-400" />{feature}</li>
+                    <li key={feature} className="flex items-center gap-3"><span className="h-2 w-2 rounded-full bg-brand" />{feature}</li>
                   ))}
                 </ul>
                 <Button className="mt-8 w-full justify-center" variant={plan.recommended ? 'primary' : 'secondary'}>{plan.cta}</Button>
@@ -301,7 +301,7 @@ export default function Home() {
             </div>
 
             <motion.div key={testimonialIndex} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.35 }} className="mt-8">
-              <div className="mb-4 flex gap-1 text-yellow-400">
+              <div className="mb-4 flex gap-1 text-brand-light">
                 {Array.from({ length: testimonialsData[testimonialIndex].rating || 5 }).map((_, i) => <Star key={i} className="h-5 w-5 fill-current" />)}
               </div>
               <p className="max-w-3xl text-lg leading-8 text-slate-200 md:text-2xl">“{testimonialsData[testimonialIndex].review}”</p>

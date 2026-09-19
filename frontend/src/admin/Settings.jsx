@@ -47,48 +47,48 @@ export default function Settings() {
   return (
     <div className="max-w-2xl">
       <div className="mb-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#CD853F]">Configuration</p>
-        <h2 className="mt-2 text-2xl font-bold text-[#3A2A1A]">Admin Settings</h2>
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">Configuration</p>
+        <h2 className="mt-2 text-2xl font-bold text-[var(--text-on-light-heading)]">Admin Settings</h2>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5 rounded-3xl border border-[#EADDC9] bg-white p-6 shadow-sm">
+      <form onSubmit={handleSubmit} className="space-y-5 rounded-3xl border border-[var(--border-light)] bg-[var(--surface-light)] p-6 shadow-sm">
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-[#3A2A1A]">Admin Name</label>
+          <label className="mb-1.5 block text-sm font-medium text-[var(--text-on-light-heading)]">Admin Name</label>
           <input
             value={profile.name}
             onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-            className="w-full rounded-2xl border border-[#EADDC9] bg-[#FFFDFB] px-3.5 py-2.5 text-[#3A2A1A] outline-none transition focus:border-[#CD853F] focus:ring-2 focus:ring-[#CD853F]/15"
+            className="w-full rounded-2xl border border-[var(--border-light)] bg-[var(--bg-page)] px-3.5 py-2.5 text-[var(--text-on-light-heading)] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15"
           />
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-[#3A2A1A]">Admin Email</label>
+          <label className="mb-1.5 block text-sm font-medium text-[var(--text-on-light-heading)]">Admin Email</label>
           <input
             type="email"
             value={profile.email}
             onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-            className="w-full rounded-2xl border border-[#EADDC9] bg-[#FFFDFB] px-3.5 py-2.5 text-[#3A2A1A] outline-none transition focus:border-[#CD853F] focus:ring-2 focus:ring-[#CD853F]/15"
+            className="w-full rounded-2xl border border-[var(--border-light)] bg-[var(--bg-page)] px-3.5 py-2.5 text-[var(--text-on-light-heading)] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15"
           />
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-[#3A2A1A]">New Password</label>
+          <label className="mb-1.5 block text-sm font-medium text-[var(--text-on-light-heading)]">New Password</label>
           <input
             type="password"
             value={profile.password}
             onChange={(e) => setProfile({ ...profile, password: e.target.value })}
             placeholder="Leave blank to keep existing password"
-            className="w-full rounded-2xl border border-[#EADDC9] bg-[#FFFDFB] px-3.5 py-2.5 text-[#3A2A1A] outline-none transition focus:border-[#CD853F] focus:ring-2 focus:ring-[#CD853F]/15"
+            className="w-full rounded-2xl border border-[var(--border-light)] bg-[var(--bg-page)] px-3.5 py-2.5 text-[var(--text-on-light-heading)] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15"
           />
         </div>
 
-        {error && <div className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">{error}</div>}
-        {success && <div className="rounded-xl border border-[#EADDC9] bg-[#FFF9F3] px-3 py-2 text-sm text-[#3A2A1A]">{success}</div>}
+        {error && <div className="rounded-xl border border-[var(--danger-bg)] bg-[var(--danger-bg)] px-3 py-2 text-sm text-[var(--danger-text)]">{error}</div>}
+        {success && <div className="rounded-xl border border-[var(--border-light)] bg-[var(--accent-soft)] px-3 py-2 text-sm text-[var(--text-on-light-heading)]">{success}</div>}
 
         <button
           type="submit"
           disabled={saving}
-          className="rounded-2xl bg-gradient-to-r from-[#CD853F] to-[#A8672F] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#A8672F]/25 disabled:opacity-60"
+          className="rounded-2xl bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)] px-5 py-2.5 text-sm font-semibold text-[var(--on-accent)] shadow-lg shadow-[var(--shadow-card)] disabled:opacity-60"
         >
           {saving ? 'Saving...' : 'Save Changes'}
         </button>

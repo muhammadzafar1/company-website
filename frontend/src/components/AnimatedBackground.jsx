@@ -21,14 +21,14 @@ const particles = Array.from({ length: 26 }, (_, i) => ({
 export default function AnimatedBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-transparent">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(10,132,255,0.06),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.04),transparent_24%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(205,133,63,0.12),transparent_20%),radial-gradient(circle_at_bottom_right,rgba(168,103,47,0.08),transparent_24%)]" />
       <motion.div
-        className="absolute -left-24 top-14 h-72 w-72 rounded-full bg-[#A7F3D0]/40 blur-3xl"
+        className="absolute -left-24 top-14 h-72 w-72 rounded-full bg-[var(--accent)]/30 blur-3xl"
         animate={{ x: [0, 30, 0], y: [0, 24, -8], scale: [1, 1.08, 1] }}
         transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-[#BFDBFE]/30 blur-3xl"
+        className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-[var(--accent-hover)]/20 blur-3xl"
         animate={{ x: [0, -48, 0], y: [0, -24, 14], scale: [1, 1.12, 1] }}
         transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
       />
@@ -75,7 +75,7 @@ export default function AnimatedBackground() {
         animate={{ backgroundPositionX: ['0%', '100%'] }}
         transition={{ duration: 26, repeat: Infinity, ease: 'linear' }}
         style={{
-          backgroundImage: 'linear-gradient(120deg, transparent 0%, rgba(10,132,255,0.06) 30%, transparent 60%)',
+          backgroundImage: 'linear-gradient(120deg, transparent 0%, rgba(205,133,63,0.08) 30%, transparent 60%)',
           backgroundSize: '200% 100%',
         }}
       />

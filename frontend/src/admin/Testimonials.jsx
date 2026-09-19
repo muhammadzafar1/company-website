@@ -56,23 +56,23 @@ export default function Testimonials() {
   };
 
   return (
-    <div className="space-y-6 p-8 text-white">
+    <div className="space-y-6 p-8 text-[var(--text-on-light-heading)]">
       <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-sky-200">Social proof</p>
-        <h1 className="mt-2 text-3xl font-semibold">Testimonials</h1>
+        <p className="text-xs uppercase tracking-[0.2em] text-[var(--accent)]">Social proof</p>
+        <h1 className="mt-2 text-3xl font-semibold text-[var(--text-on-light-heading)]">Testimonials</h1>
       </div>
 
-      {message && <div className="rounded-xl border border-sky-400/20 bg-sky-500/10 px-4 py-3 text-sm text-sky-100">{message}</div>}
+      {message && <div className="rounded-xl border border-[var(--border-light)] bg-[var(--accent-soft)] px-4 py-3 text-sm text-[var(--text-on-light-heading)]">{message}</div>}
 
-      <form onSubmit={handleSubmit} className="grid gap-4 rounded-[1.5rem] border border-white/10 bg-slate-900/80 p-6 md:grid-cols-2">
-        <input name="name" value={form.name} onChange={handleChange} placeholder="Client name" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3" required />
-        <input name="company" value={form.company} onChange={handleChange} placeholder="Company" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3" required />
-        <input name="role" value={form.role} onChange={handleChange} placeholder="Role" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3" />
-        <input name="rating" type="number" min="1" max="5" value={form.rating} onChange={handleChange} placeholder="Rating" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3" />
-        <textarea name="review" value={form.review} onChange={handleChange} placeholder="Feedback" className="min-h-[120px] rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 md:col-span-2" required />
-        <input name="image" value={form.image} onChange={handleChange} placeholder="Image URL" className="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 md:col-span-2" />
+      <form onSubmit={handleSubmit} className="grid gap-4 rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-6 md:grid-cols-2">
+        <input name="name" value={form.name} onChange={handleChange} placeholder="Client name" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" required />
+        <input name="company" value={form.company} onChange={handleChange} placeholder="Company" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" required />
+        <input name="role" value={form.role} onChange={handleChange} placeholder="Role" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="rating" type="number" min="1" max="5" value={form.rating} onChange={handleChange} placeholder="Rating" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <textarea name="review" value={form.review} onChange={handleChange} placeholder="Feedback" className="min-h-[120px] rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" required />
+        <input name="image" value={form.image} onChange={handleChange} placeholder="Image URL" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
         <div className="md:col-span-2">
-          <button type="submit" disabled={saving} className="rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-5 py-3 font-medium text-white disabled:opacity-60">
+          <button type="submit" disabled={saving} className="rounded-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)] px-5 py-3 font-medium text-[var(--on-accent)] shadow-lg shadow-[var(--shadow-card)] disabled:opacity-60">
             {saving ? 'Saving...' : 'Save Testimonial'}
           </button>
         </div>
@@ -80,11 +80,11 @@ export default function Testimonials() {
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {items.map((item) => (
-          <div key={item._id} className="rounded-[1.5rem] border border-white/10 bg-slate-900/80 p-5">
-            <div className="text-lg font-semibold text-white">{item.name}</div>
-            <div className="text-sm text-sky-200">{item.company}</div>
-            <p className="mt-3 text-sm text-slate-300">“{item.review}”</p>
-            <p className="mt-4 text-xs uppercase tracking-[0.18em] text-amber-300">{item.rating}/5</p>
+          <div key={item._id} className="rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-5 shadow-[var(--shadow-card)]">
+            <div className="text-lg font-semibold text-[var(--text-on-light-heading)]">{item.name}</div>
+            <div className="text-sm text-[var(--accent)]">{item.company}</div>
+            <p className="mt-3 text-sm text-[var(--text-on-light-body)]">“{item.review}”</p>
+            <p className="mt-4 text-xs uppercase tracking-[0.18em] text-[var(--accent)]">{item.rating}/5</p>
           </div>
         ))}
       </div>

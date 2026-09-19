@@ -24,7 +24,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="relative min-h-screen bg-[var(--background)] text-[var(--text-primary)] antialiased">
-        <div className="pointer-events-none fixed left-1/2 top-16 h-80 w-80 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(205,133,63,0.22),_rgba(168,103,47,0.08),_rgba(205,133,63,0)_68%)] blur-3xl" />
+        <div className="pointer-events-none fixed left-1/2 top-16 h-80 w-80 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(224,169,109,0.22),_rgba(201,138,69,0.10),_rgba(224,169,109,0)_68%)] blur-3xl" />
         <AnimatedBackground />
         <div className="relative min-h-screen bg-[var(--background)] text-[var(--text-primary)]">
           <Routes>

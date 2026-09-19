@@ -47,25 +47,25 @@ export default function ContactPage() {
         <SectionTitle eyebrow="Contact" title="Let’s plan your next digital move" subtitle="Reach out to discuss a project, product, or technology partnership." align="left" />
 
         <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="space-y-5 rounded-[2rem] border border-white/10 bg-slate-900/70 p-8">
-            <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-emerald-200" /><span className="text-slate-300">{contactDetails.email}</span></div>
-            <div className="flex items-center gap-3"><Phone className="h-5 w-5 text-emerald-200" /><span className="text-slate-300">{contactDetails.phone}</span></div>
-            <div className="flex items-center gap-3"><MapPin className="h-5 w-5 text-emerald-200" /><span className="text-slate-300">{contactDetails.location}</span></div>
-            <div className="flex items-center gap-3"><Clock3 className="h-5 w-5 text-emerald-200" /><span className="text-slate-300">{contactDetails.hours}</span></div>
+          <div className="space-y-5 rounded-[2rem] border border-[var(--border)] bg-[var(--dark-surface)] p-8">
+            <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-[var(--brand-light)]" /><span className="text-[var(--text-onDarkMuted)]">{contactDetails.email}</span></div>
+            <div className="flex items-center gap-3"><Phone className="h-5 w-5 text-[var(--brand-light)]" /><span className="text-[var(--text-onDarkMuted)]">{contactDetails.phone}</span></div>
+            <div className="flex items-center gap-3"><MapPin className="h-5 w-5 text-[var(--brand-light)]" /><span className="text-[var(--text-onDarkMuted)]">{contactDetails.location}</span></div>
+            <div className="flex items-center gap-3"><Clock3 className="h-5 w-5 text-[var(--brand-light)]" /><span className="text-[var(--text-onDarkMuted)]">{contactDetails.hours}</span></div>
           </div>
 
-          <form onSubmit={handleSubmit} className="grid gap-4 rounded-[2rem] border border-white/10 bg-slate-900/70 p-8 md:grid-cols-2">
-            <input name="name" value={form.name} onChange={handleChange} placeholder="Name" className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500" required />
-            <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="Email" className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500" required />
-            <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone" className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500" />
-            <input name="subject" value={form.subject} onChange={handleChange} placeholder="Subject" className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500" required />
-            <textarea name="message" value={form.message} onChange={handleChange} placeholder="Message" className="min-h-[150px] rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500 md:col-span-2" required />
+          <form onSubmit={handleSubmit} className="grid gap-4 rounded-[2rem] border border-[var(--border)] bg-[var(--dark-surface)] p-8 md:grid-cols-2">
+            <input name="name" value={form.name} onChange={handleChange} placeholder="Name" className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)]" required />
+            <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="Email" className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)]" required />
+            <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone" className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)]" />
+            <input name="subject" value={form.subject} onChange={handleChange} placeholder="Subject" className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)]" required />
+            <textarea name="message" value={form.message} onChange={handleChange} placeholder="Message" className="min-h-[150px] rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] md:col-span-2" required />
             <div className="md:col-span-2 flex items-center gap-4">
-              <button type="submit" disabled={submitting} className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 px-5 py-3 font-medium text-white disabled:opacity-60">
+              <button type="submit" disabled={submitting} className="inline-flex items-center gap-2 rounded-full bg-[var(--brand)] px-5 py-3 font-medium text-white disabled:opacity-60">
                 <Send className="h-4 w-4" /> {submitting ? 'Sending...' : 'Send Message'}
               </button>
             </div>
-            {message && <div className="md:col-span-2 rounded-xl border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">{message}</div>}
+            {message && <div className="md:col-span-2 rounded-xl border border-[var(--brand)]/25 bg-[var(--brand)]/10 px-4 py-3 text-sm text-[var(--text-onDark)]">{message}</div>}
           </form>
         </div>
       </main>
