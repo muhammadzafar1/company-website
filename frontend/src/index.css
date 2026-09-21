@@ -115,6 +115,14 @@ button, input, textarea, select { font: inherit; }
   background: radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.8), transparent 38%), linear-gradient(135deg, rgba(250, 240, 230, 0.35), rgba(255, 248, 240, 0.08));
 }
 
+.cursor-fluid {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
 .light-card {
   background: var(--surface-light) !important;
   color: var(--text-on-light-body);

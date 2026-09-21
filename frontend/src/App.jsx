@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AnimatedBackground from './components/AnimatedBackground';
+import CursorFluid from './components/CursorFluid';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -26,6 +27,7 @@ function App() {
       <div className="relative min-h-screen bg-transparent text-[var(--text-primary)] antialiased">
         <div className="pointer-events-none fixed left-1/2 top-16 h-80 w-80 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(224,169,109,0.22),_rgba(201,138,69,0.10),_rgba(224,169,109,0)_68%)] blur-3xl" />
         <AnimatedBackground />
+        <CursorFluid />
         <div className="relative z-10 min-h-screen bg-transparent text-[var(--text-primary)]">
           <Routes>
             <Route path="/" element={<><Navbar /><HomePage /><Footer /></>} />
