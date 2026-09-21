@@ -27,14 +27,14 @@ export default function HomePage() {
           <SectionTitle eyebrow="Mission & Vision" title="Technology built around performance, trust, and measurable results" subtitle="We help businesses evolve with software that supports growth, reliability, and user confidence." align="left" />
 
           <div className="grid gap-8 md:grid-cols-2">
-            <div className="rounded-[2rem] border border-[var(--border-light)] bg-[var(--surface-dark)] p-8">
+            <div className="light-card rounded-[2rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-8">
               <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--accent)]/30 bg-[var(--accent)]/10 text-[var(--accent)]">
                 <BriefcaseBusiness className="h-5 w-5" />
               </div>
               <h3 className="text-2xl font-semibold text-[var(--text-on-dark-heading)]">Mission</h3>
               <p className="mt-4 text-[var(--text-on-dark-body)]">To deliver practical, secure, and scalable digital solutions that help organizations simplify operations and grow with confidence.</p>
             </div>
-            <div className="rounded-[2rem] border border-[var(--border-light)] bg-[var(--surface-dark)] p-8">
+            <div className="light-card rounded-[2rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-8">
               <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--accent)]/30 bg-[var(--accent)]/10 text-[var(--accent)]">
                 <Globe className="h-5 w-5" />
               </div>
@@ -49,11 +49,11 @@ export default function HomePage() {
 
           <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
             {productCatalog.map((product, index) => (
-              <motion.article key={product.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="group overflow-hidden rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-dark)]">
+              <motion.article key={product.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="light-card group overflow-hidden rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-light)]">
                 <div className="relative overflow-hidden">
                   <img src={product.image} alt={product.name} className="h-48 w-full object-cover transition duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--surface-darker)] via-[var(--surface-darker)]/10 to-transparent" />
-                  <div className="absolute left-4 top-4 rounded-full border border-[var(--accent)]/30 bg-[var(--surface-dark)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[var(--accent)]">{product.category}</div>
+                  <div className="absolute left-4 top-4 rounded-full border border-[var(--accent)]/30 bg-[var(--surface-light)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[var(--accent)]">{product.category}</div>
                 </div>
                 <div className="p-5">
                   <div className="flex items-center justify-between gap-4">
@@ -83,7 +83,7 @@ export default function HomePage() {
             {serviceHighlights.map((service, index) => {
               const Icon = [{ name: 'Smartphone', value: Smartphone }, { name: 'Code2', value: Code2 }, { name: 'Paintbrush2', value: null }, { name: 'Layers3', value: null }, { name: 'Zap', value: Zap }, { name: 'ShieldCheck', value: null }][index].value || Code2;
               return (
-                <motion.div key={service.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.06 }} whileHover={{ y: -8 }} className="rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-dark)] p-6">
+                <motion.div key={service.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.06 }} whileHover={{ y: -8 }} className="light-card rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-6">
                   <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--accent)]/20 to-[var(--accent-hover)]/20 text-[var(--accent)] ring-1 ring-[var(--accent)]/30">
                     <Icon className="h-6 w-6" />
                   </div>
@@ -108,7 +108,7 @@ export default function HomePage() {
 
           <div className="grid gap-6 lg:grid-cols-3">
             {faqItems.slice(0, 3).map((item, index) => (
-              <motion.div key={item.question} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-dark)] p-6">
+              <motion.div key={item.question} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="light-card rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-6">
                 <div className="mb-4 flex items-center gap-1 text-[var(--accent)]">
                   {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
                 </div>
@@ -129,7 +129,7 @@ export default function HomePage() {
           <SectionTitle eyebrow="Technology Stack" title="Modern tools for secure, flexible, and maintainable systems" subtitle="We combine practical engineering choices with proven technology to support sustainable delivery." />
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
             {techStack.map((group, index) => (
-              <motion.div key={group.group} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.06 }} className="rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-dark)] p-5">
+              <motion.div key={group.group} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.06 }} className="light-card rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-5">
                 <h3 className="text-lg font-semibold text-[var(--text-on-dark-heading)]">{group.group}</h3>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {group.items.map((item) => (
@@ -150,7 +150,7 @@ export default function HomePage() {
               { title: 'App delivery checklist', tag: 'Mobile Development', summary: 'The practical delivery steps needed for a high-quality app release.' },
               { title: 'Design systems for product teams', tag: 'UI/UX', summary: 'Why strong system design reduces friction and improves product consistency.' },
             ].map((article, index) => (
-              <motion.div key={article.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-dark)] p-6">
+              <motion.div key={article.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="light-card rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-6">
                 <div className="text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">{article.tag}</div>
                 <h3 className="mt-4 text-2xl font-semibold text-[var(--text-on-dark-heading)]">{article.title}</h3>
                 <p className="mt-4 text-[var(--text-on-dark-body)]">{article.summary}</p>

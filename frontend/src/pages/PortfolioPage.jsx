@@ -20,7 +20,7 @@ export default function PortfolioPage() {
       <main className="mx-auto max-w-7xl px-4 py-28 md:px-6">
         <SectionTitle eyebrow="Portfolio" title="Selected client work and product stories" subtitle="Case studies and project examples that show how we work across digital strategy, product design, and delivery." align="left" />
 
-        <div className="mb-8 rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-dark)] p-4">
+        <div className="light-card mb-8 rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-4">
           <div className="relative max-w-md">
             <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-on-dark-muted)]" />
             <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search portfolio" className="w-full rounded-full border border-[var(--border-light)] bg-[var(--surface-darker)] py-3 pl-11 pr-4 text-[var(--text-on-dark-heading)] placeholder:text-[var(--text-on-dark-muted)]" />
@@ -29,7 +29,7 @@ export default function PortfolioPage() {
 
         <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
           {filteredCases.map((item) => (
-            <article key={item.slug} className="overflow-hidden rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-dark)]">
+            <article key={item.slug} className="light-card overflow-hidden rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-light)]">
               <img src={item.image} alt={item.title} className="h-52 w-full object-cover" />
               <div className="p-5">
                 <div className="text-[10px] uppercase tracking-[0.18em] text-[var(--accent)]">{item.category}</div>
