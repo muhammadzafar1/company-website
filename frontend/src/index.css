@@ -121,6 +121,24 @@ button, input, textarea, select { font: inherit; }
   box-shadow: var(--shadow-card);
 }
 
+.light-footer {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.light-footer .text-text-onDark,
+.light-footer [class*="text-[var(--text-on-dark-heading)]"] {
+  color: var(--text-on-light-heading) !important;
+}
+
+.light-footer .text-text-onDarkMuted,
+.light-footer [class*="text-[var(--text-on-dark-muted)]"] {
+  color: var(--text-on-light-muted) !important;
+}
+
+.light-footer input {
+  color: var(--text-on-light-heading);
+}
+
 .light-card .text-white,
 .light-card [class*="text-[var(--text-on-dark-heading)]"] {
   color: var(--text-on-light-heading) !important;
