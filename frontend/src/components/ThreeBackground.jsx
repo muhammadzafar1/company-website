@@ -58,8 +58,8 @@ export default function ThreeBackground() {
 
     const rayGroup = new THREE.Group();
     const rayMaterial = new THREE.LineBasicMaterial({ color: 0xe0a96d, transparent: true, opacity: 0.22 });
-    for (let index = 0; index < 18; index += 1) {
-      const angle = (index / 18) * Math.PI * 2;
+    for (let index = 0; index < 54; index += 1) {
+      const angle = (index / 54) * Math.PI * 2;
       const innerRadius = 1.2 + (index % 3) * 0.35;
       const outerRadius = 7 + (index % 4) * 0.8;
       const points = [
