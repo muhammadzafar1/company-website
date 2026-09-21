@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const particleCount = 34;
+const particleCount = 16;
 
 export default function CursorFluid() {
   const canvasRef = useRef(null);
@@ -11,8 +11,7 @@ export default function CursorFluid() {
     const particles = Array.from({ length: particleCount }, (_, index) => ({
       x: -100,
       y: -100,
-      size: 2 + (index % 5) * 0.8,
-      drift: index * 0.55,
+      size: 1.5 + (index % 4) * 0.6,
     }));
     const pointer = { x: -100, y: -100, active: false };
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -41,38 +40,49 @@ export default function CursorFluid() {
       context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       if (pointer.active) {
-        particles.forEach((particle, index) => {
-          const wave = index * 0.42 + time * 0.0012;
-          const spread = 2 + index * 0.7;
-          const targetX = pointer.x + Math.cos(wave) * spread;
-          const targetY = pointer.y + Math.sin(wave * 1.15) * spread;
-          const easing = reducedMotion ? 0.28 : 0.08 + (particleCount - index) * 0.001;
-          particle.x += (targetX - particle.x) * easing;
-          particle.y += (targetY - particle.y) * easing;
+        particles[0].x = pointer.x;
+        particles[0].y = pointer.y;
+        particles.slice(1).forEach((particle, index) => {
+          const previous = particles[index];
+          const easing = reducedMotion ? 0.6 : 0.3;
+          particle.x += (previous.x - particle.x) * easing;
+          particle.y += (previous.y - particle.y) * easing;
         });
 
         context.save();
-        context.globalCompositeOperation = 'screen';
         context.lineCap = 'round';
         context.lineJoin = 'round';
-        context.shadowColor = 'rgba(201, 138, 69, 0.38)';
-        context.shadowBlur = 16;
+
+        const spotlight = context.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 90);
+        spotlight.addColorStop(0, 'rgba(224, 169, 109, 0.18)');
+        spotlight.addColorStop(0.45, 'rgba(224, 169, 109, 0.06)');
+        spotlight.addColorStop(1, 'rgba(224, 169, 109, 0)');
+        context.fillStyle = spotlight;
+        context.beginPath();
+        context.arc(pointer.x, pointer.y, 90, 0, Math.PI * 2);
+        context.fill();
+
         context.beginPath();
         particles.forEach((particle, index) => {
           if (index === 0) context.moveTo(particle.x, particle.y);
           else context.lineTo(particle.x, particle.y);
         });
-        context.strokeStyle = 'rgba(224, 169, 109, 0.24)';
-        context.lineWidth = 3.5;
+        context.strokeStyle = 'rgba(201, 138, 69, 0.3)';
+        context.lineWidth = 2;
         context.stroke();
 
         particles.forEach((particle, index) => {
-          const alpha = 0.16 + (particleCount - index) / particleCount * 0.3;
+          const alpha = 0.08 + (particleCount - index) / particleCount * 0.28;
           context.beginPath();
           context.fillStyle = `rgba(224, 169, 109, ${alpha})`;
           context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
           context.fill();
         });
+        context.beginPath();
+        context.strokeStyle = 'rgba(138, 75, 31, 0.45)';
+        context.lineWidth = 1;
+        context.arc(pointer.x, pointer.y, 10 + Math.sin(time * 0.006) * 2, 0, Math.PI * 2);
+        context.stroke();
         context.restore();
       }
 

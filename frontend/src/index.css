@@ -120,7 +120,30 @@ button, input, textarea, select { font: inherit; }
   inset: 0;
   z-index: 40;
   pointer-events: none;
-  mix-blend-mode: multiply;
+  opacity: 0.9;
+}
+
+.light-card,
+.light-footer {
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 240ms ease, transform 240ms ease, border-color 240ms ease;
+}
+
+.light-card::after,
+.light-footer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.28), transparent 34%, rgba(224, 169, 109, 0.08));
+  opacity: 0.7;
+}
+
+.light-card:hover {
+  border-color: rgba(224, 169, 109, 0.7);
+  box-shadow: 0 16px 34px rgba(43, 26, 16, 0.14), 0 0 0 1px rgba(224, 169, 109, 0.12);
+  transform: translateY(-4px);
 }
 
 .light-card {
