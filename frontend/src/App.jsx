@@ -4,7 +4,7 @@ import AnimatedBackground from './components/AnimatedBackground';
 import CursorFluid from './components/CursorFluid';
 import ScrollReveal from './components/ScrollReveal';
 import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
+import Home from './pages/Home';
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
 import ProductsPage from './pages/ProductsPage';
@@ -35,7 +35,7 @@ function App() {
         <AIChatbot />
         <div className="relative z-10 min-h-screen bg-transparent text-[var(--text-primary)]">
           <Routes>
-            <Route path="/" element={<><Navbar /><HomePage /><Footer /></>} />
+            <Route path="/" element={<><Navbar /><Home /><Footer /></>} />
             <Route path="/about" element={<><Navbar /><AboutPage /><Footer /></>} />
             <Route path="/services" element={<><Navbar /><ServicesPage /><Footer /></>} />
             <Route path="/products" element={<><Navbar /><ProductsPage /><Footer /></>} />
