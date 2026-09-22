@@ -1,24 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const objects = [
-  { geometry: () => new THREE.IcosahedronGeometry(0.68, 1), position: [-3.6, 1.5, -1], color: 0xe0a96d, speed: 0.0007 },
-  { geometry: () => new THREE.TorusKnotGeometry(0.58, 0.12, 96, 16), position: [3.7, 1.1, -2], color: 0xc98a45, speed: -0.0009 },
-  { geometry: () => new THREE.OctahedronGeometry(0.62, 1), position: [2.8, -2.9, -1], color: 0xb86f3d, speed: 0.001 },
-  { geometry: () => new THREE.TorusGeometry(0.7, 0.045, 16, 64), position: [-3.2, -3.4, -2], color: 0xf1c58e, speed: -0.0008 },
-];
-
-const ionNodes = [
-  [-2.5, 0.8, -1.2, 0.12], [-1.3, 1.8, -1.8, -0.2], [0.2, 1.1, -2.4, 0.3],
-  [1.6, 1.9, -1.5, -0.16], [2.6, 0.5, -2.1, 0.24], [1.2, -0.1, -1.4, -0.28],
-  [-0.3, -0.6, -2.3, 0.18], [-1.7, -1.1, -1.7, -0.22], [-2.8, -0.2, -2.5, 0.3],
-  [0.3, -2, -1.6, -0.1], [1.8, -1.7, -2.2, 0.2], [3, -1.3, -1.5, -0.24],
-];
-
-const ionBonds = [
-  [0, 1], [1, 2], [2, 3], [3, 4], [2, 5], [5, 4], [5, 6], [6, 7], [7, 8],
-  [6, 9], [9, 10], [10, 11], [4, 11], [7, 9], [1, 6], [2, 6], [5, 10],
-];
+const galaxyColors = [0xe0a96d, 0xf1c58e, 0xc98a45, 0xffe0ae];
 
 export default function ThreeBackground() {
   const canvasRef = useRef(null);
@@ -27,88 +10,61 @@ export default function ThreeBackground() {
     const canvas = canvasRef.current;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(0, 0, 10);
+    camera.position.set(0, 0, 9);
 
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setClearColor(0x000000, 0);
 
-    const group = new THREE.Group();
-    scene.add(group);
+    const galaxy = new THREE.Group();
+    scene.add(galaxy);
 
-    const geometries = objects.map((item) => item.geometry());
-    const materials = objects.map((item, index) => new THREE.MeshPhysicalMaterial({
-      color: item.color,
-      roughness: 0.26,
-      metalness: 0.3,
-      clearcoat: 0.8,
-      clearcoatRoughness: 0.2,
-      transparent: true,
-      opacity: 0.42,
-      wireframe: geometries[index].type === 'TorusGeometry',
-    }));
+    const starCount = window.innerWidth < 768 ? 260 : 520;
+    const positions = new Float32Array(starCount * 3);
+    const colors = new Float32Array(starCount * 3);
+    const sizes = new Float32Array(starCount);
 
-    objects.forEach((item, index) => {
-      const mesh = new THREE.Mesh(geometries[index], materials[index]);
-      mesh.position.set(...item.position);
-      mesh.rotation.set(index * 0.4, index * 0.7, 0);
-      mesh.userData.speed = item.speed;
-      group.add(mesh);
-    });
+    for (let index = 0; index < starCount; index += 1) {
+      const arm = index % 4;
+      const radius = Math.pow(Math.random(), 0.62) * 5.2;
+      const angle = radius * 1.25 + arm * (Math.PI / 2) + (Math.random() - 0.5) * 0.7;
+      const spread = (Math.random() - 0.5) * (0.25 + radius * 0.08);
+      const x = Math.cos(angle) * radius + Math.cos(angle + Math.PI / 2) * spread;
+      const y = (Math.random() - 0.5) * (0.35 + radius * 0.08);
+      const z = Math.sin(angle) * radius + Math.sin(angle + Math.PI / 2) * spread;
+      positions[index * 3] = x;
+      positions[index * 3 + 1] = y;
+      positions[index * 3 + 2] = z - 2;
 
-    const ionGroup = new THREE.Group();
-    const ionGeometry = new THREE.SphereGeometry(0.12, 16, 12);
-    const ionMaterial = new THREE.MeshPhysicalMaterial({ color: 0xf3bf82, emissive: 0x8a4b1f, emissiveIntensity: 0.7, roughness: 0.22, metalness: 0.35, transparent: true, opacity: 0.95 });
-    const bondMaterial = new THREE.LineBasicMaterial({ color: 0xc98a45, transparent: true, opacity: 0.62 });
-    const ionMeshes = ionNodes.map(() => {
-      const ion = new THREE.Mesh(ionGeometry, ionMaterial);
-      ionGroup.add(ion);
-      return ion;
-    });
-    const bondLines = ionBonds.map(([start, end]) => {
-      const geometry = new THREE.BufferGeometry();
-      geometry.setAttribute('position', new THREE.Float32BufferAttribute(new Array(6).fill(0), 3));
-      const bond = new THREE.Line(geometry, bondMaterial);
-      ionGroup.add(bond);
-      return { bond, start, end };
-    });
-    ionGroup.position.z = -0.4;
-    scene.add(ionGroup);
-
-    const moleculeGroups = [ionGroup];
-    [[-3.8, 1.7, -1.6, 0.72], [3.8, -1.2, -2.2, 0.8], [3.1, 2.6, -3.2, 0.52]].forEach(([x, y, z, scale]) => {
-      const molecule = ionGroup.clone();
-      molecule.children.slice(ionNodes.length).forEach((bond) => {
-        bond.geometry = bond.geometry.clone();
-      });
-      molecule.position.set(x, y, z);
-      molecule.scale.setScalar(scale);
-      molecule.rotation.set(0.2, -0.4, 0.3);
-      scene.add(molecule);
-      moleculeGroups.push(molecule);
-    });
-
-    const particleGeometry = new THREE.BufferGeometry();
-    const particlePositions = new Float32Array(90 * 3);
-    for (let index = 0; index < particlePositions.length; index += 3) {
-      particlePositions[index] = (Math.random() - 0.5) * 15;
-      particlePositions[index + 1] = (Math.random() - 0.5) * 12;
-      particlePositions[index + 2] = (Math.random() - 0.5) * 8 - 2;
+      const color = new THREE.Color(galaxyColors[index % galaxyColors.length]);
+      colors[index * 3] = color.r;
+      colors[index * 3 + 1] = color.g;
+      colors[index * 3 + 2] = color.b;
+      sizes[index] = 0.025 + Math.random() * 0.055;
     }
-    particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-    const particles = new THREE.Points(
-      particleGeometry,
-      new THREE.PointsMaterial({ color: 0xd8a875, size: 0.035, transparent: true, opacity: 0.5 }),
-    );
-    scene.add(particles);
 
-    scene.add(new THREE.AmbientLight(0xfff4e5, 1.8));
-    const keyLight = new THREE.DirectionalLight(0xffd39b, 3.4);
-    keyLight.position.set(4, 6, 8);
-    scene.add(keyLight);
-    const fillLight = new THREE.PointLight(0xc98a45, 18, 18);
-    fillLight.position.set(-5, -3, 5);
-    scene.add(fillLight);
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+    const material = new THREE.PointsMaterial({
+      size: 0.07,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.46,
+      sizeAttenuation: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    });
+    const stars = new THREE.Points(geometry, material);
+    galaxy.add(stars);
+
+    const coreGeometry = new THREE.SphereGeometry(0.32, 16, 12);
+    const coreMaterial = new THREE.MeshBasicMaterial({ color: 0xe0a96d, transparent: true, opacity: 0.16 });
+    const core = new THREE.Mesh(coreGeometry, coreMaterial);
+    core.position.z = -2;
+    galaxy.add(core);
 
     let scrollProgress = 0;
     let targetScroll = 0;
@@ -131,50 +87,12 @@ export default function ThreeBackground() {
     const render = (time) => {
       const delta = time - lastTime;
       lastTime = time;
-      scrollProgress += (targetScroll - scrollProgress) * (reducedMotion ? 0.2 : 0.065);
-      group.rotation.y = scrollProgress * Math.PI * 1.2;
-      group.rotation.x = scrollProgress * Math.PI * 0.24;
-      group.position.y = (scrollProgress - 0.5) * -1.2;
-      camera.position.y = (scrollProgress - 0.5) * 0.7;
-      ionGroup.rotation.y = scrollProgress * Math.PI * 0.75;
-      ionGroup.rotation.x = Math.sin(scrollProgress * Math.PI) * 0.22;
-      ionGroup.rotation.z = Math.sin(time * 0.00012) * 0.08;
-      moleculeGroups.slice(1).forEach((molecule, index) => {
-        molecule.rotation.y = scrollProgress * Math.PI * (0.34 + index * 0.08);
-        molecule.rotation.x = Math.sin(time * 0.00016 + index) * 0.12;
-        molecule.rotation.z += delta * (index % 2 ? 0.00008 : -0.00006);
-      });
-      moleculeGroups.forEach((molecule, moleculeIndex) => {
-        const nodes = molecule.children.slice(0, ionNodes.length);
-        const bonds = molecule.children.slice(ionNodes.length);
-        ionNodes.forEach(([x, y, z, w], index) => {
-          const phase = index * 0.42 + moleculeIndex * 0.8;
-          const projectedW = w + Math.sin(scrollProgress * Math.PI * 2 + phase + time * 0.00012) * 0.22;
-          const perspective = 1 / (1 - projectedW * 0.32);
-          nodes[index].position.set(x * perspective, y * perspective, z + projectedW * 1.8);
-          nodes[index].scale.setScalar(0.8 + perspective * 0.24);
-        });
-        bonds.forEach((bond, bondIndex) => {
-          const [start, end] = ionBonds[bondIndex];
-          const startPosition = nodes[start].position;
-          const endPosition = nodes[end].position;
-          const positions = bond.geometry.attributes.position.array;
-          positions[0] = startPosition.x;
-          positions[1] = startPosition.y;
-          positions[2] = startPosition.z;
-          positions[3] = endPosition.x;
-          positions[4] = endPosition.y;
-          positions[5] = endPosition.z;
-          bond.geometry.attributes.position.needsUpdate = true;
-        });
-      });
-      particles.rotation.y += delta * 0.000025;
-
-      group.children.forEach((mesh) => {
-        mesh.rotation.x += delta * mesh.userData.speed;
-        mesh.rotation.z += delta * mesh.userData.speed * 0.7;
-      });
-
+      scrollProgress += (targetScroll - scrollProgress) * (reducedMotion ? 0.2 : 0.08);
+      galaxy.rotation.y = scrollProgress * Math.PI * 1.8;
+      galaxy.rotation.x = Math.sin(scrollProgress * Math.PI) * 0.16;
+      galaxy.rotation.z += delta * (reducedMotion ? 0.00001 : 0.000025);
+      galaxy.position.y = (scrollProgress - 0.5) * -0.35;
+      core.scale.setScalar(1 + Math.sin(time * 0.0012) * 0.08);
       renderer.render(scene, camera);
       frameId = window.requestAnimationFrame(render);
     };
@@ -189,17 +107,10 @@ export default function ThreeBackground() {
       window.cancelAnimationFrame(frameId);
       window.removeEventListener('resize', resize);
       window.removeEventListener('scroll', updateScroll);
-      geometries.forEach((geometry) => geometry.dispose());
-      materials.forEach((material) => material.dispose());
-      ionGeometry.dispose();
-      ionMaterial.dispose();
-      bondLines.forEach(({ bond }) => bond.geometry.dispose());
-      moleculeGroups.slice(1).forEach((molecule) => {
-        molecule.children.slice(ionNodes.length).forEach((bond) => bond.geometry.dispose());
-      });
-      bondMaterial.dispose();
-      particleGeometry.dispose();
-      particles.material.dispose();
+      geometry.dispose();
+      material.dispose();
+      coreGeometry.dispose();
+      coreMaterial.dispose();
       renderer.dispose();
     };
   }, []);
