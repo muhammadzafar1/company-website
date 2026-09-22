@@ -1,22 +1,33 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ChevronDown, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageMeta from '../components/PageMeta';
 import SectionTitle from '../components/SectionTitle';
-import { faqCategories, faqItems } from '../data/siteContent';
+import api, { unwrapApiData } from '../api/api';
+import { faqItems as fallbackFaqs } from '../data/siteContent';
 
 export default function FaqPage() {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('General');
   const [openIndex, setOpenIndex] = useState(0);
+  const [faqs, setFaqs] = useState(fallbackFaqs);
+
+  useEffect(() => {
+    api.get('/faq')
+      .then((response) => {
+        const databaseFaqs = unwrapApiData(response, 'faqs');
+        if (databaseFaqs.length) setFaqs(databaseFaqs);
+      })
+      .catch((error) => console.error('Unable to load FAQs', error));
+  }, []);
 
   const filteredFaqs = useMemo(() => {
-    return faqItems.filter((item) => {
+    return faqs.filter((item) => {
       const categoryOK = category === 'All' || item.category === category;
       const searchOK = !search || `${item.question} ${item.answer}`.toLowerCase().includes(search.toLowerCase());
       return categoryOK && searchOK;
     });
-  }, [search, category]);
+  }, [faqs, search, category]);
 
   return (
     <>

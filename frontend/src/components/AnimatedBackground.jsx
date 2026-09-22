@@ -6,6 +6,10 @@ export default function AnimatedBackground() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    const supportsHover = window.matchMedia('(hover: hover)').matches;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!supportsHover || reducedMotion) return undefined;
+
     const enable = () => setEnabled(true);
     if ('requestIdleCallback' in window) {
       const idleId = window.requestIdleCallback(enable, { timeout: 1800 });

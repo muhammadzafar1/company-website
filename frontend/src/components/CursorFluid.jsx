@@ -4,6 +4,8 @@ export default function CursorFluid() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    if (!window.matchMedia('(hover: hover)').matches) return undefined;
+
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     const pointer = { x: -100, y: -100, targetX: -100, targetY: -100, active: false, pulse: 0 };

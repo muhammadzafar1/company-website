@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Code2, Layers3, MonitorSmartphone, Paintbrush2, ShieldCheck, Sparkles, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageMeta from '../components/PageMeta';
 import SectionTitle from '../components/SectionTitle';
-import api from '../api/api';
+import api, { unwrapApiData } from '../api/api';
 
 const serviceDetails = [
   { title: 'Mobile App Development', icon: MonitorSmartphone, points: ['Flutter', 'Android', 'iOS', 'Cross-platform', 'API integration', 'Push notifications', 'Authentication', 'Deployment'] },
@@ -29,6 +29,22 @@ export default function ServicesPage() {
   const [form, setForm] = useState(initialForm);
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState('');
+  const [services, setServices] = useState(serviceDetails);
+
+  useEffect(() => {
+    api.get('/services')
+      .then((response) => {
+        const databaseServices = unwrapApiData(response, 'services');
+        if (databaseServices.length) {
+          setServices(databaseServices.map((service, index) => ({
+            ...serviceDetails[index % serviceDetails.length],
+            ...service,
+            points: serviceDetails[index % serviceDetails.length].points,
+          })));
+        }
+      })
+      .catch((error) => console.error('Unable to load services', error));
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -59,7 +75,7 @@ export default function ServicesPage() {
         <SectionTitle eyebrow="Services" title="Digital services built to solve real business problems" subtitle="From mobile apps to full-stack systems, our work is shaped around product quality and operational efficiency." align="left" />
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {serviceDetails.map((service, index) => {
+          {services.map((service, index) => {
             const Icon = service.icon;
             return (
               <motion.div key={service.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.06 }} className="rounded-[1.75rem] border border-[var(--border)] bg-[var(--dark-surface)] p-6">
@@ -93,7 +109,7 @@ export default function ServicesPage() {
               <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone" className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)]" />
               <input name="company" value={form.company} onChange={handleChange} placeholder="Company" className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)]" />
               <select name="service" value={form.service} onChange={handleChange} className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[var(--text-primary)] md:col-span-2">
-                {serviceDetails.map((service) => (
+                {services.map((service) => (
                   <option key={service.title} value={service.title}>{service.title}</option>
                 ))}
               </select>

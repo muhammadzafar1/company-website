@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "seed": "node seed/createAdmin.js"
+    "seed": "node seed/createAdmin.js",
+    "seed:content": "node seed/runContentSeed.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

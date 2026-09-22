@@ -1,17 +1,28 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageMeta from '../components/PageMeta';
 import SectionTitle from '../components/SectionTitle';
-import { blogPosts } from '../data/siteContent';
+import api, { unwrapApiData } from '../api/api';
+import { blogPosts as fallbackPosts } from '../data/siteContent';
 
 export default function BlogPage() {
   const [search, setSearch] = useState('');
+  const [posts, setPosts] = useState(fallbackPosts);
+
+  useEffect(() => {
+    api.get('/blog')
+      .then((response) => {
+        const databasePosts = unwrapApiData(response, 'posts');
+        if (databasePosts.length) setPosts(databasePosts);
+      })
+      .catch((error) => console.error('Unable to load blog posts', error));
+  }, []);
 
   const filteredPosts = useMemo(() => {
-    if (!search.trim()) return blogPosts;
-    return blogPosts.filter((post) => `${post.title} ${post.category} ${post.excerpt}`.toLowerCase().includes(search.toLowerCase()));
-  }, [search]);
+    if (!search.trim()) return posts;
+    return posts.filter((post) => `${post.title} ${post.category} ${post.excerpt}`.toLowerCase().includes(search.toLowerCase()));
+  }, [posts, search]);
 
   return (
     <>
@@ -40,7 +51,7 @@ export default function BlogPage() {
               </div>
               <div className="mt-6 flex items-center justify-between text-sm text-[var(--text-onDarkMuted)]">
                 <span>{post.author}</span>
-                <span>{post.readingTime}</span>
+                <span>{post.readingTime || '5 min read'}</span>
               </div>
               <Link to={`/blog/${post.slug}`} className="mt-6 inline-flex rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white">Read article</Link>
             </article>

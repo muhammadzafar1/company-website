@@ -5,6 +5,27 @@ const api = axios.create({
   timeout: 10000,
 });
 
+const getCache = new Map();
+const GET_CACHE_TTL = 30000;
+
+const requestGet = api.get.bind(api);
+api.get = (url, config = {}) => {
+  const cacheKey = `${url}:${JSON.stringify(config.params || {})}`;
+  const cached = getCache.get(cacheKey);
+
+  if (cached && Date.now() - cached.timestamp < GET_CACHE_TTL) {
+    return cached.promise;
+  }
+
+  const request = requestGet(url, config).catch((error) => {
+    getCache.delete(cacheKey);
+    throw error;
+  });
+
+  getCache.set(cacheKey, { promise: request, timestamp: Date.now() });
+  return request;
+};
+
 export const unwrapApiData = (response, key) => {
   const payload = response?.data;
 
