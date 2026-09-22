@@ -1,4 +1,4 @@
-import { LayoutDashboard, FolderKanban, Users, Settings2, LogOut } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Users, Database, Settings2, LogOut } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -6,6 +6,7 @@ const navItems = [
   { label: 'Dashboard', to: '/admin/dashboard', icon: LayoutDashboard },
   { label: 'Projects', to: '/admin/projects', icon: FolderKanban },
   { label: 'Employees', to: '/admin/employees', icon: Users },
+  { label: 'Website Data', to: '/admin/content', icon: Database },
   { label: 'Admin Settings', to: '/admin/settings', icon: Settings2 },
 ];
 

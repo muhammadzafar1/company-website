@@ -26,6 +26,7 @@ const AdminLayout = lazy(() => import('./admin/AdminLayout'));
 const DashboardPage = lazy(() => import('./admin/DashboardPage'));
 const Employees = lazy(() => import('./admin/Employees'));
 const Settings = lazy(() => import('./admin/Settings'));
+const WebsiteData = lazy(() => import('./admin/WebsiteData'));
 
 function DeferredChatbot() {
   const [enabled, setEnabled] = useState(false);
@@ -77,6 +78,7 @@ function App() {
               <Route path="/admin/dashboard" element={<AdminLayout title="Dashboard" subtitle="Overview" activeTab="Dashboard"><DashboardPage /></AdminLayout>} />
               <Route path="/admin/projects" element={<AdminLayout title="Projects" subtitle="Portfolio" activeTab="Projects"><DashboardPage /></AdminLayout>} />
               <Route path="/admin/employees" element={<AdminLayout title="Employees" subtitle="People" activeTab="Employees"><Employees /></AdminLayout>} />
+              <Route path="/admin/content" element={<AdminLayout title="Website Data" subtitle="Content management" activeTab="Website Data"><WebsiteData /></AdminLayout>} />
               <Route path="/admin/settings" element={<AdminLayout title="Admin Settings" subtitle="Configuration" activeTab="Admin Settings"><Settings /></AdminLayout>} />
             </Routes>
           </Suspense>

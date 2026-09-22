@@ -10,6 +10,8 @@ const GET_CACHE_TTL = 30000;
 
 const requestGet = api.get.bind(api);
 api.get = (url, config = {}) => {
+  if (localStorage.getItem('token')) return requestGet(url, config);
+
   const cacheKey = `${url}:${JSON.stringify(config.params || {})}`;
   const cached = getCache.get(cacheKey);
 
@@ -41,6 +43,8 @@ export const unwrapApiData = (response, key) => {
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
+
+  if (config.method?.toLowerCase() !== 'get') getCache.clear();
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
