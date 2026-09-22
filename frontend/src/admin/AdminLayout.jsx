@@ -1,6 +1,7 @@
 import { LayoutDashboard, FolderKanban, Users, Database, Settings2, LogOut } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import PageMeta from '../components/PageMeta';
 
 const navItems = [
   { label: 'Dashboard', to: '/admin/dashboard', icon: LayoutDashboard },
@@ -31,6 +32,7 @@ export default function AdminLayout({ title, subtitle, children, activeTab }) {
 
   return (
     <div className="min-h-screen bg-[var(--bg-page)] text-[var(--text-on-light-heading)]">
+      <PageMeta title={title} path={location.pathname} noindex />
       <div className="flex min-h-screen">
         <aside className="fixed left-0 top-0 flex h-screen w-[250px] flex-col bg-[var(--surface-dark)] px-5 py-6 shadow-[var(--shadow-hover)] text-[var(--text-on-dark-body)]">
           <div className="mb-8 flex items-center gap-3 border-b border-[var(--border-light)]/20 pb-4">

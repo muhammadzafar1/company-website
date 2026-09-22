@@ -56,14 +56,14 @@ export default function Footer() {
               <button className="rounded-md bg-brand p-2 text-white"><ArrowRight className="h-4 w-4" /></button>
             </div>
             <div className="mt-6 space-y-3 text-sm text-text-onDarkMuted">
-              <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-brand-light" /> +92 300 0000000</div>
+              <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-brand-light" /> +92 3328657885</div>
               <div className="flex items-center gap-3"><MapPin className="h-4 w-4 text-brand-light" /> Lahore, Pakistan</div>
             </div>
           </div>
         </div>
 
         <div className="mt-10 flex flex-col gap-4 border-t border-border pt-6 text-sm text-text-onDarkMuted md:flex-row md:items-center md:justify-between">
-          <span>© 2026 AZ MEER (SMC-PRIVATE) LIMITED. All Rights Reserved.</span>
+          <span>© 2026 AZ MEER SMC-PRIVATE LIMITED. All Rights Reserved.</span>
           <span><Link to="/privacy-policy" className="hover:text-brand-light">Privacy Policy</Link> • <Link to="/terms" className="hover:text-brand-light">Terms of Service</Link></span>
         </div>
       </div>

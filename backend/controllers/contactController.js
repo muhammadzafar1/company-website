@@ -1,10 +1,16 @@
 import Contact from '../models/Contact.js';
+import { validationResult } from 'express-validator';
 
 const sendResponse = (res, statusCode, success, message, data = {}) => {
   return res.status(statusCode).json({ success, message, data });
 };
 
 export const submitContact = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return sendResponse(res, 400, false, 'Validation failed', { errors: errors.array() });
+  }
+
   try {
     const contact = await Contact.create(req.body);
     return sendResponse(res, 201, true, 'Message sent successfully', { contact });

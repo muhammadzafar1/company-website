@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
+import PageMeta from '../components/PageMeta';
 
 const defaultForm = {
   email: '',
@@ -39,6 +40,7 @@ export default function AdminLogin() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-10">
+      <PageMeta title="Admin Login" path="/admin/login" noindex />
       <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md rounded-[2rem] border border-[var(--border-light)] bg-[var(--surface-light)]/90 p-8 shadow-[0_30px_80px_rgba(43,26,16,0.12)] backdrop-blur-sm">
         <div className="mb-6 text-center">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent-hover)] text-xl font-bold text-[var(--on-accent)] shadow-lg shadow-[var(--accent-hover)]/30">

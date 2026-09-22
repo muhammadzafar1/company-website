@@ -18,7 +18,7 @@ export default function AboutPage() {
       <PageMeta title="About" description="Learn about AZ MEER, leadership, company history, values, and our technology-first approach." path="/about" />
 
       <main className="mx-auto max-w-7xl px-4 py-28 md:px-6">
-        <SectionTitle eyebrow="About Us" title="A technology-driven company built for growth, reliability, and delivery" subtitle="AZ MEER (SMC-PRIVATE) LIMITED focuses on digital product design, software architecture, and business system modernization." align="left" />
+        <SectionTitle eyebrow="About Us" title="A technology-driven company built for growth, reliability, and delivery" subtitle="AZ MEER SMC-PRIVATE LIMITED focuses on digital product design, software architecture, and business system modernization." align="left" />
 
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="rounded-[2rem] border border-[var(--border)] bg-[var(--dark-surface)] p-8 text-[var(--text-onDarkMuted)]">

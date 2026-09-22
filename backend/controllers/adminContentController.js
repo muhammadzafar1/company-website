@@ -109,6 +109,7 @@ const resources = {
       { name: 'name', label: 'Name', type: 'text', required: true },
       { name: 'email', label: 'Email', type: 'email', required: true },
       { name: 'phone', label: 'Phone', type: 'text' },
+      { name: 'subject', label: 'Subject', type: 'text' },
       { name: 'service', label: 'Service', type: 'text' },
       { name: 'budget', label: 'Budget', type: 'text' },
       { name: 'message', label: 'Message', type: 'textarea', required: true },

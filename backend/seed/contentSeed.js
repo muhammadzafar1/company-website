@@ -15,7 +15,7 @@ const defaultServices = [
 ];
 
 const defaultFaqs = [
-  { question: 'What is AZ MEER?', answer: 'AZ MEER (SMC-PRIVATE) LIMITED is a technology company focused on software development, digital product design, and business system modernization.', category: 'General' },
+  { question: 'What is AZ MEER?', answer: 'AZ MEER SMC-PRIVATE LIMITED is a technology company focused on software development, digital product design, and business system modernization.', category: 'General' },
   { question: 'What services do you provide?', answer: 'We provide mobile app development, full-stack web development, UI/UX design, software architecture, optimization, and maintenance support.', category: 'General' },
   { question: 'Where are you located?', answer: 'Our company is based in Lahore, Pakistan, and we work with clients across local and international markets.', category: 'General' },
   { question: 'Which platforms are supported?', answer: 'We build for web, Android, iOS, and cross-platform environments based on the product requirements.', category: 'Applications' },

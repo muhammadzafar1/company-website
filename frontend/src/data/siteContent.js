@@ -1,11 +1,11 @@
 export const companyProfile = {
-  name: 'AZ MEER (SMC-PRIVATE) LIMITED',
+  name: 'AZ MEER SMC-PRIVATE LIMITED',
   shortName: 'AZ MEER',
   tagline: 'Technology that moves ambition forward.',
   description:
-    'AZ MEER (SMC-PRIVATE) LIMITED builds secure, scalable digital products and business systems for startups, organizations, and growing enterprises.',
-  email: 'hello@azmeer.com',
-  phone: '+92 300 0000000',
+    'AZ MEER SMC-PRIVATE LIMITED builds secure, scalable digital products and business systems for startups, organizations, and growing enterprises.',
+  email: 'azmeer.smc.pvt.ltd@gmail.com',
+  phone: '+92 3328657885',
   location: 'Lahore, Pakistan',
   officeHours: 'Mon - Sat: 9:00 AM - 7:00 PM',
 };
@@ -234,7 +234,7 @@ export const faqItems = [
   {
     question: 'What is AZ MEER?',
     answer:
-      'AZ MEER (SMC-PRIVATE) LIMITED is a technology company focused on software development, digital product design, and business system modernization.',
+      'AZ MEER SMC-PRIVATE LIMITED is a technology company focused on software development, digital product design, and business system modernization.',
     category: 'General',
   },
   {
@@ -349,8 +349,8 @@ export const statusCards = [
 ];
 
 export const contactDetails = {
-  email: 'hello@azmeer.com',
-  phone: '+92 300 0000000',
+  email: 'azmeer.smc.pvt.ltd@gmail.com',
+  phone: '+92 3328657885',
   location: 'Lahore, Pakistan',
   hours: 'Mon - Sat: 9:00 AM - 7:00 PM',
 };

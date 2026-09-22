@@ -18,7 +18,7 @@ const featureIndicators = ['Web products', 'Mobile apps', 'Automation', 'Busines
 export default function HomePage() {
   return (
     <>
-      <PageMeta title="Home" description="AZ MEER (SMC-PRIVATE) LIMITED builds premium mobile, web, and business technology solutions." path="/" />
+      <PageMeta title="Home" description="AZ MEER SMC-PRIVATE LIMITED builds premium mobile, web, and business technology solutions." path="/" />
 
       
 

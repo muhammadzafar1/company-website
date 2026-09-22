@@ -5,6 +5,7 @@ import api, { unwrapApiData } from '../api/api';
 import SectionTitle from '../components/SectionTitle';
 import Hero from '../components/Hero';
 import Button from '../components/Button';
+import PageMeta from '../components/PageMeta';
 
 const serviceCards = [
   { title: 'Web Development', description: 'High-performance websites and web apps built around growth and reliability.', icon: Code2, tags: ['React', 'Next.js', 'Tailwind'] },
@@ -70,6 +71,24 @@ export default function Home() {
   const [testimonialsData, setTestimonialsData] = useState(testimonials);
   const [activeFilter, setActiveFilter] = useState('All');
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [contactForm, setContactForm] = useState({ name: '', email: '', phone: '', service: '', budget: '', message: '' });
+  const [contactStatus, setContactStatus] = useState('');
+  const [contactSubmitting, setContactSubmitting] = useState(false);
+
+  const handleContactSubmit = async (event) => {
+    event.preventDefault();
+    setContactSubmitting(true);
+    setContactStatus('');
+    try {
+      await api.post('/contact', contactForm);
+      setContactForm({ name: '', email: '', phone: '', service: '', budget: '', message: '' });
+      setContactStatus('Your message was sent successfully. We will contact you soon.');
+    } catch (error) {
+      setContactStatus(error.response?.data?.message || 'Unable to send your message right now.');
+    } finally {
+      setContactSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -110,6 +129,7 @@ export default function Home() {
 
   return (
     <div className="home-page">
+      <PageMeta title="Home" description="AZ MEER SMC-PRIVATE LIMITED builds secure web applications, mobile apps, business software, and digital products." path="/" />
       <Hero />
 
       <main>
@@ -314,23 +334,24 @@ export default function Home() {
             <div>
               <SectionTitle eyebrow="Contact" title="Let’s Build Something Amazing Together" subtitle="Tell us about your vision. We’ll shape the roadmap and help you build the right product for market momentum." align="left" />
               <div className="mt-8 space-y-4 text-slate-300">
-                <p>Email: hello@stepbystep.dev</p>
-                <p>Phone: +92 300 1234567</p>
+                <p>Email: azmeer.smc.pvt.ltd@gmail.com</p>
+                <p>Phone: +92 3328657885</p>
                 <p>Location: Lahore, Pakistan</p>
                 <p>Working Hours: Mon–Sat, 9:00 AM – 8:00 PM</p>
               </div>
             </div>
 
-            <form className="grid gap-5 md:grid-cols-2">
-              <input className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none ring-0 placeholder:text-slate-500" placeholder="Name" />
-              <input className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500" placeholder="Email" />
-              <input className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500" placeholder="Phone" />
-              <input className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500" placeholder="Service" />
-              <input className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500 md:col-span-2" placeholder="Budget" />
-              <textarea rows="5" className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500 md:col-span-2" placeholder="Message" />
+            <form onSubmit={handleContactSubmit} className="grid gap-5 md:grid-cols-2">
+              <input name="name" value={contactForm.name} onChange={(event) => setContactForm({ ...contactForm, name: event.target.value })} required className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none ring-0 placeholder:text-slate-500" placeholder="Name" />
+              <input name="email" type="email" value={contactForm.email} onChange={(event) => setContactForm({ ...contactForm, email: event.target.value })} required className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500" placeholder="Email" />
+              <input name="phone" value={contactForm.phone} onChange={(event) => setContactForm({ ...contactForm, phone: event.target.value })} className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500" placeholder="Phone" />
+              <input name="service" value={contactForm.service} onChange={(event) => setContactForm({ ...contactForm, service: event.target.value })} className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500" placeholder="Service" />
+              <input name="budget" value={contactForm.budget} onChange={(event) => setContactForm({ ...contactForm, budget: event.target.value })} className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500 md:col-span-2" placeholder="Budget" />
+              <textarea name="message" value={contactForm.message} onChange={(event) => setContactForm({ ...contactForm, message: event.target.value })} required rows="5" className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500 md:col-span-2" placeholder="Message" />
               <div className="md:col-span-2">
-                <Button type="submit" className="w-full justify-center">Send Message</Button>
+                <Button type="submit" disabled={contactSubmitting} className="w-full justify-center">{contactSubmitting ? 'Sending...' : 'Send Message'}</Button>
               </div>
+              {contactStatus && <div className="md:col-span-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-200">{contactStatus}</div>}
             </form>
           </div>
         </section>

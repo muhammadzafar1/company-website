@@ -53,10 +53,10 @@ export default function ContactPage() {
             <div className="flex items-center gap-3"><MapPin className="h-5 w-5 text-[var(--brand-light)]" /><span className="text-[var(--text-onDarkMuted)]">{contactDetails.location}</span></div>
             <div className="flex items-center gap-3"><Clock3 className="h-5 w-5 text-[var(--brand-light)]" /><span className="text-[var(--text-onDarkMuted)]">{contactDetails.hours}</span></div>
             <div className="flex flex-col gap-3 pt-3 sm:flex-row">
-              <a href="https://wa.me/923000000000" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-sm font-semibold text-white transition hover:brightness-95">
+              <a href="https://wa.me/923328657885" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-sm font-semibold text-white transition hover:brightness-95">
                 <MessageCircle className="h-4 w-4" /> WhatsApp
               </a>
-              <a href="mailto:hello@azmeer.com" className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--brand)] bg-[var(--brand)]/10 px-4 py-3 text-sm font-semibold text-[var(--brand-dark)] transition hover:bg-[var(--brand)]/20">
+              <a href="mailto:azmeer.smc.pvt.ltd@gmail.com" className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--brand)] bg-[var(--brand)]/10 px-4 py-3 text-sm font-semibold text-[var(--brand-dark)] transition hover:bg-[var(--brand)]/20">
                 <Mail className="h-4 w-4" /> Email us
               </a>
             </div>

@@ -1,0 +1,31 @@
+# AZ MEER SMC-PRIVATE LIMITED
+
+> AZ MEER is a technology company based in Lahore, Pakistan. It builds web applications, mobile apps, custom software, business systems, APIs, and digital products.
+
+## Primary pages
+
+- [Home](https://azmeer.tech/): Company overview, products, services, and technology capabilities.
+- [About](https://azmeer.tech/about): Company profile, values, leadership, and technology approach.
+- [Services](https://azmeer.tech/services): Web development, mobile application development, UI/UX design, software architecture, optimization, and technical support.
+- [Products](https://azmeer.tech/products): Digital applications and business software portfolio.
+- [Portfolio](https://azmeer.tech/portfolio): Selected web, mobile, and operations projects.
+- [Blog](https://azmeer.tech/blog): Articles about software engineering, product development, architecture, security, and digital growth.
+- [FAQ](https://azmeer.tech/faq): Answers about services, applications, project process, and support.
+- [Contact](https://azmeer.tech/contact): Contact AZ MEER for project inquiries, partnerships, and quote requests.
+- [Developers](https://azmeer.tech/developers): API, authentication, integration, and developer information.
+- [Team](https://azmeer.tech/team): AZ MEER team and delivery specialists.
+
+## Capabilities
+
+Web development, website development, React, Node.js, Express, MongoDB, Flutter, Android, iOS, mobile app development, application development, custom software development, API development, business automation, SaaS products, UI/UX design, software architecture, performance optimization, maintenance, technical support, and digital transformation.
+
+## Machine-readable resources
+
+- [Sitemap](https://azmeer.tech/sitemap.xml)
+- [Robots policy](https://azmeer.tech/robots.txt)
+
+## Contact
+
+Email: azmeer.smc.pvt.ltd@gmail.com
+Location: Lahore, Pakistan
+Website: https://azmeer.tech/
