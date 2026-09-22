@@ -57,28 +57,39 @@ export const login = async (req, res, next) => {
     const { adminEmail, adminUsername, adminPassword } = getEnvAdminCredentials();
 
     const providedIdentifier = (email || username || '').trim().toLowerCase();
-    const validIdentifier = (providedIdentifier === adminEmail || providedIdentifier === (adminUsername || '').trim().toLowerCase());
+    const databaseAdmin = await Admin.findOne({
+      $or: [
+        { email: providedIdentifier },
+        { name: providedIdentifier },
+      ],
+    });
 
-    if (!validIdentifier) {
+    let authenticatedAdmin = null;
+    if (databaseAdmin && await bcrypt.compare(password, databaseAdmin.password)) {
+      authenticatedAdmin = databaseAdmin;
+    } else {
+      const validEnvIdentifier = providedIdentifier === adminEmail
+        || providedIdentifier === adminUsername.toLowerCase();
+      if (validEnvIdentifier && adminPassword && password === adminPassword) {
+        authenticatedAdmin = {
+          _id: 'admin',
+          name: adminUsername || 'Admin',
+          email: adminEmail,
+          role: 'super-admin',
+        };
+      }
+    }
+
+    if (!authenticatedAdmin) {
       return sendResponse(res, 401, false, 'Invalid email or password', {});
     }
 
-    if (!adminPassword) {
-      return sendResponse(res, 401, false, 'Admin password is not configured in .env', {});
-    }
-
-    const envPasswordMatch = await bcrypt.compare(password, await bcrypt.hash(password, 10)) && password === adminPassword;
-    if (!envPasswordMatch) {
-      return sendResponse(res, 401, false, 'Invalid email or password', {});
-    }
-
-    const profile = await ensureAdminProfile();
     const token = jwt.sign(
       {
-        id: 'admin',
-        name: profile.displayName || adminUsername || 'Admin',
-        email: profile.email || adminEmail,
-        role: 'super-admin',
+        id: authenticatedAdmin._id.toString(),
+        name: authenticatedAdmin.name,
+        email: authenticatedAdmin.email,
+        role: authenticatedAdmin.role,
       },
       process.env.JWT_SECRET || 'default-secret',
       { expiresIn: '7d' }
@@ -87,10 +98,10 @@ export const login = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Login successful', {
       token,
       admin: {
-        id: 'admin',
-        name: profile.displayName || adminUsername || 'Admin',
-        email: profile.email || adminEmail,
-        role: 'super-admin',
+        id: authenticatedAdmin._id.toString(),
+        name: authenticatedAdmin.name,
+        email: authenticatedAdmin.email,
+        role: authenticatedAdmin.role,
       },
     });
   } catch (error) {
