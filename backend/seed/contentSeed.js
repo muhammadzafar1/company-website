@@ -4,6 +4,8 @@ import Faq from '../models/Faq.js';
 import Project from '../models/Project.js';
 import Service from '../models/Service.js';
 import Testimonial from '../models/Testimonial.js';
+import Product from '../models/Product.js';
+import PortfolioCase from '../models/PortfolioCase.js';
 
 const defaultServices = [
   { title: 'Mobile App Development', description: 'Cross-platform mobile experiences for Android, iOS, and Flutter-driven product teams.', price: 0 },
@@ -42,11 +44,26 @@ const defaultTestimonials = [
   { name: 'Sarah Ali', company: 'Luma Commerce', role: 'Product Lead', review: 'From planning to launch, the team helped us simplify decisions and ship a more confident digital experience.', rating: 5 },
 ];
 
+const defaultProducts = [
+  { slug: 'mezzy-mobile-app', title: 'Mezzy Mobile App', description: 'A customer-focused mobile application with booking, notifications, and secure authentication.', category: 'Mobile App', platform: 'Android / iOS / Web', technologies: ['Flutter', 'Firebase', 'APIs'], features: ['Smart onboarding', 'Booking flow', 'Notifications', 'Analytics'], image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80' },
+  { slug: 'azmeer-business-suite', title: 'AZ MEER Business Suite', description: 'A scalable dashboard for workflows, reporting, client communication, and business automation.', category: 'SaaS', platform: 'Web', technologies: ['React', 'Node.js', 'MongoDB'], features: ['Role-based dashboards', 'Reports', 'Automation', 'Client portal'], image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80' },
+  { slug: 'rapid-commerce', title: 'Rapid Commerce', description: 'A modern commerce experience built for product discovery, checkout, and order tracking.', category: 'E-commerce', platform: 'Web / Mobile', technologies: ['Shopify', 'Stripe', 'SEO'], features: ['Catalog', 'Checkout', 'Analytics', 'Inventory'], image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80' },
+  { slug: 'field-connect', title: 'Field Connect', description: 'A field operations platform for teams, service requests, reporting, and operational visibility.', category: 'Enterprise', platform: 'Web / Android', technologies: ['Maps', 'REST APIs', 'Admin panel'], features: ['Task tracking', 'GPS', 'Scheduling', 'Analytics'], image: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80' },
+];
+
+const defaultPortfolio = [
+  { slug: 'luma-retail-journey', title: 'Luma Retail Journey', category: 'E-commerce', client: 'Retail Growth Studio', description: 'Conversion-driven commerce platform upgrade for a growing retail brand.', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80', technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'] },
+  { slug: 'urban-ops', title: 'UrbanOps', category: 'Operations', client: 'Field Services Group', description: 'Operations dashboard designed to centralize service tracking across teams and locations.', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80', technologies: ['React', 'Express', 'PostgreSQL', 'Maps'] },
+  { slug: 'nextwave-health', title: 'NextWave Health', category: 'Mobile', client: 'Digital Care Network', description: 'Patient-first mobile experience with appointment scheduling and secure account access.', image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80', technologies: ['Flutter', 'REST APIs', 'MySQL', 'Push Notifications'] },
+];
+
 export const seedContent = async () => {
   if (!await Service.exists()) await Service.insertMany(defaultServices);
   if (!await Faq.exists()) await Faq.insertMany(defaultFaqs);
   if (!await BlogPost.exists()) await BlogPost.insertMany(defaultBlogPosts);
   if (!await Testimonial.exists()) await Testimonial.insertMany(defaultTestimonials);
+  if (!await Product.exists()) await Product.insertMany(defaultProducts);
+  if (!await PortfolioCase.exists()) await PortfolioCase.insertMany(defaultPortfolio);
 
   let employees = await Employee.find().sort({ createdAt: 1 });
   if (!employees.length) employees = await Employee.insertMany(defaultEmployees);

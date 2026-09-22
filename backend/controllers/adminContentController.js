@@ -3,6 +3,8 @@ import Contact from '../models/Contact.js';
 import Employee from '../models/Employee.js';
 import Faq from '../models/Faq.js';
 import Project from '../models/Project.js';
+import Product from '../models/Product.js';
+import PortfolioCase from '../models/PortfolioCase.js';
 import QuoteRequest from '../models/QuoteRequest.js';
 import Service from '../models/Service.js';
 import Team from '../models/Team.js';
@@ -19,6 +21,43 @@ const resources = {
       { name: 'startDate', label: 'Start date', type: 'date', required: true },
       { name: 'deadline', label: 'Deadline', type: 'date', required: true },
       { name: 'assignedEmployees', label: 'Assigned employee IDs', type: 'json', array: true },
+    ],
+  },
+  products: {
+    label: 'Products',
+    model: Product,
+    fields: [
+      { name: 'slug', label: 'Slug', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+      { name: 'category', label: 'Category', type: 'text', required: true },
+      { name: 'platform', label: 'Platform', type: 'text' },
+      { name: 'platforms', label: 'Platforms', type: 'text' },
+      { name: 'technologies', label: 'Technologies (JSON array)', type: 'json', array: true },
+      { name: 'features', label: 'Features (JSON array)', type: 'json', array: true },
+      { name: 'image', label: 'Image URL', type: 'url' },
+      { name: 'link', label: 'Link', type: 'url' },
+      { name: 'playStore', label: 'Play Store URL', type: 'url' },
+      { name: 'liveDemo', label: 'Live demo URL', type: 'url' },
+      { name: 'rating', label: 'Rating', type: 'number' },
+      { name: 'published', label: 'Published', type: 'checkbox' },
+    ],
+  },
+  portfolio: {
+    label: 'Portfolio',
+    model: PortfolioCase,
+    fields: [
+      { name: 'slug', label: 'Slug', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'category', label: 'Category', type: 'text', required: true },
+      { name: 'client', label: 'Client', type: 'text' },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+      { name: 'image', label: 'Image URL', type: 'url' },
+      { name: 'technologies', label: 'Technologies (JSON array)', type: 'json', array: true },
+      { name: 'challenge', label: 'Challenge', type: 'textarea' },
+      { name: 'solution', label: 'Solution', type: 'textarea' },
+      { name: 'result', label: 'Result', type: 'textarea' },
+      { name: 'published', label: 'Published', type: 'checkbox' },
     ],
   },
   employees: {

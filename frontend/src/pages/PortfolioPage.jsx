@@ -1,12 +1,19 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageMeta from '../components/PageMeta';
 import SectionTitle from '../components/SectionTitle';
-import { portfolioCases } from '../data/siteContent';
+import api, { unwrapApiData } from '../api/api';
 
 export default function PortfolioPage() {
   const [search, setSearch] = useState('');
+  const [portfolioCases, setPortfolioCases] = useState([]);
+
+  useEffect(() => {
+    api.get('/portfolio')
+      .then((response) => setPortfolioCases(unwrapApiData(response, 'portfolio')))
+      .catch((error) => console.error('Unable to load portfolio', error));
+  }, []);
 
   const filteredCases = useMemo(() => {
     if (!search.trim()) return portfolioCases;

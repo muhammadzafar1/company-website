@@ -18,6 +18,8 @@ import blogRoutes from './routes/blogRoutes.js';
 import faqRoutes from './routes/faqRoutes.js';
 import quoteRoutes from './routes/quoteRoutes.js';
 import adminContentRoutes from './routes/adminContentRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+import portfolioRoutes from './routes/portfolioRoutes.js';
 import { seedTeam } from './seed/teamSeed.js';
 import { seedContent } from './seed/contentSeed.js';
 
@@ -89,6 +91,8 @@ app.use('/api/team', teamRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/faq', faqRoutes);
 app.use('/api/quote', quoteRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/admin/content', adminContentRoutes);
 
 app.use((req, res) => {
