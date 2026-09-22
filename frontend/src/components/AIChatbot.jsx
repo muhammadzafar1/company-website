@@ -11,6 +11,55 @@ function getAssistantText(payload) {
   return payload?.candidates?.[0]?.content?.parts?.map((part) => part.text || '').join('') || '';
 }
 
+function renderInlineMarkdown(text) {
+  return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={`${part}-${index}`}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith('*') && part.endsWith('*')) {
+      return <em key={`${part}-${index}`}>{part.slice(1, -1)}</em>;
+    }
+    return part;
+  });
+}
+
+function MarkdownMessage({ text }) {
+  const lines = text.split('\n');
+  const content = [];
+  let listItems = [];
+  let listType = null;
+
+  const flushList = () => {
+    if (!listItems.length) return;
+    const List = listType === 'ordered' ? 'ol' : 'ul';
+    content.push(
+      <List key={`list-${content.length}`} className={listType === 'ordered' ? 'list-decimal space-y-2 pl-5' : 'list-disc space-y-2 pl-5'}>
+        {listItems.map((item, index) => <li key={`${item}-${index}`}>{renderInlineMarkdown(item)}</li>)}
+      </List>,
+    );
+    listItems = [];
+    listType = null;
+  };
+
+  lines.forEach((line, index) => {
+    const orderedItem = line.match(/^\s*\d+[.)]\s+(.*)$/);
+    const unorderedItem = line.match(/^\s*[-*]\s+(.*)$/);
+    if (orderedItem || unorderedItem) {
+      const nextType = orderedItem ? 'ordered' : 'unordered';
+      if (listType && listType !== nextType) flushList();
+      listType = nextType;
+      listItems.push((orderedItem || unorderedItem)[1]);
+      return;
+    }
+
+    flushList();
+    if (line.trim()) content.push(<p key={`line-${index}`}>{renderInlineMarkdown(line)}</p>);
+  });
+  flushList();
+
+  return <div className="space-y-2">{content}</div>;
+}
+
 export default function AIChatbot() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
@@ -79,7 +128,7 @@ export default function AIChatbot() {
             {messages.map((message, index) => (
               <div key={`${message.role}-${index}`} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[88%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-6 ${message.role === 'user' ? 'rounded-br-sm bg-[var(--accent)] text-[var(--on-accent)]' : 'rounded-bl-sm border border-[var(--border-light)] bg-[var(--surface-light)] text-[var(--text-on-light-body)]'}`}>
-                  {message.text}
+                  {message.role === 'assistant' ? <MarkdownMessage text={message.text} /> : message.text}
                 </div>
               </div>
             ))}

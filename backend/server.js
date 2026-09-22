@@ -17,6 +17,7 @@ import teamRoutes from './routes/teamRoutes.js';
 import blogRoutes from './routes/blogRoutes.js';
 import faqRoutes from './routes/faqRoutes.js';
 import quoteRoutes from './routes/quoteRoutes.js';
+import { seedTeam } from './seed/teamSeed.js';
 
 dotenv.config();
 
@@ -102,6 +103,7 @@ const startServer = async () => {
 
   if (dbConnected) {
     await seedAdmin();
+    await seedTeam();
   } else {
     console.warn('Server started without MongoDB connection. Login will not work until database is reachable.');
   }
