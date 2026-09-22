@@ -1,5 +1,11 @@
-import { ArrowRight, Github, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+const socialLinks = [
+  { label: 'LinkedIn', url: 'https://www.linkedin.com/company/az-meer-smc-private-ltd/', icon: Linkedin },
+  { label: 'Facebook', url: 'https://www.facebook.com/AzMeerSmcPrivateLtd', icon: Facebook },
+  { label: 'Instagram', url: 'https://www.instagram.com/azmeer.smc.private.ltd/', icon: Instagram },
+];
 
 export default function Footer() {
   return (
@@ -16,8 +22,8 @@ export default function Footer() {
             </div>
             <p className="mt-5 max-w-md text-text-onDarkMuted">We build secure, scalable digital products and business systems that help organizations move faster and operate smarter.</p>
             <div className="mt-6 flex gap-3">
-              {[Github, Linkedin, Instagram].map((Icon, index) => (
-                <a key={index} href="#" className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-white/5 text-text-onDarkMuted transition hover:border-brand hover:text-brand-light">
+              {socialLinks.map(({ label, url, icon: Icon }) => (
+                <a key={label} href={url} target="_blank" rel="noreferrer" aria-label={label} className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-white/5 text-text-onDarkMuted transition hover:border-brand hover:text-brand-light">
                   <Icon className="h-4 w-4" />
                 </a>
               ))}
@@ -27,7 +33,7 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-text-onDark">Quick Links</h4>
             <ul className="mt-5 space-y-3 text-text-onDarkMuted">
-              {['Home', 'About', 'Services', 'Portfolio', 'Contact'].map((link) => (
+              {['Home', 'About', 'Services', 'Portfolio', 'Team', 'Contact'].map((link) => (
                 <li key={link}><Link to={link === 'Home' ? '/' : `/${link.toLowerCase()}` } className="hover:text-brand-light">{link}</Link></li>
               ))}
             </ul>

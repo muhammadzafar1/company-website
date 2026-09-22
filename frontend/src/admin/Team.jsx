@@ -4,8 +4,20 @@ import api, { unwrapApiData } from '../api/api';
 const initialForm = {
   name: '',
   position: '',
+  shortBio: '',
+  about: '',
+  location: '',
+  email: '',
+  phone: '',
+  experience: '',
+  availability: '',
   skills: 'React, MongoDB, UX',
+  focus: '',
+  portfolio: '',
   image: '',
+  linkedin: '',
+  github: '',
+  twitter: '',
 };
 
 export default function Team() {
@@ -39,12 +51,16 @@ export default function Team() {
     setMessage('');
 
     try {
+      const { linkedin, github, twitter, ...profile } = form;
       await api.post('/team', {
-        ...form,
-        skills: form.skills
+        ...profile,
+        skills: profile.skills
           .split(',')
           .map((item) => item.trim())
           .filter(Boolean),
+        focus: profile.focus.split(',').map((item) => item.trim()).filter(Boolean),
+        portfolio: profile.portfolio.split(',').map((item) => item.trim()).filter(Boolean),
+        socialLinks: { linkedin, github, twitter },
       });
       setForm(initialForm);
       await loadItems();
@@ -68,8 +84,20 @@ export default function Team() {
       <form onSubmit={handleSubmit} className="grid gap-4 rounded-[1.5rem] border border-[var(--border-light)] bg-[var(--surface-light)] p-6 md:grid-cols-2">
         <input name="name" value={form.name} onChange={handleChange} placeholder="Full name" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" required />
         <input name="position" value={form.position} onChange={handleChange} placeholder="Role" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" required />
+        <input name="shortBio" value={form.shortBio} onChange={handleChange} placeholder="Short bio" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <textarea name="about" value={form.about} onChange={handleChange} placeholder="Full profile about" className="min-h-[110px] rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="location" value={form.location} onChange={handleChange} placeholder="Location" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="experience" value={form.experience} onChange={handleChange} placeholder="Experience, e.g. 6+ years" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="Email" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="availability" value={form.availability} onChange={handleChange} placeholder="Availability" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
         <input name="skills" value={form.skills} onChange={handleChange} placeholder="React, UX, Node" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="focus" value={form.focus} onChange={handleChange} placeholder="Current focus, comma separated" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="portfolio" value={form.portfolio} onChange={handleChange} placeholder="Portfolio projects, comma separated" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
         <input name="image" value={form.image} onChange={handleChange} placeholder="Image URL" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="linkedin" value={form.linkedin} onChange={handleChange} placeholder="LinkedIn URL" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="github" value={form.github} onChange={handleChange} placeholder="GitHub URL" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
+        <input name="twitter" value={form.twitter} onChange={handleChange} placeholder="X / Twitter URL" className="rounded-xl border border-[var(--border-light)] bg-[var(--bg-page)] px-4 py-3 text-[var(--text-on-light-heading)] placeholder:text-[var(--text-on-light-muted)] md:col-span-2 focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--focus-ring)]/15" />
         <div className="md:col-span-2">
           <button type="submit" disabled={saving} className="rounded-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)] px-5 py-3 font-medium text-[var(--on-accent)] shadow-lg shadow-[var(--shadow-card)] disabled:opacity-60">
             {saving ? 'Saving...' : 'Save Team Member'}

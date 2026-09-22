@@ -16,6 +16,8 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsPage from './pages/TermsPage';
 import FaqPage from './pages/FaqPage';
 import StatusPage from './pages/StatusPage';
+import SocialMediaPage from './pages/SocialMediaPage';
+import TeamPage from './pages/TeamPage';
 import AdminLogin from './admin/AdminLogin';
 import AdminLayout from './admin/AdminLayout';
 import DashboardPage from './admin/DashboardPage';
@@ -26,7 +28,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="relative min-h-screen bg-transparent text-[var(--text-primary)] antialiased">
-        <div className="pointer-events-none fixed left-1/2 top-16 h-80 w-80 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(224,169,109,0.22),_rgba(201,138,69,0.10),_rgba(224,169,109,0)_68%)] blur-3xl" />
         <AnimatedBackground />
         <CursorFluid />
         <ScrollReveal />
@@ -47,6 +48,8 @@ function App() {
             <Route path="/terms" element={<><Navbar /><TermsPage /><Footer /></>} />
             <Route path="/faq" element={<><Navbar /><FaqPage /><Footer /></>} />
             <Route path="/status" element={<><Navbar /><StatusPage /><Footer /></>} />
+            <Route path="/social-media" element={<><Navbar /><SocialMediaPage /><Footer /></>} />
+            <Route path="/team" element={<><Navbar /><TeamPage /><Footer /></>} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="/admin/dashboard" element={<AdminLayout title="Dashboard" subtitle="Overview" activeTab="Dashboard"><DashboardPage /></AdminLayout>} />

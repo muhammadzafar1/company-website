@@ -109,12 +109,6 @@ button, input, textarea, select { font: inherit; }
   opacity: 0.82;
 }
 
-.three-background-wash {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.8), transparent 38%), linear-gradient(135deg, rgba(250, 240, 230, 0.35), rgba(255, 248, 240, 0.08));
-}
-
 .cursor-fluid {
   position: fixed;
   inset: 0;
@@ -162,6 +156,19 @@ button, input, textarea, select { font: inherit; }
   background: var(--surface-light) !important;
   color: var(--text-on-light-body);
   box-shadow: var(--shadow-card);
+}
+
+[class*="bg-[var(--dark-surface)]"] {
+  background: var(--surface-light) !important;
+  color: var(--text-on-light-body) !important;
+}
+
+[class*="text-[var(--text-onDark)]"] {
+  color: var(--text-on-light-heading) !important;
+}
+
+[class*="text-[var(--text-onDarkMuted)]"] {
+  color: var(--text-on-light-muted) !important;
 }
 
 .light-footer {

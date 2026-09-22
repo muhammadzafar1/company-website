@@ -56,26 +56,10 @@ export default function ThreeBackground() {
       group.add(mesh);
     });
 
-    const rayGroup = new THREE.Group();
-    const rayMaterial = new THREE.LineBasicMaterial({ color: 0xe0a96d, transparent: true, opacity: 0.22 });
-    for (let index = 0; index < 54; index += 1) {
-      const angle = (index / 54) * Math.PI * 2;
-      const innerRadius = 1.2 + (index % 3) * 0.35;
-      const outerRadius = 7 + (index % 4) * 0.8;
-      const points = [
-        new THREE.Vector3(Math.cos(angle) * innerRadius, Math.sin(angle) * innerRadius, -4),
-        new THREE.Vector3(Math.cos(angle) * outerRadius, Math.sin(angle) * outerRadius, -4),
-      ];
-      const ray = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), rayMaterial);
-      rayGroup.add(ray);
-    }
-    rayGroup.rotation.z = 0.18;
-    scene.add(rayGroup);
-
     const ionGroup = new THREE.Group();
-    const ionGeometry = new THREE.SphereGeometry(0.085, 12, 8);
-    const ionMaterial = new THREE.MeshBasicMaterial({ color: 0xffd69e, transparent: true, opacity: 0.92 });
-    const bondMaterial = new THREE.LineBasicMaterial({ color: 0xe0a96d, transparent: true, opacity: 0.35 });
+    const ionGeometry = new THREE.SphereGeometry(0.12, 16, 12);
+    const ionMaterial = new THREE.MeshPhysicalMaterial({ color: 0xf3bf82, emissive: 0x8a4b1f, emissiveIntensity: 0.7, roughness: 0.22, metalness: 0.35, transparent: true, opacity: 0.95 });
+    const bondMaterial = new THREE.LineBasicMaterial({ color: 0xc98a45, transparent: true, opacity: 0.62 });
     const ionMeshes = ionNodes.map(() => {
       const ion = new THREE.Mesh(ionGeometry, ionMaterial);
       ionGroup.add(ion);
@@ -90,6 +74,19 @@ export default function ThreeBackground() {
     });
     ionGroup.position.z = -0.4;
     scene.add(ionGroup);
+
+    const moleculeGroups = [ionGroup];
+    [[-3.8, 1.7, -1.6, 0.72], [3.8, -1.2, -2.2, 0.8], [3.1, 2.6, -3.2, 0.52]].forEach(([x, y, z, scale]) => {
+      const molecule = ionGroup.clone();
+      molecule.children.slice(ionNodes.length).forEach((bond) => {
+        bond.geometry = bond.geometry.clone();
+      });
+      molecule.position.set(x, y, z);
+      molecule.scale.setScalar(scale);
+      molecule.rotation.set(0.2, -0.4, 0.3);
+      scene.add(molecule);
+      moleculeGroups.push(molecule);
+    });
 
     const particleGeometry = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(90 * 3);
@@ -139,28 +136,37 @@ export default function ThreeBackground() {
       group.rotation.x = scrollProgress * Math.PI * 0.24;
       group.position.y = (scrollProgress - 0.5) * -1.2;
       camera.position.y = (scrollProgress - 0.5) * 0.7;
-      rayGroup.rotation.z = 0.18 + scrollProgress * Math.PI * 0.3;
-      rayGroup.scale.setScalar(1 + scrollProgress * 0.08);
       ionGroup.rotation.y = scrollProgress * Math.PI * 0.75;
-      ionGroup.rotation.x = Math.sin(scrollProgress * Math.PI) * 0.16;
-      ionNodes.forEach(([x, y, z, w], index) => {
-        const phase = index * 0.42;
-        const projectedW = w + Math.sin(scrollProgress * Math.PI * 2 + phase) * 0.22;
-        const perspective = 1 / (1 - projectedW * 0.32);
-        ionMeshes[index].position.set(x * perspective, y * perspective, z + projectedW * 1.8);
-        ionMeshes[index].scale.setScalar(0.8 + perspective * 0.24);
+      ionGroup.rotation.x = Math.sin(scrollProgress * Math.PI) * 0.22;
+      ionGroup.rotation.z = Math.sin(time * 0.00012) * 0.08;
+      moleculeGroups.slice(1).forEach((molecule, index) => {
+        molecule.rotation.y = scrollProgress * Math.PI * (0.34 + index * 0.08);
+        molecule.rotation.x = Math.sin(time * 0.00016 + index) * 0.12;
+        molecule.rotation.z += delta * (index % 2 ? 0.00008 : -0.00006);
       });
-      bondLines.forEach(({ bond, start, end }) => {
-        const startPosition = ionMeshes[start].position;
-        const endPosition = ionMeshes[end].position;
-        const positions = bond.geometry.attributes.position.array;
-        positions[0] = startPosition.x;
-        positions[1] = startPosition.y;
-        positions[2] = startPosition.z;
-        positions[3] = endPosition.x;
-        positions[4] = endPosition.y;
-        positions[5] = endPosition.z;
-        bond.geometry.attributes.position.needsUpdate = true;
+      moleculeGroups.forEach((molecule, moleculeIndex) => {
+        const nodes = molecule.children.slice(0, ionNodes.length);
+        const bonds = molecule.children.slice(ionNodes.length);
+        ionNodes.forEach(([x, y, z, w], index) => {
+          const phase = index * 0.42 + moleculeIndex * 0.8;
+          const projectedW = w + Math.sin(scrollProgress * Math.PI * 2 + phase + time * 0.00012) * 0.22;
+          const perspective = 1 / (1 - projectedW * 0.32);
+          nodes[index].position.set(x * perspective, y * perspective, z + projectedW * 1.8);
+          nodes[index].scale.setScalar(0.8 + perspective * 0.24);
+        });
+        bonds.forEach((bond, bondIndex) => {
+          const [start, end] = ionBonds[bondIndex];
+          const startPosition = nodes[start].position;
+          const endPosition = nodes[end].position;
+          const positions = bond.geometry.attributes.position.array;
+          positions[0] = startPosition.x;
+          positions[1] = startPosition.y;
+          positions[2] = startPosition.z;
+          positions[3] = endPosition.x;
+          positions[4] = endPosition.y;
+          positions[5] = endPosition.z;
+          bond.geometry.attributes.position.needsUpdate = true;
+        });
       });
       particles.rotation.y += delta * 0.000025;
 
@@ -185,11 +191,12 @@ export default function ThreeBackground() {
       window.removeEventListener('scroll', updateScroll);
       geometries.forEach((geometry) => geometry.dispose());
       materials.forEach((material) => material.dispose());
-      rayGroup.children.forEach((ray) => ray.geometry.dispose());
-      rayMaterial.dispose();
       ionGeometry.dispose();
       ionMaterial.dispose();
       bondLines.forEach(({ bond }) => bond.geometry.dispose());
+      moleculeGroups.slice(1).forEach((molecule) => {
+        molecule.children.slice(ionNodes.length).forEach((bond) => bond.geometry.dispose());
+      });
       bondMaterial.dispose();
       particleGeometry.dispose();
       particles.material.dispose();
