@@ -23,6 +23,7 @@ import AdminLayout from './admin/AdminLayout';
 import DashboardPage from './admin/DashboardPage';
 import Employees from './admin/Employees';
 import Settings from './admin/Settings';
+import AIChatbot from './components/AIChatbot';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <AnimatedBackground />
         <CursorFluid />
         <ScrollReveal />
+        <AIChatbot />
         <div className="relative z-10 min-h-screen bg-transparent text-[var(--text-primary)]">
           <Routes>
             <Route path="/" element={<><Navbar /><HomePage /><Footer /></>} />

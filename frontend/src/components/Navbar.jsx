@@ -79,7 +79,7 @@ export default function Navbar() {
 
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="border-t border-[var(--border)] bg-[var(--panel)] lg:hidden">
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="max-h-[calc(100vh-72px)] overflow-y-auto overscroll-contain border-t border-[var(--border)] bg-[var(--panel)] lg:hidden">
             <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5">
               {primaryNavItems.map((item) => (
                 <Link key={item.label} to={item.href} onClick={() => setMobileOpen(false)} className="rounded-md px-3 py-2 text-[var(--text-primary)] hover:bg-[var(--surface)] hover:text-[var(--brand)]">
