@@ -109,7 +109,7 @@ export default function Home() {
   const visibleProjects = activeFilter === 'All' ? projects.length ? projects : portfolioItems : (projects.length ? projects : portfolioItems).filter((item) => item.category === activeFilter);
 
   return (
-    <div>
+    <div className="home-page">
       <Hero />
 
       <main>

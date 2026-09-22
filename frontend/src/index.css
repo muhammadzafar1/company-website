@@ -225,6 +225,28 @@ button, input, textarea, select { font: inherit; }
   color: var(--text-on-dark-heading) !important;
 }
 
+.home-page .bg-slate-900, .home-page .bg-slate-950, .home-page .bg-slate-900\/60, .home-page .bg-slate-900\/65, .home-page .bg-slate-900\/70, .home-page .bg-slate-900\/75, .home-page .bg-slate-900\/80, .home-page .bg-slate-950\/80, .home-page .bg-slate-950\/60, .home-page .bg-slate-900\/40, .home-page .bg-slate-900\/20 {
+  background: var(--surface-light-hover) !important;
+  color: var(--text-on-light-heading) !important;
+}
+
+.home-page .text-white,
+.home-page .text-slate-100,
+.home-page .text-slate-200,
+.home-page .text-slate-300,
+.home-page .text-slate-400,
+.home-page .text-slate-500 {
+  color: var(--text-on-light-body) !important;
+}
+
+.home-page .text-white,
+.home-page .text-slate-900,
+.home-page .text-slate-800,
+.home-page .text-slate-700,
+.home-page .text-slate-600 {
+  color: var(--text-on-light-heading) !important;
+}
+
 .bg-slate-50, .bg-slate-100, .bg-slate-200 {
   background: var(--surface-light) !important;
   color: var(--text-on-light-heading) !important;
