@@ -1,4 +1,5 @@
 import { CheckCircle2, Code2, Globe, LockKeyhole } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import PageMeta from '../components/PageMeta';
 import SectionTitle from '../components/SectionTitle';
 import { developerSections } from '../data/siteContent';
@@ -18,6 +19,10 @@ export default function DevelopersPage() {
 
       <main className="mx-auto max-w-7xl px-4 py-28 md:px-6">
         <SectionTitle eyebrow="Developer / API Portal" title="Developer documentation for integration and product growth" subtitle="A clean starting point for API consumers, internal teams, and technical partners." align="left" />
+
+        <div className="mb-10 rounded-2xl border border-[var(--border-light)] bg-[var(--surface-light)] p-5 text-[var(--text-on-light-body)]">
+          Building a web or mobile product? Explore our <Link to="/application-developer" className="font-semibold text-[var(--link-on-light)] underline">application developer services</Link> for custom applications, APIs, dashboards, and business software.
+        </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
           {developerSections.map((section) => (

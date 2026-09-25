@@ -7,6 +7,7 @@
   <url><loc>https://azmeer.tech/portfolio</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://azmeer.tech/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://azmeer.tech/developers</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://azmeer.tech/application-developer</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://azmeer.tech/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://azmeer.tech/faq</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://azmeer.tech/team</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>

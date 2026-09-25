@@ -14,6 +14,7 @@ const ProductsPage = lazy(() => import('./pages/ProductsPage'));
 const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const DevelopersPage = lazy(() => import('./pages/DevelopersPage'));
+const ApplicationDeveloperPage = lazy(() => import('./pages/ApplicationDeveloperPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
@@ -77,6 +78,7 @@ function App() {
               <Route path="/blog" element={<><Navbar /><BlogPage /><Footer /></>} />
               <Route path="/blog/:slug" element={<><Navbar /><BlogPage /><Footer /></>} />
               <Route path="/developers" element={<><Navbar /><DevelopersPage /><Footer /></>} />
+              <Route path="/application-developer" element={<><Navbar /><ApplicationDeveloperPage /><Footer /></>} />
               <Route path="/contact" element={<><Navbar /><ContactPage /><Footer /></>} />
               <Route path="/privacy-policy" element={<><Navbar /><PrivacyPolicyPage /><Footer /></>} />
               <Route path="/terms" element={<><Navbar /><TermsPage /><Footer /></>} />
