@@ -2,6 +2,8 @@ import BlogPost from '../models/BlogPost.js';
 import Contact from '../models/Contact.js';
 import Employee from '../models/Employee.js';
 import Faq from '../models/Faq.js';
+import Admin from '../models/Admin.js';
+import AdminProfile from '../models/AdminProfile.js';
 import Project from '../models/Project.js';
 import Product from '../models/Product.js';
 import PortfolioCase from '../models/PortfolioCase.js';
@@ -11,6 +13,25 @@ import Team from '../models/Team.js';
 import Testimonial from '../models/Testimonial.js';
 
 const resources = {
+  adminprofiles: {
+    label: 'Admin profiles',
+    model: AdminProfile,
+    fields: [
+      { name: 'displayName', label: 'Display name', type: 'text' },
+      { name: 'email', label: 'Email', type: 'email' },
+    ],
+  },
+  admins: {
+    label: 'Admins',
+    model: Admin,
+    fields: [
+      { name: 'name', label: 'Name', type: 'text', required: true },
+      { name: 'email', label: 'Email', type: 'email', required: true },
+      { name: 'password', label: 'Password', type: 'password', requiredOnCreate: true },
+      { name: 'role', label: 'Role', type: 'select', options: ['admin', 'super-admin'], required: true },
+    ],
+    protectFields: ['password'],
+  },
   projects: {
     label: 'Projects',
     model: Project,
@@ -43,8 +64,8 @@ const resources = {
       { name: 'published', label: 'Published', type: 'checkbox' },
     ],
   },
-  portfolio: {
-    label: 'Portfolio',
+  portfoliocases: {
+    label: 'Portfolio cases',
     model: PortfolioCase,
     fields: [
       { name: 'slug', label: 'Slug', type: 'text', required: true },
@@ -79,8 +100,8 @@ const resources = {
       { name: 'price', label: 'Price', type: 'number' },
     ],
   },
-  team: {
-    label: 'Team',
+  teams: {
+    label: 'Teams',
     model: Team,
     fields: [
       { name: 'name', label: 'Name', type: 'text', required: true },
@@ -100,7 +121,7 @@ const resources = {
       { name: 'socialLinks', label: 'Social links (JSON object)', type: 'json' },
     ],
   },
-  blog: {
+  blogposts: {
     label: 'Blog posts',
     model: BlogPost,
     fields: [
@@ -154,7 +175,7 @@ const resources = {
       { name: 'message', label: 'Message', type: 'textarea', required: true },
     ],
   },
-  quotes: {
+  quoterequests: {
     label: 'Quote requests',
     model: QuoteRequest,
     fields: [
@@ -175,9 +196,25 @@ const send = (res, status, message, data = {}) => res.status(status).json({ succ
 const getResource = (key) => resources[key];
 
 const cleanPayload = (resource, body) => resource.fields.reduce((payload, field) => {
-  if (body[field.name] !== undefined) payload[field.name] = body[field.name];
+  const isProtectedField = (resource.protectFields || []).includes(field.name);
+  if (body[field.name] !== undefined && (!isProtectedField || body[field.name])) {
+    payload[field.name] = body[field.name];
+  }
   return payload;
 }, {});
+
+const cleanAdminResponse = (resource, item) => {
+  const serialized = item.toObject ? item.toObject() : item;
+  (resource.protectFields || []).forEach((field) => delete serialized[field]);
+  return serialized;
+};
+
+const hashAdminPassword = async (resource, payload) => {
+  if (resource !== resources.admins || !payload.password) return payload;
+
+  const bcrypt = await import('bcryptjs');
+  return { ...payload, password: await bcrypt.default.hash(payload.password, 10) };
+};
 
 export const getContentMeta = (_req, res) => send(res, 200, 'Content metadata fetched successfully', {
   resources: Object.entries(resources).map(([key, resource]) => ({ key, label: resource.label, fields: resource.fields })),
@@ -189,7 +226,9 @@ export const listContent = async (req, res, next) => {
 
   try {
     const items = await resource.model.find().sort({ createdAt: -1 });
-    return send(res, 200, `${resource.label} fetched successfully`, { items });
+    return send(res, 200, `${resource.label} fetched successfully`, {
+      items: items.map((item) => cleanAdminResponse(resource, item)),
+    });
   } catch (error) {
     return next(error);
   }
@@ -200,8 +239,9 @@ export const createContent = async (req, res, next) => {
   if (!resource) return send(res, 404, 'Content resource not found');
 
   try {
-    const item = await resource.model.create(cleanPayload(resource, req.body));
-    return send(res, 201, `${resource.label} item created successfully`, { item });
+    const payload = await hashAdminPassword(resource, cleanPayload(resource, req.body));
+    const item = await resource.model.create(payload);
+    return send(res, 201, `${resource.label} item created successfully`, { item: cleanAdminResponse(resource, item) });
   } catch (error) {
     return next(error);
   }
@@ -212,12 +252,13 @@ export const updateContent = async (req, res, next) => {
   if (!resource) return send(res, 404, 'Content resource not found');
 
   try {
-    const item = await resource.model.findByIdAndUpdate(req.params.id, cleanPayload(resource, req.body), {
+    const payload = await hashAdminPassword(resource, cleanPayload(resource, req.body));
+    const item = await resource.model.findByIdAndUpdate(req.params.id, payload, {
       new: true,
       runValidators: true,
     });
     if (!item) return send(res, 404, `${resource.label} item not found`);
-    return send(res, 200, `${resource.label} item updated successfully`, { item });
+    return send(res, 200, `${resource.label} item updated successfully`, { item: cleanAdminResponse(resource, item) });
   } catch (error) {
     return next(error);
   }
@@ -230,7 +271,7 @@ export const deleteContent = async (req, res, next) => {
   try {
     const item = await resource.model.findByIdAndDelete(req.params.id);
     if (!item) return send(res, 404, `${resource.label} item not found`);
-    return send(res, 200, `${resource.label} item deleted successfully`, { item });
+    return send(res, 200, `${resource.label} item deleted successfully`, { item: cleanAdminResponse(resource, item) });
   } catch (error) {
     return next(error);
   }

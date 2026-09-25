@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Pencil, Plus, Save, Trash2, X } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 import api from '../api/api';
 
 const emptyValue = (field) => {
@@ -25,14 +26,16 @@ const formValue = (value, field) => {
 };
 
 const singularLabel = (label) => {
-  if (label === 'Team') return label;
+  if (label === 'Team' || label === 'Teams') return 'Team';
   if (label === 'FAQs') return 'FAQ';
   return label.endsWith('s') ? label.slice(0, -1) : label;
 };
 
 export default function WebsiteData() {
+  const [searchParams] = useSearchParams();
+  const requestedResource = searchParams.get('resource');
   const [resources, setResources] = useState([]);
-  const [resourceKey, setResourceKey] = useState('');
+  const [resourceKey, setResourceKey] = useState(requestedResource || '');
   const [items, setItems] = useState([]);
   const [form, setForm] = useState({});
   const [editingId, setEditingId] = useState(null);
@@ -60,7 +63,7 @@ export default function WebsiteData() {
         const response = await api.get('/admin/content/meta');
         const entries = response.data?.data?.resources || [];
         setResources(entries);
-        setResourceKey(entries[0]?.key || '');
+        setResourceKey(entries.find((entry) => entry.key === requestedResource)?.key || entries[0]?.key || '');
       } catch (requestError) {
         setError(requestError.response?.data?.message || 'Unable to load content controls');
       } finally {
@@ -68,7 +71,7 @@ export default function WebsiteData() {
       }
     };
     loadMeta();
-  }, []);
+  }, [requestedResource]);
 
   useEffect(() => {
     loadItems();
@@ -186,7 +189,10 @@ export default function WebsiteData() {
           <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-border bg-white p-6 shadow-2xl">
             <div className="mb-5 flex items-center justify-between"><div><p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">{editingId ? 'Edit record' : 'New record'}</p><h3 className="mt-2 text-2xl font-bold text-text-primary">{editingId ? `Edit ${resource.label}` : `Add ${resource.label}`}</h3></div><button type="button" onClick={() => setIsModalOpen(false)} aria-label="Close"><X className="h-5 w-5 text-text-muted" /></button></div>
             <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
-              {resource.fields.map((field) => <label key={field.name} className={`text-sm font-medium text-text-primary ${field.type === 'textarea' || field.type === 'json' ? 'md:col-span-2' : ''}`}>{field.label}{field.required ? ' *' : ''}{field.type === 'select' ? <select required={field.required} value={form[field.name]} onChange={(event) => handleChange(field, event.target.value)} className="mt-1.5 w-full rounded-xl border border-border bg-surface px-3 py-2.5"><option value="">Select...</option>{field.options.map((option) => <option key={option} value={option}>{option}</option>)}</select> : field.type === 'checkbox' ? <input type="checkbox" checked={Boolean(form[field.name])} onChange={(event) => handleChange(field, event.target.checked)} className="ml-3 h-4 w-4 align-middle" /> : field.type === 'textarea' || field.type === 'json' ? <textarea required={field.required} value={form[field.name]} onChange={(event) => handleChange(field, event.target.value)} rows={field.type === 'json' ? 3 : 5} className="mt-1.5 w-full rounded-xl border border-border bg-surface px-3 py-2.5 font-normal" /> : <input required={field.required} type={field.type} value={form[field.name]} onChange={(event) => handleChange(field, event.target.value)} className="mt-1.5 w-full rounded-xl border border-border bg-surface px-3 py-2.5 font-normal" />}</label>)}
+              {resource.fields.map((field) => {
+                const isRequired = field.required || (field.requiredOnCreate && !editingId);
+                return <label key={field.name} className={`text-sm font-medium text-text-primary ${field.type === 'textarea' || field.type === 'json' ? 'md:col-span-2' : ''}`}>{field.label}{isRequired ? ' *' : ''}{field.type === 'select' ? <select required={isRequired} value={form[field.name]} onChange={(event) => handleChange(field, event.target.value)} className="mt-1.5 w-full rounded-xl border border-border bg-surface px-3 py-2.5"><option value="">Select...</option>{field.options.map((option) => <option key={option} value={option}>{option}</option>)}</select> : field.type === 'checkbox' ? <input type="checkbox" checked={Boolean(form[field.name])} onChange={(event) => handleChange(field, event.target.checked)} className="ml-3 h-4 w-4 align-middle" /> : field.type === 'textarea' || field.type === 'json' ? <textarea required={isRequired} value={form[field.name]} onChange={(event) => handleChange(field, event.target.value)} rows={field.type === 'json' ? 3 : 5} className="mt-1.5 w-full rounded-xl border border-border bg-surface px-3 py-2.5 font-normal" /> : <input required={isRequired} type={field.type} value={form[field.name]} onChange={(event) => handleChange(field, event.target.value)} className="mt-1.5 w-full rounded-xl border border-border bg-surface px-3 py-2.5 font-normal" />}</label>;
+              })}
               <div className="flex justify-end gap-3 pt-2 md:col-span-2"><button type="button" onClick={() => setIsModalOpen(false)} className="rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-text-primary">Cancel</button><button type="submit" disabled={saving} className="inline-flex items-center gap-2 rounded-xl bg-brand px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60"><Save className="h-4 w-4" />{saving ? 'Saving...' : 'Save record'}</button></div>
             </form>
           </div>

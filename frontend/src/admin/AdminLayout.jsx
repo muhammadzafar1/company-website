@@ -1,4 +1,4 @@
-import { LayoutDashboard, FolderKanban, Users, Database, Settings2, LogOut } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Users, Database, Settings2, LogOut, Table2 } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PageMeta from '../components/PageMeta';
@@ -9,6 +9,22 @@ const navItems = [
   { label: 'Employees', to: '/admin/employees', icon: Users },
   { label: 'Website Data', to: '/admin/content', icon: Database },
   { label: 'Admin Settings', to: '/admin/settings', icon: Settings2 },
+];
+
+const contentTables = [
+  ['adminprofiles', 'Admin profiles'],
+  ['admins', 'Admins'],
+  ['blogposts', 'Blog posts'],
+  ['contacts', 'Contacts'],
+  ['employees', 'Employees'],
+  ['faqs', 'FAQs'],
+  ['portfoliocases', 'Portfolio cases'],
+  ['products', 'Products'],
+  ['projects', 'Projects'],
+  ['quoterequests', 'Quote requests'],
+  ['services', 'Services'],
+  ['teams', 'Teams'],
+  ['testimonials', 'Testimonials'],
 ];
 
 export default function AdminLayout({ title, subtitle, children, activeTab }) {
@@ -45,7 +61,7 @@ export default function AdminLayout({ title, subtitle, children, activeTab }) {
             </div>
           </div>
 
-          <nav className="flex-1 space-y-2">
+          <nav className="min-h-0 flex-1 space-y-2 overflow-y-auto pr-1">
             {navItems.map(({ label, to, icon: Icon }) => {
               const isActive = activeTab === label || location.pathname === to;
 
@@ -64,6 +80,25 @@ export default function AdminLayout({ title, subtitle, children, activeTab }) {
                 </Link>
               );
             })}
+            <div className="border-t border-[var(--border-light)]/20 pt-3">
+              <div className="mb-2 flex items-center gap-2 px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-on-dark-muted)]">
+                <Table2 className="h-3.5 w-3.5" /> Database tables
+              </div>
+              <div className="space-y-1">
+                {contentTables.map(([key, label]) => {
+                  const isTableActive = location.pathname === '/admin/content' && new URLSearchParams(location.search).get('resource') === key;
+                  return (
+                    <Link
+                      key={key}
+                      to={`/admin/content?resource=${key}`}
+                      className={`block rounded-xl px-3 py-2 text-xs font-medium transition ${isTableActive ? 'bg-[var(--accent)] text-[var(--on-accent)]' : 'text-[var(--text-on-dark-body)] hover:bg-white/10 hover:text-[var(--text-on-dark-heading)]'}`}
+                    >
+                      {label}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           </nav>
 
           <div className="mt-4 rounded-2xl border border-[var(--border-light)]/20 bg-white/10 p-3">
