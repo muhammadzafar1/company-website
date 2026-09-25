@@ -1,0 +1,33 @@
+{
+  "name": "AZ MEER SMC-PRIVATE LIMITED",
+  "description": "Software development company building web applications, mobile apps, business systems, APIs, and digital products.",
+  "url": "https://azmeer.tech/",
+  "version": "1.0.0",
+  "resources": [
+    {
+      "name": "Services",
+      "url": "https://azmeer.tech/services",
+      "description": "Web development, mobile app development, UI/UX design, software architecture, optimization, and technical support."
+    },
+    {
+      "name": "Products",
+      "url": "https://azmeer.tech/products",
+      "description": "Digital products and business applications built by AZ MEER."
+    },
+    {
+      "name": "Portfolio",
+      "url": "https://azmeer.tech/portfolio",
+      "description": "Selected web, mobile, and operations projects."
+    },
+    {
+      "name": "Contact",
+      "url": "https://azmeer.tech/contact",
+      "description": "Contact AZ MEER for project inquiries, partnerships, and quote requests."
+    },
+    {
+      "name": "Developer documentation",
+      "url": "https://azmeer.tech/developers",
+      "description": "API, authentication, integration, and developer information."
+    }
+  ]
+}

@@ -64,6 +64,22 @@ const testimonials = [
   { name: 'Sarah Ali', company: 'Luma Commerce', review: 'From UI direction to technical delivery, the quality was exceptional throughout the full journey.', rating: 5, image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=80' },
 ];
 
+const optimizeImage = (source, width) => {
+  if (!source) return '';
+  try {
+    const url = new URL(source);
+    if (url.hostname === 'images.unsplash.com') {
+      url.searchParams.set('auto', 'format');
+      url.searchParams.set('fit', 'crop');
+      url.searchParams.set('w', String(width));
+      url.searchParams.set('q', '68');
+    }
+    return url.toString();
+  } catch {
+    return source;
+  }
+};
+
 export default function Home() {
   const [projects, setProjects] = useState([]);
   const [services, setServices] = useState(serviceCards);
@@ -114,7 +130,14 @@ export default function Home() {
       }
     };
 
-    loadData();
+    const scheduleId = 'requestIdleCallback' in window
+      ? window.requestIdleCallback(loadData, { timeout: 2500 })
+      : window.setTimeout(loadData, 1200);
+
+    return () => {
+      if ('cancelIdleCallback' in window && typeof scheduleId === 'number') window.cancelIdleCallback(scheduleId);
+      else window.clearTimeout(scheduleId);
+    };
   }, []);
 
   useEffect(() => {
@@ -219,7 +242,7 @@ export default function Home() {
             {visibleProjects.map((project, index) => (
               <motion.article key={project.title || index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: index * 0.08 }} className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-900/70">
                 <div className="relative overflow-hidden">
-                  <img src={project.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80'} alt={project.title} className="h-68 w-full object-cover transition duration-500 group-hover:scale-105" />
+                  <img src={optimizeImage(project.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3', 640)} alt={project.title} width="640" height="427" loading="lazy" decoding="async" className="h-68 w-full object-cover transition duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
                   <div className="absolute left-5 top-5 rounded-full border border-brand/30 bg-slate-900/70 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-brand-light">{project.category}</div>
                 </div>
@@ -247,7 +270,7 @@ export default function Home() {
             {team.map((member, index) => (
               <motion.div key={member.name || index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: index * 0.07 }} whileHover={{ y: -8 }} className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-900/70">
                 <div className="relative h-72 overflow-hidden">
-                  <img src={member.image} alt={member.name} className="h-full w-full object-cover transition duration-500 hover:scale-105" />
+                  <img src={optimizeImage(member.image, 480)} alt={member.name} width="480" height="480" loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
                 </div>
                 <div className="p-6">
@@ -308,15 +331,15 @@ export default function Home() {
           <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/70 p-6 md:p-10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <img src={testimonialsData[testimonialIndex].image} alt={testimonialsData[testimonialIndex].name} className="h-14 w-14 rounded-full object-cover" />
+                <img src={optimizeImage(testimonialsData[testimonialIndex].image, 96)} alt={testimonialsData[testimonialIndex].name} width="56" height="56" loading="lazy" decoding="async" className="h-14 w-14 rounded-full object-cover" />
                 <div>
                   <div className="text-xl font-semibold text-white">{testimonialsData[testimonialIndex].name}</div>
                   <div className="text-sm text-slate-400">{testimonialsData[testimonialIndex].company}</div>
                 </div>
               </div>
               <div className="flex gap-2">
-                <button onClick={() => setTestimonialIndex((testimonialIndex - 1 + testimonialsData.length) % testimonialsData.length)} className="rounded-full border border-white/10 bg-white/5 p-2 text-white">←</button>
-                <button onClick={() => setTestimonialIndex((testimonialIndex + 1) % testimonialsData.length)} className="rounded-full border border-white/10 bg-white/5 p-2 text-white">→</button>
+                <button type="button" aria-label="Previous testimonial" onClick={() => setTestimonialIndex((testimonialIndex - 1 + testimonialsData.length) % testimonialsData.length)} className="rounded-full border border-white/10 bg-white/5 p-2 text-white">←</button>
+                <button type="button" aria-label="Next testimonial" onClick={() => setTestimonialIndex((testimonialIndex + 1) % testimonialsData.length)} className="rounded-full border border-white/10 bg-white/5 p-2 text-white">→</button>
               </div>
             </div>
 

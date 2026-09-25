@@ -5,7 +5,7 @@ import AnimatedBackground from './components/AnimatedBackground';
 import CursorFluid from './components/CursorFluid';
 import ScrollReveal from './components/ScrollReveal';
 import Footer from './components/Footer';
-import AIChatbot from './components/AIChatbot';
+import logo from './assets/logo.jpeg';
 
 const Home = lazy(() => import('./pages/Home'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
@@ -21,6 +21,7 @@ const FaqPage = lazy(() => import('./pages/FaqPage'));
 const StatusPage = lazy(() => import('./pages/StatusPage'));
 const SocialMediaPage = lazy(() => import('./pages/SocialMediaPage'));
 const TeamPage = lazy(() => import('./pages/TeamPage'));
+const AIChatbot = lazy(() => import('./components/AIChatbot'));
 const AdminLogin = lazy(() => import('./admin/AdminLogin'));
 const AdminLayout = lazy(() => import('./admin/AdminLayout'));
 const DashboardPage = lazy(() => import('./admin/DashboardPage'));
@@ -45,6 +46,17 @@ function DeferredChatbot() {
   return enabled ? <Suspense fallback={null}><AIChatbot /></Suspense> : null;
 }
 
+function LoadingScreen() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[var(--bg-page)]" role="status" aria-label="Loading">
+      <div className="flex flex-col items-center gap-3">
+        <img src={logo} alt="AZ MEER logo" width="56" height="56" className="h-14 w-14 rounded-xl object-contain shadow-[var(--shadow-card)]" />
+        <span className="h-1 w-16 overflow-hidden rounded-full bg-[var(--accent-soft)]"><span className="block h-full w-1/2 animate-pulse rounded-full bg-[var(--accent)]" /></span>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -54,7 +66,7 @@ function App() {
         <ScrollReveal />
         <DeferredChatbot />
         <div className="relative z-10 min-h-screen bg-transparent text-[var(--text-primary)]">
-          <Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>
+          <Suspense fallback={<LoadingScreen />}>
             <Routes>
               <Route path="/" element={<><Navbar /><Home /><Footer /></>} />
               <Route path="/about" element={<><Navbar /><AboutPage /><Footer /></>} />

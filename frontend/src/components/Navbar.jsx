@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, Code2, Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/logo.jpeg';
 
 const primaryNavItems = [
   { label: 'Home', href: '/' },
@@ -37,12 +37,12 @@ export default function Navbar() {
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'border-b border-[var(--border)] bg-[rgba(255,253,249,0.9)] backdrop-blur-sm' : 'bg-transparent'}`}>
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
         <Link to="/" className="flex items-center gap-3 text-[var(--text-primary)]">
-          <div className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--panel)]">
-            <Code2 className="h-5 w-5 text-[var(--brand)]" />
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-[var(--border)] bg-[var(--panel)]">
+            <img src={logo} alt="AZ MEER logo" width="40" height="40" className="h-full w-full object-contain" />
           </div>
-          <div>
-            <div className="text-lg font-semibold tracking-[-0.04em] text-[var(--text-primary)]">Step by Step</div>
-            <div className="text-[10px] uppercase tracking-[0.22em] text-[var(--text-muted)]">Software House</div>
+          <div className="min-w-0">
+            <div className="max-w-[210px] truncate text-sm font-semibold text-[var(--text-primary)] sm:max-w-none sm:text-base">AZ MEER SMC-PRIVATE LIMITED</div>
+            <div className="text-[9px] uppercase tracking-[0.18em] text-[var(--text-muted)]">Software House</div>
           </div>
         </Link>
 
@@ -78,9 +78,8 @@ export default function Navbar() {
         </button>
       </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="max-h-[calc(100vh-72px)] overflow-y-auto overscroll-contain border-t border-[var(--border)] bg-[var(--panel)] lg:hidden">
+      {mobileOpen && (
+          <div className="max-h-[calc(100vh-72px)] overflow-y-auto overscroll-contain border-t border-[var(--border)] bg-[var(--panel)] lg:hidden">
             <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5">
               {primaryNavItems.map((item) => (
                 <Link key={item.label} to={item.href} onClick={() => setMobileOpen(false)} className="rounded-md px-3 py-2 text-[var(--text-primary)] hover:bg-[var(--surface)] hover:text-[var(--brand)]">
@@ -98,9 +97,8 @@ export default function Navbar() {
               <Link to="/admin/login" onClick={() => setMobileOpen(false)} className="rounded-md border border-[var(--border)] px-3 py-2 text-[var(--text-primary)] hover:border-[var(--brand)] hover:text-[var(--brand)]">Admin Login</Link>
               <Link to="/services" onClick={() => setMobileOpen(false)} className="mt-2 rounded-md bg-[var(--brand)] px-4 py-3 text-center font-medium text-white">Get a Quote</Link>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+      )}
     </header>
   );
 }

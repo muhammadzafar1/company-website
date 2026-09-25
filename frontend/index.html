@@ -22,6 +22,7 @@
     <meta name="twitter:title" content="AZ MEER | Software Development, Web Applications & Mobile Apps" />
     <meta name="twitter:description" content="Secure web applications, mobile apps, business software, and digital products by AZ MEER." />
     <meta name="twitter:image" content="https://azmeer.tech/favicon.svg" />
+    <link rel="preconnect" href="https://company-website-bceo.onrender.com" crossorigin />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -54,14 +55,24 @@
         ]
       }
     </script>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9CKPL9FB21"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9CKPL9FB21');
+    window.addEventListener('load', function () {
+    var loadAnalytics = function () {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-9CKPL9FB21';
+      document.head.appendChild(script);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-9CKPL9FB21');
+    };
+    var analyticsTimer = window.setTimeout(loadAnalytics, 10000);
+    window.addEventListener('pointerdown', function () {
+      window.clearTimeout(analyticsTimer);
+      loadAnalytics();
+    }, { once: true, passive: true });
+  });
 </script>
   </head>
   <body>

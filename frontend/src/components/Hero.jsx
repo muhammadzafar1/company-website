@@ -15,7 +15,7 @@ export default function Hero() {
   return (
     <section id="home" className="relative isolate mx-auto flex min-h-[100vh] max-w-7xl items-center px-4 pb-12 pt-28 md:px-6 lg:pt-32">
       <div className="grid w-full items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-        <motion.div initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-2xl">
+        <div className="max-w-2xl">
           <div className="mb-6 inline-flex items-center gap-2 rounded-md border border-[var(--border-light)] bg-[var(--surface-light)] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-on-light-muted)]">
             <Sparkles className="h-3.5 w-3.5 text-[var(--accent)]" />
             Your Vision → Our Code
@@ -46,7 +46,7 @@ export default function Hero() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }} className="relative mx-auto w-full max-w-xl">
           <div className="absolute inset-0 rounded-2xl bg-[rgba(224,169,109,0.15)] blur-2xl" />

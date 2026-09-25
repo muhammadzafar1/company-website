@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-text-onDark">Quick Links</h4>
+            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-text-onDark">Quick Links</h2>
             <ul className="mt-5 space-y-3 text-text-onDarkMuted">
               {['Home', 'About', 'Services', 'Portfolio', 'Team', 'Contact'].map((link) => (
                 <li key={link}><Link to={link === 'Home' ? '/' : `/${link.toLowerCase()}` } className="hover:text-brand-light">{link}</Link></li>
@@ -40,7 +40,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-text-onDark">Services</h4>
+            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-text-onDark">Services</h2>
             <ul className="mt-5 space-y-3 text-text-onDarkMuted">
               {['Web Development', 'Mobile Apps', 'UI/UX', 'E-Commerce', 'Custom Software'].map((link) => (
                 <li key={link}><Link to="/services" className="hover:text-brand-light">{link}</Link></li>
@@ -49,11 +49,11 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-text-onDark">Newsletter</h4>
+            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-text-onDark">Newsletter</h2>
             <div className="mt-5 flex items-center gap-2 rounded-md border border-border bg-white/5 px-3 py-2">
               <Mail className="h-4 w-4 text-text-onDarkMuted" />
               <input type="email" placeholder="Your email" className="w-full bg-transparent text-sm text-text-onDark placeholder:text-text-onDarkMuted focus:outline-none" />
-              <button className="rounded-md bg-brand p-2 text-white"><ArrowRight className="h-4 w-4" /></button>
+              <button type="button" aria-label="Subscribe to newsletter" className="rounded-md bg-brand p-2 text-white"><ArrowRight className="h-4 w-4" /></button>
             </div>
             <div className="mt-6 space-y-3 text-sm text-text-onDarkMuted">
               <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-brand-light" /> +92 3328657885</div>
