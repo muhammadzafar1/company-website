@@ -34,13 +34,12 @@ function DeferredChatbot() {
 
   useEffect(() => {
     const enable = () => setEnabled(true);
-    if ('requestIdleCallback' in window) {
-      const idleId = window.requestIdleCallback(enable, { timeout: 2200 });
-      return () => window.cancelIdleCallback(idleId);
-    }
-
-    const timeoutId = window.setTimeout(enable, 1500);
-    return () => window.clearTimeout(timeoutId);
+    const timeoutId = window.setTimeout(enable, 8000);
+    window.addEventListener('pointerdown', enable, { once: true, passive: true });
+    return () => {
+      window.clearTimeout(timeoutId);
+      window.removeEventListener('pointerdown', enable);
+    };
   }, []);
 
   return enabled ? <Suspense fallback={null}><AIChatbot /></Suspense> : null;
@@ -50,7 +49,7 @@ function LoadingScreen() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[var(--bg-page)]" role="status" aria-label="Loading">
       <div className="flex flex-col items-center gap-3">
-        <img src={logo} alt="AZ MEER logo" width="56" height="56" className="h-14 w-14 rounded-xl object-contain shadow-[var(--shadow-card)]" />
+        <div role="img" aria-label="AZ MEER logo" className="h-14 w-14 rounded-xl bg-contain bg-center bg-no-repeat shadow-[var(--shadow-card)]" style={{ backgroundImage: `url(${logo})` }} />
         <span className="h-1 w-16 overflow-hidden rounded-full bg-[var(--accent-soft)]"><span className="block h-full w-1/2 animate-pulse rounded-full bg-[var(--accent)]" /></span>
       </div>
     </div>

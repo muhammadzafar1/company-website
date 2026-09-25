@@ -16,7 +16,7 @@ const initialForm = {
 export default function ContactPage() {
   const [form, setForm] = useState(initialForm);
   const [submitting, setSubmitting] = useState(false);
-  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState({ type: '', message: '' });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -26,14 +26,16 @@ export default function ContactPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitting(true);
-    setMessage('');
+    setStatus({ type: '', message: '' });
 
     try {
-      await api.post('/contact', form);
-      setMessage('Your message was sent successfully. The team will be in touch soon.');
+      const payload = Object.fromEntries(Object.entries(form).map(([key, value]) => [key, value.trim()]));
+      await api.post('/contact', payload);
+      setStatus({ type: 'success', message: 'Your message was sent successfully. The team will be in touch soon.' });
       setForm(initialForm);
     } catch (error) {
-      setMessage(error.response?.data?.message || 'Unable to send message right now.');
+      const validationMessage = error.response?.data?.data?.errors?.[0]?.msg;
+      setStatus({ type: 'error', message: validationMessage || error.response?.data?.message || 'Unable to send message right now.' });
     } finally {
       setSubmitting(false);
     }
@@ -73,7 +75,7 @@ export default function ContactPage() {
                 <Send className="h-4 w-4" /> {submitting ? 'Sending...' : 'Send Message'}
               </button>
             </div>
-            {message && <div className="md:col-span-2 rounded-xl border border-[var(--brand)]/25 bg-[var(--brand)]/10 px-4 py-3 text-sm text-[var(--text-onDark)]">{message}</div>}
+            {status.message && <div role="status" aria-live="polite" className={`md:col-span-2 rounded-xl border px-4 py-3 text-sm ${status.type === 'error' ? 'border-red-300 bg-red-50 text-red-700' : 'border-green-300 bg-green-50 text-green-700'}`}>{status.message}</div>}
           </form>
         </div>
       </main>

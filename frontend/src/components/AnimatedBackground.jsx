@@ -11,12 +11,7 @@ export default function AnimatedBackground() {
     if (!supportsHover || reducedMotion) return undefined;
 
     const enable = () => setEnabled(true);
-    if ('requestIdleCallback' in window) {
-      const idleId = window.requestIdleCallback(enable, { timeout: 1800 });
-      return () => window.cancelIdleCallback(idleId);
-    }
-
-    const timeoutId = window.setTimeout(enable, 1200);
+    const timeoutId = window.setTimeout(enable, 8000);
     return () => window.clearTimeout(timeoutId);
   }, []);
 

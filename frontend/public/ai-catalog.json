@@ -1,33 +1,54 @@
 {
-  "name": "AZ MEER SMC-PRIVATE LIMITED",
-  "description": "Software development company building web applications, mobile apps, business systems, APIs, and digital products.",
-  "url": "https://azmeer.tech/",
-  "version": "1.0.0",
-  "resources": [
+  "entries": [
     {
-      "name": "Services",
+      "identifier": "urn:air:azmeer.tech:website:services",
+      "displayName": "AZ MEER Services",
+      "type": "text/html",
       "url": "https://azmeer.tech/services",
-      "description": "Web development, mobile app development, UI/UX design, software architecture, optimization, and technical support."
+      "description": "Web development, mobile app development, UI/UX design, software architecture, optimization, and technical support.",
+      "representativeQueries": ["What software development services does AZ MEER offer?", "Who can build a web or mobile application for my business?"],
+      "capabilities": ["web-development", "mobile-development", "ui-ux-design", "software-architecture"],
+      "tags": ["software", "web", "mobile", "design"]
     },
     {
-      "name": "Products",
+      "identifier": "urn:air:azmeer.tech:website:products",
+      "displayName": "AZ MEER Products",
+      "type": "text/html",
       "url": "https://azmeer.tech/products",
-      "description": "Digital products and business applications built by AZ MEER."
+      "description": "Digital products and business applications built by AZ MEER.",
+      "representativeQueries": ["What products has AZ MEER built?", "Show me AZ MEER business applications."],
+      "capabilities": ["product-discovery", "business-applications"],
+      "tags": ["products", "applications", "saas"]
     },
     {
-      "name": "Portfolio",
+      "identifier": "urn:air:azmeer.tech:website:portfolio",
+      "displayName": "AZ MEER Portfolio",
+      "type": "text/html",
       "url": "https://azmeer.tech/portfolio",
-      "description": "Selected web, mobile, and operations projects."
+      "description": "Selected web, mobile, and operations projects.",
+      "representativeQueries": ["Show me AZ MEER case studies.", "What projects has AZ MEER delivered?"],
+      "capabilities": ["case-studies", "project-discovery"],
+      "tags": ["portfolio", "case-studies", "projects"]
     },
     {
-      "name": "Contact",
+      "identifier": "urn:air:azmeer.tech:website:contact",
+      "displayName": "Contact AZ MEER",
+      "type": "text/html",
       "url": "https://azmeer.tech/contact",
-      "description": "Contact AZ MEER for project inquiries, partnerships, and quote requests."
+      "description": "Contact AZ MEER for project inquiries, partnerships, and quote requests.",
+      "representativeQueries": ["How can I contact AZ MEER?", "How do I request a software development quote?"],
+      "capabilities": ["contact", "quote-request"],
+      "tags": ["contact", "quotes", "partnerships"]
     },
     {
-      "name": "Developer documentation",
+      "identifier": "urn:air:azmeer.tech:website:developers",
+      "displayName": "AZ MEER Developer Documentation",
+      "type": "text/html",
       "url": "https://azmeer.tech/developers",
-      "description": "API, authentication, integration, and developer information."
+      "description": "API, authentication, integration, and developer information.",
+      "representativeQueries": ["Where is the AZ MEER developer documentation?", "How can I integrate with AZ MEER APIs?"],
+      "capabilities": ["api-documentation", "authentication", "integrations"],
+      "tags": ["developers", "api", "documentation"]
     }
   ]
 }

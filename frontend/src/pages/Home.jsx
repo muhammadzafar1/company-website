@@ -130,13 +130,10 @@ export default function Home() {
       }
     };
 
-    const scheduleId = 'requestIdleCallback' in window
-      ? window.requestIdleCallback(loadData, { timeout: 2500 })
-      : window.setTimeout(loadData, 1200);
+    const scheduleId = window.setTimeout(loadData, 8000);
 
     return () => {
-      if ('cancelIdleCallback' in window && typeof scheduleId === 'number') window.cancelIdleCallback(scheduleId);
-      else window.clearTimeout(scheduleId);
+      window.clearTimeout(scheduleId);
     };
   }, []);
 
@@ -242,7 +239,7 @@ export default function Home() {
             {visibleProjects.map((project, index) => (
               <motion.article key={project.title || index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: index * 0.08 }} className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-900/70">
                 <div className="relative overflow-hidden">
-                  <img src={optimizeImage(project.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3', 640)} alt={project.title} width="640" height="427" loading="lazy" decoding="async" className="h-68 w-full object-cover transition duration-500 group-hover:scale-105" />
+                  <img src={optimizeImage(project.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3', 640)} alt={`Project ${index + 1}: ${project.title || project.name || 'Project preview'}`} width="640" height="427" loading="lazy" decoding="async" className="h-68 w-full object-cover transition duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
                   <div className="absolute left-5 top-5 rounded-full border border-brand/30 bg-slate-900/70 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-brand-light">{project.category}</div>
                 </div>

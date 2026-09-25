@@ -4,3 +4,4 @@ Disallow: /admin
 Disallow: /api
 
 Sitemap: https://azmeer.tech/sitemap.xml
+Agentmap: https://azmeer.tech/.well-known/ard.json

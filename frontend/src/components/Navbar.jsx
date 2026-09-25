@@ -38,7 +38,7 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
         <Link to="/" className="flex items-center gap-3 text-[var(--text-primary)]">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-[var(--border)] bg-[var(--panel)]">
-            <img src={logo} alt="AZ MEER logo" width="40" height="40" className="h-full w-full object-contain" />
+            <span role="img" aria-label="AZ MEER logo" className="h-full w-full bg-contain bg-center bg-no-repeat" style={{ backgroundImage: `url(${logo})` }} />
           </div>
           <div className="min-w-0">
             <div className="max-w-[210px] truncate text-sm font-semibold text-[var(--text-primary)] sm:max-w-none sm:text-base">AZ MEER SMC-PRIVATE LIMITED</div>
@@ -70,7 +70,7 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-4 lg:flex">
           <Link to="/admin/login" className="rounded-md border border-[var(--border)] px-4 py-2 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--brand)] hover:text-[var(--brand)]">Admin Login</Link>
-          <Link to="/services" className="rounded-md border border-[var(--brand)] bg-[var(--brand)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[var(--brand-dark)]">Get a Quote</Link>
+          <Link to="/services" className="rounded-md border border-[var(--brand)] bg-[var(--brand)] px-4 py-2 text-sm font-semibold text-[var(--on-accent)] transition hover:bg-[var(--brand-dark)]">Get a Quote</Link>
         </div>
 
         <button className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--panel)] text-[var(--text-primary)] lg:hidden" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
