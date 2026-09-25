@@ -74,7 +74,7 @@ export default function ProductsPage() {
           {filteredProducts.map((product) => (
             <article key={product._id} className="group overflow-hidden rounded-[1.75rem] border border-[var(--border)] bg-[var(--dark-surface)] text-[var(--text-onDark)]">
               <div className="relative overflow-hidden">
-                <img src={product.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80'} alt={product.title} className="h-52 w-full object-cover transition duration-500 group-hover:scale-105" />
+                <img src={product.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=640&q=68'} alt={product.title} width="640" height="427" loading="lazy" decoding="async" className="h-52 w-full object-cover transition duration-500 group-hover:scale-105" />
                 <div className="absolute left-4 top-4 rounded-full border border-[var(--brand)]/25 bg-[var(--dark-surface)] px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-[var(--brand-light)]">{product.category}</div>
               </div>
               <div className="p-5">

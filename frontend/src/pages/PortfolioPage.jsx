@@ -37,7 +37,7 @@ export default function PortfolioPage() {
         <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
           {filteredCases.map((item) => (
             <article key={item.slug} className="light-card overflow-hidden rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-light)]">
-              <img src={item.image} alt={item.title} className="h-52 w-full object-cover" />
+              <img src={item.image} alt={item.title} width="640" height="427" loading="lazy" decoding="async" className="h-52 w-full object-cover" />
               <div className="p-5">
                 <div className="text-[10px] uppercase tracking-[0.18em] text-[var(--accent)]">{item.category}</div>
                 <h3 className="mt-3 text-2xl font-semibold text-[var(--text-on-dark-heading)]">{item.title}</h3>

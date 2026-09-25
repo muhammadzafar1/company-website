@@ -164,7 +164,7 @@ export default function TeamPage() {
             <div className="space-y-3">
               {teamMembers.map((member, index) => (
                 <button type="button" key={member.name} onClick={() => setSelectedIndex(index)} className={`group flex w-full items-center gap-4 rounded-2xl border p-3 text-left transition ${selectedIndex === index ? 'border-[var(--accent)] bg-[var(--accent-soft)] shadow-[var(--shadow-card)]' : 'border-[var(--border-light)] bg-[var(--surface-light)] hover:border-[var(--accent)]/70'}`}>
-                  <img src={member.image} alt="" className="h-16 w-16 rounded-xl object-cover" />
+                  <img src={member.image} alt={`${member.name} portrait`} width="64" height="64" loading="lazy" decoding="async" className="h-16 w-16 rounded-xl object-cover" />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-lg font-semibold text-[var(--text-on-light-heading)]">{member.name}</span>
                     <span className="mt-1 block text-sm text-[var(--text-on-light-muted)]">{member.role}</span>
@@ -178,7 +178,7 @@ export default function TeamPage() {
           <article className="light-card overflow-hidden rounded-[2rem] border border-[var(--border-light)] bg-[var(--surface-light)]">
             <div className="grid md:grid-cols-[0.8fr_1.2fr]">
               <div className="relative min-h-[340px] md:min-h-full">
-                <img src={selectedMember.image} alt={selectedMember.name} className="absolute inset-0 h-full w-full object-cover" />
+                <img src={selectedMember.image} alt={selectedMember.name} width="720" height="720" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[rgba(43,26,16,0.72)] via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 text-white">
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent-soft)]">{selectedMember.label}</p>

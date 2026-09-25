@@ -51,7 +51,7 @@ export default function HomePage() {
             {productCatalog.map((product, index) => (
               <motion.article key={product.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="light-card group overflow-hidden rounded-[1.75rem] border border-[var(--border-light)] bg-[var(--surface-light)]">
                 <div className="relative overflow-hidden">
-                  <img src={product.image} alt={product.name} className="h-48 w-full object-cover transition duration-500 group-hover:scale-105" />
+                  <img src={product.image} alt={product.name} width="640" height="384" loading="lazy" decoding="async" className="h-48 w-full object-cover transition duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--surface-darker)] via-[var(--surface-darker)]/10 to-transparent" />
                   <div className="absolute left-4 top-4 rounded-full border border-[var(--accent)]/30 bg-[var(--surface-light)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[var(--accent)]">{product.category}</div>
                 </div>
